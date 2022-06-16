@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>安裝Mac MySQL問題</title>
+      <link href="/2022/06/16/an-zhuang-mac-mysql-wen-ti/"/>
+      <url>/2022/06/16/an-zhuang-mac-mysql-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<p>下載了MySQL 出現了 <strong><strong>: command not found 的問題</strong></strong></p><p>需要去更改環境變量<code>PATH</code></p><span id="more"></span><p>步驟一：下載完成後在終端檢查是否有 bash_profile ：如果沒有的話使用以下方式</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">vim <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>bash_profile如果顯示<span class="token keyword">new</span>代表要新增一個 bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>步驟二：加入 .bash_profile文件</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">touch <span class="token punctuation">.</span>bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>步驟三：打開 bash_profile文件</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">open <span class="token punctuation">.</span>bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>步驟四：將下面這段複製到 打開的 bash_profile文件裡面 按下存擋（command+s）後關閉</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">export</span> <span class="token constant">PATH</span><span class="token operator">=</span>$<span class="token punctuation">&#123;</span><span class="token constant">PATH</span><span class="token punctuation">&#125;</span><span class="token operator">:</span><span class="token operator">/</span>usr<span class="token operator">/</span>local<span class="token operator">/</span>mysql<span class="token operator">/</span>bin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>步驟四：到終端打上</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">source <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在輸入 mysql -u root -p</p><p>有跳出 myspl &gt;  (代表成功)</p><p>如退出終端再次輸入 mysql -u root -p 又顯示 <strong><strong>command not found</strong></strong> 但重複 步驟四又可以成功的話</p><p>代表默認啟動腳本變為 ~&#x2F;.zshrc zsh</p><hr><p>解決方式如下：</p><p>新增一個 .zshrc文件</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">touch <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>zshrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>在source 一次</p><pre class="line-numbers language-jsx" data-language="jsx"><code class="language-jsx">source <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>最後再重新啟動終端 打上 mysql -u root -p  就成功了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> MySOL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 問題紀錄 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IO文件讀寫</title>
+      <link href="/2022/06/16/io-du-xie/"/>
+      <url>/2022/06/16/io-du-xie/</url>
+      
+        <content type="html"><![CDATA[<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>檔案是保存在持久化存放裝置(硬碟、U盤、光碟..)上的一段資料，一個文本，一個py 檔，一張圖片，一段視······ 這些都是文件。</p><span id="more"></span><h2 id="檔案分類"><a href="#檔案分類" class="headerlink" title="檔案分類"></a>檔案分類</h2><p>文字檔案：打開後會自動解碼為字元，如txt檔，word檔，py程式檔。 </p><p>二進位檔案：內部編碼為二進位碼，無法通過文字編碼解析，如壓縮包，音訊，視頻，圖片等。</p><p>位元組串類型概念 ： 在python3中引入了位元組串的概念，與str不同，位元組串以位元組序列值表達資料，更方便用來處理二進程資料。 字串與位元組串相互轉化方法</p><blockquote><ul><li>普通的英文字元字串常量可以在前面加b轉換為位元組串，例如：b’hello’</li><li>變數或者包含非英文字元的字串轉換為位元組串方法 ：str.encode() </li><li>位元組串轉換為字串方法 : bytes.decode()</li></ul></blockquote><blockquote><p>注意：python字串用來表達utf8字元，因為並不是所有二進位內容都可以轉化為utf8字元， 所以不是所有位元組串都能 轉化為字串，但是所有字串都能轉化成二進位，所以所有字串都能 轉換為位元組串。</p></blockquote><h2 id="檔案讀寫操作"><a href="#檔案讀寫操作" class="headerlink" title="檔案讀寫操作"></a>檔案讀寫操作</h2><p>使用程式操作檔，無外乎對檔案進行讀或者寫讀 ：即從檔中獲取內容寫 ：即修改檔中的內容對檔案實現讀寫的基本操作步驟為：打開文件，讀寫文件，關閉文件。</p><h2 id="打開文件"><a href="#打開文件" class="headerlink" title="打開文件"></a>打開文件</h2><p>file_object &#x3D; open(file_name, access_mode&#x3D;’r’, buffering&#x3D;-1，encoding&#x3D;None) </p><p>功能：打開一個檔案，返回一個檔案物件。 </p><p>參數：file_name 檔案名</p><p> access_mode 打開檔的方式,如果不寫預設為‘r’ </p><p>buffering 1表示有行緩衝，預設則表示使用系統預設提供的緩衝機制。 </p><p>encoding&#x3D;’UTF-8’ 設置打開檔的編碼方式，一般Linux下不需要 </p><p>返回值：成功返回檔操作物件</p><table><thead><tr><th>打開模式</th><th>效果</th></tr></thead><tbody><tr><td>r</td><td>以讀方式打開，檔必須存在</td></tr><tr><td>w</td><td>以寫方式打開，檔不存在則創建，存在清空原有內容</td></tr><tr><td>a</td><td>以追加模式打開，檔不存在則創建，存在則繼續進行寫操作</td></tr><tr><td>r+</td><td>以讀寫模式打開 檔必須存在</td></tr><tr><td>w+</td><td>以讀寫模式打開檔，不存在則創建，存在清空原有內容</td></tr><tr><td>a+</td><td>追加並可讀模式，檔不存在則創建，存在則繼續進行寫操作</td></tr><tr><td>rb</td><td>以二進位讀模式打開 同r</td></tr><tr><td>wb</td><td>以二進位寫模式打開 同w</td></tr><tr><td>ab</td><td>以二進位追加模式打開 同a</td></tr><tr><td>rb+</td><td>以二進位讀寫模式打開 同r+</td></tr><tr><td>wb+</td><td>以二進位讀寫模式打開 同w+</td></tr><tr><td>ab+</td><td>以二進位讀寫模式打開 同a+</td></tr></tbody></table><blockquote><p>注意 ： </p><ol><li>以二進位方式打開檔，讀取內容為位元組串，寫入也需要寫入位元組串 </li><li>無論什麼檔都可以使用二進位方式打開，但是二進位檔案則不能以文本方式打開，否則後 續讀寫會報錯。</li></ol></blockquote><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''文件打開訓練'''</span><span class="token comment"># f = open('bytes.pyc','r')   #默認r,文件不存在會報錯</span><span class="token comment"># f = open('file','w')   #w方式打開，檔內容會被清空</span>f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span><span class="token string">'a'</span><span class="token punctuation">)</span>    <span class="token comment">#a追加方式打開，檔內容不會被清空</span><span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>f<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="讀取文件"><a href="#讀取文件" class="headerlink" title="讀取文件"></a>讀取文件</h2><p>方法1</p><ul><li>read([size]) 功能：來直接讀取檔中字元。</li><li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，文件將被讀取直至末尾，給定size最多讀 取給定數目個字元（位元組）。</li><li>返回值： 返回讀取到的內容。</li></ul><blockquote><p>注意：檔過大時候不建議直接讀取到檔結尾，讀到檔結尾會返回空字串</p></blockquote><p>方法2</p><ul><li>readline([size]) 功能： 用來讀取檔中一行。</li><li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，表示讀取一行，給定size表示最多讀取制 定的字元（位元組）。</li><li>返回值： 返回讀取到的內容。</li></ul><p>方法3</p><ul><li>readlines([sizeint]) 功能： 讀取檔中的每一行作為列表中的一項 。</li><li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，檔將被讀取直至末尾，給定size表示讀 取到size字元所在行為止。</li><li>返回值： 返回讀取到的內容清單。</li></ul><p>方法4</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 檔案物件本身也是一個可反覆運算物件，在for迴圈中可以反覆運算檔的每一行。</span><span class="token keyword">for</span> line <span class="token keyword">in</span> f<span class="token punctuation">:</span><span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">'''檔讀取演示'''</span>f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'file.txt'</span><span class="token punctuation">)</span><span class="token comment"># 檔讀操作</span><span class="token comment"># data = f.read()</span><span class="token comment"># while True:</span><span class="token comment">#     data = f.read(2)</span><span class="token comment">#     # 避免迴圈會列印很多空字串</span><span class="token comment">#     if not data:</span><span class="token comment">#         break</span><span class="token comment">#     print(data)</span><span class="token comment"># while True:</span><span class="token comment">#     data = f.readline()</span><span class="token comment">#     if not data:</span><span class="token comment">#         break</span><span class="token comment">#     print(data)</span><span class="token comment"># f.close()</span><span class="token comment"># data = f.readlines()</span><span class="token comment"># data = f.readlines(12)</span><span class="token comment"># print(data)</span><span class="token keyword">for</span> line <span class="token keyword">in</span> f<span class="token punctuation">:</span>    <span class="token keyword">print</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token comment"># 關閉文件</span>f<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="寫入文件"><a href="#寫入文件" class="headerlink" title="寫入文件"></a>寫入文件</h2><p>方法1</p><ul><li>write(data) 功能: 把文本資料或二進位資料塊的字串寫入到檔案中去</li><li>參數：要寫入的內容</li><li>返回值：寫入的字元個數</li></ul><blockquote><p>注意： 如果需要換行要自己在寫入內容中添加\n</p></blockquote><p>方法2</p><p>writelines(str_list) 功能：接受一個字串清單作為參數，將它們寫入檔。 </p><p>參數: 要寫入的內容清單</p><h2 id="關閉文件"><a href="#關閉文件" class="headerlink" title="關閉文件"></a>關閉文件</h2><p>打開一個檔後我們就可以通過檔物件對檔進行操作了，當操作結束後可以關閉檔操作</p><ul><li>方法</li></ul><pre class="line-numbers language-python" data-language="python"><code class="language-python">file_object<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ul><li>好處</li></ul><ol><li>可以銷毀物件節省資源，（當然如果不關閉程式結束後物件也會被銷毀）。 </li><li>防止後面對這個物件的誤操作。</li></ol><h2 id="with操作"><a href="#with操作" class="headerlink" title="with操作"></a>with操作</h2><p>python中的with語句也可以用於訪問檔案，在語句塊結束後會自動釋放資源。</p><p>with語句格式:</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> context_expression <span class="token punctuation">[</span><span class="token keyword">as</span> obj<span class="token punctuation">]</span><span class="token punctuation">:</span><span class="token keyword">with</span><span class="token operator">-</span>body<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>with訪問檔案:</p><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'file'</span><span class="token punctuation">,</span><span class="token string">'r+'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>f<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><aside>💡 注意 ： with語句塊結束後會自動釋放f所以不再需要close().</aside>]]></content>
+      
+      
+      <categories>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 學習筆記 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Python全】_總複習</title>
       <link href="/2022/01/23/2022-01-23-python-quan-zong-fu-xi/"/>
       <url>/2022/01/23/2022-01-23-python-quan-zong-fu-xi/</url>
@@ -21,8 +71,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -49,8 +97,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -75,8 +121,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -103,8 +147,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -129,8 +171,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -157,8 +197,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -183,8 +221,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -211,8 +247,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -237,8 +271,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -265,8 +297,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -291,8 +321,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -319,8 +347,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -345,8 +371,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -373,8 +397,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -399,8 +421,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -427,8 +447,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -453,8 +471,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -481,8 +497,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -507,8 +521,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -535,8 +547,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -561,8 +571,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -589,8 +597,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -615,8 +621,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -643,8 +647,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -669,8 +671,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -697,8 +697,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -723,8 +721,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -751,8 +747,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -777,8 +771,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -805,8 +797,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -831,8 +821,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -859,8 +847,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -885,8 +871,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -913,8 +897,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -939,8 +921,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -967,8 +947,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -993,8 +971,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
@@ -1021,8 +997,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -1048,8 +1022,6 @@
             
             <tag> 學習筆記 </tag>
             
-            <tag> 線上課程 </tag>
-            
         </tags>
       
     </entry>
@@ -1074,8 +1046,6 @@
         <tags>
             
             <tag> 學習筆記 </tag>
-            
-            <tag> 線上課程 </tag>
             
         </tags>
       
