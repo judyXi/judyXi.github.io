@@ -1,0 +1,1371 @@
+<!DOCTYPE HTML>
+<html lang="zh-HK">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="【Python零基礎】_Day01_06_核心數據類型, JudyXie">
+    <meta name="description" content="核心資料類型
+在python中變數沒有類型，但關聯的物件有類型。
+通過type函數可查看。
+
+空值對象 None
+表示不存在的特殊物件。
+作用：占位元和解除與對象的關聯。
+
+整形int
+表示整數，包含正數、負數、0。如： -5, 100, ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    
+    <style>
+        body{
+            background-image: url(/medias/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+    <title>【Python零基礎】_Day01_06_核心數據類型 | JudyXie</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">JudyXie</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首頁</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>標籤</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分類</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>歸檔</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>關於</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">JudyXie</div>
+        <div class="logo-desc">
+            
+            貓奴
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首頁
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			標籤
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分類
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			歸檔
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			關於
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/judyXi" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/judyXi" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('請輸入本文章密碼')).toString(CryptoJS.enc.Hex)) {
+                alert('密碼錯誤，將返回主頁！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【Python零基礎】_Day01_06_核心數據類型</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/">
+                                <span class="chip bg-color">學習筆記</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%B7%9A%E4%B8%8A%E8%AA%B2%E7%A8%8B/">
+                                <span class="chip bg-color">線上課程</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python/" class="post-category">
+                                python
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>發布日期:&nbsp;&nbsp;
+                    2021-12-26
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字數:&nbsp;&nbsp;
+                    1.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>閱讀時長:&nbsp;&nbsp;
+                    5 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="核心資料類型"><a href="#核心資料類型" class="headerlink" title="核心資料類型"></a>核心資料類型</h2><ol>
+<li>在python中變數沒有類型，但關聯的物件有類型。</li>
+<li>通過type函數可查看。<span id="more"></span></li>
+</ol>
+<h3 id="空值對象-None"><a href="#空值對象-None" class="headerlink" title="空值對象 None"></a>空值對象 None</h3><ol>
+<li>表示不存在的特殊物件。</li>
+<li>作用：占位元和解除與對象的關聯。</li>
+</ol>
+<h3 id="整形int"><a href="#整形int" class="headerlink" title="整形int"></a>整形int</h3><ul>
+<li>表示整數，包含正數、負數、0。<br>如： -5, 100, 0</li>
+</ul>
+<ol>
+<li>字面值：<ul>
+<li>十進位：5</li>
+<li>二進位：0b開頭，後跟1或者1</li>
+<li>八進制：0o開頭，後跟0~7</li>
+<li>十六進位：0x開頭，後跟0<del>9,A</del>F,a~f</li>
+</ul>
+</li>
+</ol>
+<h3 id="浮點型float"><a href="#浮點型float" class="headerlink" title="浮點型float"></a>浮點型float</h3><ol>
+<li>表示小數，包含正數、負數，0)。</li>
+<li>字面值：<ul>
+<li>小數：1.0   2.5</li>
+<li>科學計數法：e&#x2F;E (正負號) 指數</li>
+<li>1.23e-2 (等同於0.0123)</li>
+<li>1.23456e5(等同於123456.0)</li>
+</ul>
+</li>
+</ol>
+<h3 id="字串str"><a href="#字串str" class="headerlink" title="字串str"></a>字串str</h3><p>是用來記錄文本資訊(文字資訊)。</p>
+<ul>
+<li>字面值：雙引號</li>
+</ul>
+<h3 id="複數complex"><a href="#複數complex" class="headerlink" title="複數complex"></a>複數complex</h3><ul>
+<li>由實部和虛部組成的數位。</li>
+<li>虛部是以j或J結尾。</li>
+<li>字面值： 1j     1+1j   1-1j</li>
+<li>語法格式：<ul>
+<li>實部係數 + 虛部係數j &#x2F; 實部係數 + 虛部係數J</li>
+<li>說明：實部係數可以沒有，虛部係數不能不存在，沒有可以用0表示<br>範例 :<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token number">3.4</span><span class="token operator">+</span><span class="token number">5j</span>
+Out<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token number">3.4</span><span class="token operator">+</span><span class="token number">5j</span><span class="token punctuation">)</span>
+<span class="token number">4.6J</span>
+Out<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token number">4.6j</span>
+<span class="token builtin">type</span><span class="token punctuation">(</span><span class="token number">4.6J</span><span class="token punctuation">)</span>
+Out<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token builtin">complex</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+</ul>
+<h3 id="布林bool"><a href="#布林bool" class="headerlink" title="布林bool"></a>布林bool</h3><ul>
+<li>用來表示真和假的類型</li>
+<li>True 表示真(條件滿足或成立)，本質是1</li>
+<li>False 表示假(條件不滿足或不成立)，本質是0</li>
+<li>True、False 關鍵字首字母大寫。</li>
+</ul>
+<h2 id="總範例"><a href="#總範例" class="headerlink" title="總範例:"></a>總範例:</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">
+name <span class="token operator">=</span> <span class="token string">"lzmly"</span>
+<span class="token comment"># 1. None 空</span>
+<span class="token comment"># -- 占位：只希望有一個變數，但指向的物件還不能確定.</span>
+skill <span class="token operator">=</span> <span class="token boolean">None</span>
+<span class="token comment"># ...</span>
+skill <span class="token operator">=</span> <span class="token string">"乾坤大挪移"</span>
+
+<span class="token comment"># -- 解除與物件的綁定關係</span>
+name <span class="token operator">=</span> <span class="token boolean">None</span>
+
+<span class="token comment"># 2. 整形(整數)  int</span>
+<span class="token comment"># 字面值</span>
+<span class="token comment"># -- 十進位：0 1 2 3 ...9 10</span>
+number01 <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+number01 <span class="token operator">=</span> <span class="token number">1</span>
+number01 <span class="token operator">=</span> <span class="token number">0</span>
+b <span class="token operator">=</span> <span class="token string">'10'</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># -- 二進位：0 1 10  11  100  101 ..</span>
+number02 <span class="token operator">=</span> <span class="token number">0b10</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number02<span class="token punctuation">)</span>
+
+<span class="token comment"># -- 八進制：0 1 2 3 ... 7  10</span>
+number03 <span class="token operator">=</span> <span class="token number">0o10</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number03<span class="token punctuation">)</span>
+
+<span class="token comment"># -- 十六進位：0 --9  a(10) -- f(15)  10   11</span>
+number04 <span class="token operator">=</span> <span class="token number">0x11</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number04<span class="token punctuation">)</span>
+
+<span class="token comment"># 浮點數型 - float (描述小數)</span>
+b <span class="token operator">=</span> <span class="token number">3.14</span>     <span class="token comment"># 字面值</span>
+b <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3.14</span>
+b <span class="token operator">=</span> <span class="token number">0.0</span>
+b <span class="token operator">=</span> <span class="token number">23E10</span>    <span class="token comment"># 極大數(科學計數法)  23乘以10的10次方</span>
+b <span class="token operator">=</span> <span class="token number">23e-5</span>    <span class="token comment"># 極小數(科學計數法)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 科學計數法</span>
+number06 <span class="token operator">=</span> <span class="token number">5e3</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number06<span class="token punctuation">)</span>
+
+number07 <span class="token operator">=</span> <span class="token number">0.00000000000000000005</span>
+number07 <span class="token operator">=</span> <span class="token number">500000000000000000000.0</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number07<span class="token punctuation">)</span>
+
+<span class="token comment"># 4. 字串(文字)  str</span>
+name <span class="token operator">=</span> <span class="token string">"lzmly"</span>
+str_number <span class="token operator">=</span> <span class="token string">"1000"</span>
+
+<span class="token comment"># 布林類型 - bool (描述邏輯關係-成立/不成立)</span>
+<span class="token comment"># 取值: True(成立,數值為1)/False(不成立,數值為0)</span>
+d <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">></span> <span class="token number">5</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+number01 <span class="token operator">=</span> <span class="token number">5</span>
+number02 <span class="token operator">=</span> <span class="token number">8</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number01 <span class="token operator">></span> number02<span class="token punctuation">)</span>  <span class="token comment"># 5 > 8 False</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number01 <span class="token operator">&lt;</span> number02<span class="token punctuation">)</span>  <span class="token comment"># 5 &lt; 8 True</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>number01 <span class="token operator">==</span> number02<span class="token punctuation">)</span>  <span class="token comment"># 5 == 8 False</span>
+<span class="token comment"># print(5 > "10")  # 不能用整數與字串進行大小的比較</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token number">5</span> <span class="token operator">==</span> <span class="token string">"5"</span><span class="token punctuation">)</span>  <span class="token comment"># False  類型不一樣</span>
+
+<span class="token comment"># 空值物件 - None  (描述特殊不存在的物件)</span>
+<span class="token comment"># 作用: 占位元或解除與物件的關聯關係</span>
+a <span class="token operator">=</span> <span class="token boolean">None</span>        <span class="token comment"># 佔用</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+a <span class="token operator">=</span> <span class="token number">10</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+a <span class="token operator">=</span> <span class="token boolean">None</span>        <span class="token comment"># 解除</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+
+<span class="token comment"># input函數</span>
+<span class="token comment"># 返回值的類型: 字串(str)</span>
+data <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'請輸入您的密碼:'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'密碼是:'</span><span class="token punctuation">,</span> data<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 數學運算</span>
+result <span class="token operator">=</span> <span class="token number">1000</span> <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token comment"># 文字拼接</span>
+result <span class="token operator">=</span> <span class="token string">"1000"</span> <span class="token operator">+</span> <span class="token string">"1"</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+
+<span class="token comment"># 5. 資料類型轉換</span>
+<span class="token comment"># input函數的返回值永遠都是字串類型</span>
+str_number <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">"請輸入一個數字："</span><span class="token punctuation">)</span>
+
+<span class="token comment"># str --> int</span>
+<span class="token comment"># print(type(變數)) --> 獲取變數所關聯的物件類型</span>
+<span class="token comment"># re = int(str_number)</span>
+
+<span class="token comment"># str --> float</span>
+re <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>str_number<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">type</span><span class="token punctuation">(</span>re<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 注意：int()轉換時，資料必須像整數</span>
+<span class="token comment"># 注意：float()轉換時，資料必須像小數</span>
+
+<span class="token comment"># 其他類型 --> str</span>
+re <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token number">100.6</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="序列賦值"><a href="#序列賦值" class="headerlink" title="序列賦值"></a>序列賦值</h2><ul>
+<li>場景:資料交換</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"> 
+<span class="token comment"># 現有變數 a=30, b=60，通過程式實現變數值的交換：a=60,  b=30</span>
+a <span class="token operator">=</span> <span class="token number">30</span>
+b <span class="token operator">=</span> <span class="token number">60</span>
+
+<span class="token comment"># 普通方法</span>
+c <span class="token operator">=</span> a
+a <span class="token operator">=</span> b
+b <span class="token operator">=</span> c
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+
+<span class="token comment"># 序列賦值</span>
+b<span class="token punctuation">,</span> a <span class="token operator">=</span> a<span class="token punctuation">,</span> b  <span class="token comment"># b, a = 30, 60</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+
+<span class="token comment"># 注意:</span>
+<span class="token comment"># 變數名個數小於資料物件個數(不可以)</span>
+x<span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+
+<span class="token comment"># 變數名個數大於資料物件個數(不可以)</span>
+x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">,</span> q <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="序列賦值內存圖"><a href="#序列賦值內存圖" class="headerlink" title="序列賦值內存圖"></a>序列賦值內存圖</h3><p><a target="_blank" rel="noopener" href="https://imgur.com/zdBozQ0"><img src="https://i.imgur.com/zdBozQ0.png" title="source: imgur.com" /></a></p>
+<h2 id="資料類型轉換"><a href="#資料類型轉換" class="headerlink" title="資料類型轉換"></a>資料類型轉換</h2><ul>
+<li>同類型的資料才可以運算</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># input函數</span>
+<span class="token comment"># 返回值的類型: 字串(str)</span>
+data <span class="token operator">=</span> <span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'請輸入您的密碼:'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'密碼是:'</span><span class="token punctuation">,</span> data<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># str --> int    常用</span>
+a <span class="token operator">=</span> <span class="token string">'123'</span>
+b <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>   <span class="token comment"># 將a轉換為整型</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># str --> float   常用</span>
+c <span class="token operator">=</span> <span class="token string">'3.14'</span>
+d <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>d<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 場景:字串的拼接</span>
+<span class="token comment"># int --> str</span>
+e <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token number">123</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># float --> str</span>
+f <span class="token operator">=</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token number">3.14</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># float --> int</span>
+s <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token number">23.94</span><span class="token punctuation">)</span>    <span class="token comment"># 直接去除小數部分</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 注意:</span>
+<span class="token comment"># 資料看起來得像對應的資料類型</span>
+<span class="token comment"># a = int('3.234')</span>
+<span class="token comment"># a = int('3a234')</span>
+<span class="token comment"># a = float('3a5')</span>
+<span class="token comment"># print(a, type(a))</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="資料類型轉換應用"><a href="#資料類型轉換應用" class="headerlink" title="資料類型轉換應用"></a>資料類型轉換應用</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 1 獲取資料</span>
+<span class="token comment"># 將輸入的資料轉換為整型,將整型結果賦值給變數number1</span>
+number1 <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'請輸入數位1:'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+number2 <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token string">'請輸入數位2:'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 2 資料處理(運算)</span>
+<span class="token comment"># float = float - int</span>
+result <span class="token operator">=</span> number2 <span class="token operator">-</span> number1
+
+<span class="token comment"># 3 輸出結果</span>
+<span class="token comment"># 字串的拼接: str + str</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'計算的結果是:'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment"># 列印拼接後1個資料</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'計算的結果是:'</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>   <span class="token comment"># 列印2個資料</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="資料類型轉換-1"><a href="#資料類型轉換-1" class="headerlink" title="資料類型轉換"></a>資料類型轉換</h2><ol>
+<li>轉換為整形: int(數據)</li>
+<li>轉換為浮點型:float(數據)</li>
+<li>轉換為字串:str(數據)</li>
+<li>轉換為布林:bool(數據)</li>
+</ol>
+<blockquote>
+<p>結果為False：bool(0)  bool(0.0)  bool(None)</p>
+</blockquote>
+<ul>
+<li>混合類型自動升級：<br>1 + 2.14  返回的結果是 3.14<br>1 + 3.0   返回結果是:  4.0</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">JudyXie</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章連結:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://judyXi.github.io/2021/12/26/python-ling-ji-chu-day01-06-he-xin-shu-ju-lei-xing/">http://judyXi.github.io/2021/12/26/python-ling-ji-chu-day01-06-he-xin-shu-ju-lei-xing/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版權聲明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本部落格所有文章除特別聲明外，均採用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    許可協議。轉載請註明來源
+                    <a href="/about" target="_blank">JudyXie</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>複製成功，請遵循本文的轉載規則</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/">
+                                    <span class="chip bg-color">學習筆記</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%B7%9A%E4%B8%8A%E8%AA%B2%E7%A8%8B/">
+                                    <span class="chip bg-color">線上課程</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2021/12/26/python-ling-ji-chu-day02-01-suan-shu-yun-suan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="【Python零基礎】_Day02_01_算數運算">
+                        
+                        <span class="card-title">【Python零基礎】_Day02_01_算數運算</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            算術運算子+加法-減法*乘法&#x2F;	除法：結果為浮點數&#x2F;&#x2F;	地板除：除的結果去掉小數部分%	求餘**	冪運算優先順序從高到低： (  **     —&gt;     * &#x2F; % &#x2F;&#x2F;
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/">
+                        <span class="chip bg-color">學習筆記</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B7%9A%E4%B8%8A%E8%AA%B2%E7%A8%8B/">
+                        <span class="chip bg-color">線上課程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/12/26/python-ling-ji-chu-day01-05-shu-ju-ji-ben-yun-suan/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="【Python零基礎】_Day01_05_數據基本運算">
+                        
+                        <span class="card-title">【Python零基礎】_Day01_05_數據基本運算</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            創建第一個代碼先找到功能再去實現
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python/" class="post-category">
+                                    python
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/">
+                        <span class="chip bg-color">學習筆記</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B7%9A%E4%B8%8A%E8%AA%B2%E7%A8%8B/">
+                        <span class="chip bg-color">線上課程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目錄</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022</span>
+            
+            <a href="/about" target="_blank">JudyXie</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站點總字數:&nbsp;<span
+                        class="white-color">41.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;總訪問量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;總訪問人數:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="請輸入搜索的關鍵字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
