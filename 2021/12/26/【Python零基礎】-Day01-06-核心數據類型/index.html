@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="核心資料類型 在python中變數沒有類型，但關聯的物件有類型。 通過type函數可查看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day01_06_核心數據類型">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-06-%E6%A0%B8%E5%BF%83%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="核心資料類型 在python中變數沒有類型，但關聯的物件有類型。 通過type函數可查看。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/zdBozQ0.png">
+<meta property="article:published_time" content="2021-12-26T09:24:33.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:31.899Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/zdBozQ0.png">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-06-%E6%A0%B8%E5%BF%83%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day01_06_核心數據類型 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-06-%E6%A0%B8%E5%BF%83%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day01_06_核心數據類型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 17:24:33" itemprop="dateCreated datePublished" datetime="2021-12-26T17:24:33+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:31" itemprop="dateModified" datetime="2022-06-16T15:47:31+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="核心資料類型"><a href="#核心資料類型" class="headerlink" title="核心資料類型"></a>核心資料類型</h2><ol>
+<li>在python中變數沒有類型，但關聯的物件有類型。</li>
+<li>通過type函數可查看。<span id="more"></span></li>
+</ol>
+<h3 id="空值對象-None"><a href="#空值對象-None" class="headerlink" title="空值對象 None"></a>空值對象 None</h3><ol>
+<li>表示不存在的特殊物件。</li>
+<li>作用：占位元和解除與對象的關聯。</li>
+</ol>
+<h3 id="整形int"><a href="#整形int" class="headerlink" title="整形int"></a>整形int</h3><ul>
+<li>表示整數，包含正數、負數、0。<br>如： -5, 100, 0</li>
+</ul>
+<ol>
+<li>字面值：<ul>
+<li>十進位：5</li>
+<li>二進位：0b開頭，後跟1或者1</li>
+<li>八進制：0o開頭，後跟0~7</li>
+<li>十六進位：0x開頭，後跟0<del>9,A</del>F,a~f</li>
+</ul>
+</li>
+</ol>
+<h3 id="浮點型float"><a href="#浮點型float" class="headerlink" title="浮點型float"></a>浮點型float</h3><ol>
+<li>表示小數，包含正數、負數，0)。</li>
+<li>字面值：<ul>
+<li>小數：1.0   2.5</li>
+<li>科學計數法：e&#x2F;E (正負號) 指數</li>
+<li>1.23e-2 (等同於0.0123)</li>
+<li>1.23456e5(等同於123456.0)</li>
+</ul>
+</li>
+</ol>
+<h3 id="字串str"><a href="#字串str" class="headerlink" title="字串str"></a>字串str</h3><p>是用來記錄文本資訊(文字資訊)。</p>
+<ul>
+<li>字面值：雙引號</li>
+</ul>
+<h3 id="複數complex"><a href="#複數complex" class="headerlink" title="複數complex"></a>複數complex</h3><ul>
+<li>由實部和虛部組成的數位。</li>
+<li>虛部是以j或J結尾。</li>
+<li>字面值： 1j     1+1j   1-1j</li>
+<li>語法格式：<ul>
+<li>實部係數 + 虛部係數j &#x2F; 實部係數 + 虛部係數J</li>
+<li>說明：實部係數可以沒有，虛部係數不能不存在，沒有可以用0表示<br>範例 :<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3.4</span>+<span class="number">5j</span></span><br><span class="line">Out[<span class="number">7</span>]: (<span class="number">3.4</span>+<span class="number">5j</span>)</span><br><span class="line"><span class="number">4.6J</span></span><br><span class="line">Out[<span class="number">8</span>]: <span class="number">4.6j</span></span><br><span class="line"><span class="built_in">type</span>(<span class="number">4.6J</span>)</span><br><span class="line">Out[<span class="number">9</span>]: <span class="built_in">complex</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h3 id="布林bool"><a href="#布林bool" class="headerlink" title="布林bool"></a>布林bool</h3><ul>
+<li>用來表示真和假的類型</li>
+<li>True 表示真(條件滿足或成立)，本質是1</li>
+<li>False 表示假(條件不滿足或不成立)，本質是0</li>
+<li>True、False 關鍵字首字母大寫。</li>
+</ul>
+<h2 id="總範例"><a href="#總範例" class="headerlink" title="總範例:"></a>總範例:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">name = <span class="string">&quot;lzmly&quot;</span></span><br><span class="line"><span class="comment"># 1. None 空</span></span><br><span class="line"><span class="comment"># -- 占位：只希望有一個變數，但指向的物件還不能確定.</span></span><br><span class="line">skill = <span class="literal">None</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">skill = <span class="string">&quot;乾坤大挪移&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -- 解除與物件的綁定關係</span></span><br><span class="line">name = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 整形(整數)  int</span></span><br><span class="line"><span class="comment"># 字面值</span></span><br><span class="line"><span class="comment"># -- 十進位：0 1 2 3 ...9 10</span></span><br><span class="line">number01 = -<span class="number">1</span></span><br><span class="line">number01 = <span class="number">1</span></span><br><span class="line">number01 = <span class="number">0</span></span><br><span class="line">b = <span class="string">&#x27;10&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(a, <span class="built_in">type</span>(a))</span><br><span class="line"><span class="built_in">print</span>(b, <span class="built_in">type</span>(b))</span><br><span class="line"></span><br><span class="line"><span class="comment"># -- 二進位：0 1 10  11  100  101 ..</span></span><br><span class="line">number02 = <span class="number">0b10</span></span><br><span class="line"><span class="built_in">print</span>(number02)</span><br><span class="line"></span><br><span class="line"><span class="comment"># -- 八進制：0 1 2 3 ... 7  10</span></span><br><span class="line">number03 = <span class="number">0o10</span></span><br><span class="line"><span class="built_in">print</span>(number03)</span><br><span class="line"></span><br><span class="line"><span class="comment"># -- 十六進位：0 --9  a(10) -- f(15)  10   11</span></span><br><span class="line">number04 = <span class="number">0x11</span></span><br><span class="line"><span class="built_in">print</span>(number04)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 浮點數型 - float (描述小數)</span></span><br><span class="line">b = <span class="number">3.14</span>     <span class="comment"># 字面值</span></span><br><span class="line">b = -<span class="number">3.14</span></span><br><span class="line">b = <span class="number">0.0</span></span><br><span class="line">b = <span class="number">23E10</span>    <span class="comment"># 極大數(科學計數法)  23乘以10的10次方</span></span><br><span class="line">b = <span class="number">23e-5</span>    <span class="comment"># 極小數(科學計數法)</span></span><br><span class="line"><span class="built_in">print</span>(b, <span class="built_in">type</span>(b))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 科學計數法</span></span><br><span class="line">number06 = <span class="number">5e3</span></span><br><span class="line"><span class="built_in">print</span>(number06)</span><br><span class="line"></span><br><span class="line">number07 = <span class="number">0.00000000000000000005</span></span><br><span class="line">number07 = <span class="number">500000000000000000000.0</span></span><br><span class="line"><span class="built_in">print</span>(number07)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 字串(文字)  str</span></span><br><span class="line">name = <span class="string">&quot;lzmly&quot;</span></span><br><span class="line">str_number = <span class="string">&quot;1000&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 布林類型 - bool (描述邏輯關係-成立/不成立)</span></span><br><span class="line"><span class="comment"># 取值: True(成立,數值為1)/False(不成立,數值為0)</span></span><br><span class="line">d = <span class="number">1</span> &gt; <span class="number">5</span></span><br><span class="line"><span class="built_in">print</span>(d, <span class="built_in">type</span>(d))</span><br><span class="line"></span><br><span class="line">number01 = <span class="number">5</span></span><br><span class="line">number02 = <span class="number">8</span></span><br><span class="line"><span class="built_in">print</span>(number01 &gt; number02)  <span class="comment"># 5 &gt; 8 False</span></span><br><span class="line"><span class="built_in">print</span>(number01 &lt; number02)  <span class="comment"># 5 &lt; 8 True</span></span><br><span class="line"><span class="built_in">print</span>(number01 == number02)  <span class="comment"># 5 == 8 False</span></span><br><span class="line"><span class="comment"># print(5 &gt; &quot;10&quot;)  # 不能用整數與字串進行大小的比較</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">5</span> == <span class="string">&quot;5&quot;</span>)  <span class="comment"># False  類型不一樣</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 空值物件 - None  (描述特殊不存在的物件)</span></span><br><span class="line"><span class="comment"># 作用: 占位元或解除與物件的關聯關係</span></span><br><span class="line">a = <span class="literal">None</span>        <span class="comment"># 佔用</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line">a = <span class="literal">None</span>        <span class="comment"># 解除</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># input函數</span></span><br><span class="line"><span class="comment"># 返回值的類型: 字串(str)</span></span><br><span class="line">data = <span class="built_in">input</span>(<span class="string">&#x27;請輸入您的密碼:&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;密碼是:&#x27;</span>, data, <span class="built_in">type</span>(data))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 數學運算</span></span><br><span class="line">result = <span class="number">1000</span> + <span class="number">1</span></span><br><span class="line"><span class="comment"># 文字拼接</span></span><br><span class="line">result = <span class="string">&quot;1000&quot;</span> + <span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 資料類型轉換</span></span><br><span class="line"><span class="comment"># input函數的返回值永遠都是字串類型</span></span><br><span class="line">str_number = <span class="built_in">input</span>(<span class="string">&quot;請輸入一個數字：&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># str --&gt; int</span></span><br><span class="line"><span class="comment"># print(type(變數)) --&gt; 獲取變數所關聯的物件類型</span></span><br><span class="line"><span class="comment"># re = int(str_number)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># str --&gt; float</span></span><br><span class="line">re = <span class="built_in">float</span>(str_number)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(re))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意：int()轉換時，資料必須像整數</span></span><br><span class="line"><span class="comment"># 注意：float()轉換時，資料必須像小數</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他類型 --&gt; str</span></span><br><span class="line">re = <span class="built_in">str</span>(<span class="number">100.6</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列賦值"><a href="#序列賦值" class="headerlink" title="序列賦值"></a>序列賦值</h2><ul>
+<li>場景:資料交換</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="comment"># 現有變數 a=30, b=60，通過程式實現變數值的交換：a=60,  b=30</span></span><br><span class="line">a = <span class="number">30</span></span><br><span class="line">b = <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 普通方法</span></span><br><span class="line">c = a</span><br><span class="line">a = b</span><br><span class="line">b = c</span><br><span class="line"><span class="built_in">print</span>(a, b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 序列賦值</span></span><br><span class="line">b, a = a, b  <span class="comment"># b, a = 30, 60</span></span><br><span class="line"><span class="built_in">print</span>(a, b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意:</span></span><br><span class="line"><span class="comment"># 變數名個數小於資料物件個數(不可以)</span></span><br><span class="line">x, y = <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span></span><br><span class="line"><span class="built_in">print</span>(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 變數名個數大於資料物件個數(不可以)</span></span><br><span class="line">x, y, z, q = <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span></span><br><span class="line"><span class="built_in">print</span>(x, y)</span><br></pre></td></tr></table></figure>
+
+<h3 id="序列賦值內存圖"><a href="#序列賦值內存圖" class="headerlink" title="序列賦值內存圖"></a>序列賦值內存圖</h3><p><a target="_blank" rel="noopener" href="https://imgur.com/zdBozQ0"><img src="https://i.imgur.com/zdBozQ0.png" title="source: imgur.com" /></a></p>
+<h2 id="資料類型轉換"><a href="#資料類型轉換" class="headerlink" title="資料類型轉換"></a>資料類型轉換</h2><ul>
+<li>同類型的資料才可以運算</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># input函數</span></span><br><span class="line"><span class="comment"># 返回值的類型: 字串(str)</span></span><br><span class="line">data = <span class="built_in">input</span>(<span class="string">&#x27;請輸入您的密碼:&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;密碼是:&#x27;</span>, data, <span class="built_in">type</span>(data))</span><br><span class="line"></span><br><span class="line"><span class="comment"># str --&gt; int    常用</span></span><br><span class="line">a = <span class="string">&#x27;123&#x27;</span></span><br><span class="line">b = <span class="built_in">int</span>(a)   <span class="comment"># 將a轉換為整型</span></span><br><span class="line"><span class="built_in">print</span>(b, <span class="built_in">type</span>(b))</span><br><span class="line"></span><br><span class="line"><span class="comment"># str --&gt; float   常用</span></span><br><span class="line">c = <span class="string">&#x27;3.14&#x27;</span></span><br><span class="line">d = <span class="built_in">float</span>(c)</span><br><span class="line"><span class="built_in">print</span>(d, <span class="built_in">type</span>(d))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 場景:字串的拼接</span></span><br><span class="line"><span class="comment"># int --&gt; str</span></span><br><span class="line">e = <span class="built_in">str</span>(<span class="number">123</span>)</span><br><span class="line"><span class="built_in">print</span>(e, <span class="built_in">type</span>(e))</span><br><span class="line"></span><br><span class="line"><span class="comment"># float --&gt; str</span></span><br><span class="line">f = <span class="built_in">str</span>(<span class="number">3.14</span>)</span><br><span class="line"><span class="built_in">print</span>(f, <span class="built_in">type</span>(f))</span><br><span class="line"></span><br><span class="line"><span class="comment"># float --&gt; int</span></span><br><span class="line">s = <span class="built_in">int</span>(<span class="number">23.94</span>)    <span class="comment"># 直接去除小數部分</span></span><br><span class="line"><span class="built_in">print</span>(s, <span class="built_in">type</span>(s))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意:</span></span><br><span class="line"><span class="comment"># 資料看起來得像對應的資料類型</span></span><br><span class="line"><span class="comment"># a = int(&#x27;3.234&#x27;)</span></span><br><span class="line"><span class="comment"># a = int(&#x27;3a234&#x27;)</span></span><br><span class="line"><span class="comment"># a = float(&#x27;3a5&#x27;)</span></span><br><span class="line"><span class="comment"># print(a, type(a))</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="資料類型轉換應用"><a href="#資料類型轉換應用" class="headerlink" title="資料類型轉換應用"></a>資料類型轉換應用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1 獲取資料</span></span><br><span class="line"><span class="comment"># 將輸入的資料轉換為整型,將整型結果賦值給變數number1</span></span><br><span class="line">number1 = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入數位1:&#x27;</span>))</span><br><span class="line">number2 = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入數位2:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 資料處理(運算)</span></span><br><span class="line"><span class="comment"># float = float - int</span></span><br><span class="line">result = number2 - number1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 輸出結果</span></span><br><span class="line"><span class="comment"># 字串的拼接: str + str</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;計算的結果是:&#x27;</span> + <span class="built_in">str</span>(result))  <span class="comment"># 列印拼接後1個資料</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;計算的結果是:&#x27;</span>, <span class="built_in">str</span>(result))   <span class="comment"># 列印2個資料</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="資料類型轉換-1"><a href="#資料類型轉換-1" class="headerlink" title="資料類型轉換"></a>資料類型轉換</h2><ol>
+<li>轉換為整形: int(數據)</li>
+<li>轉換為浮點型:float(數據)</li>
+<li>轉換為字串:str(數據)</li>
+<li>轉換為布林:bool(數據)</li>
+</ol>
+<blockquote>
+<p>結果為False：bool(0)  bool(0.0)  bool(None)</p>
+</blockquote>
+<ul>
+<li>混合類型自動升級：<br>1 + 2.14  返回的結果是 3.14<br>1 + 3.0   返回結果是:  4.0</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-06-%E6%A0%B8%E5%BF%83%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/" title="【Python零基礎】_Day01_06_核心數據類型">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day01-06-核心數據類型/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-05-%E6%95%B8%E6%93%9A%E5%9F%BA%E6%9C%AC%E9%81%8B%E7%AE%97/" rel="prev" title="【Python零基礎】_Day01_05_數據基本運算">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day01_05_數據基本運算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/" rel="next" title="【Python零基礎】_Day02_01_算數運算">
+      【Python零基礎】_Day02_01_算數運算 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">核心資料類型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E5%80%BC%E5%B0%8D%E8%B1%A1-None"><span class="nav-number">1.1.</span> <span class="nav-text">空值對象 None</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%BD%A2int"><span class="nav-number">1.2.</span> <span class="nav-text">整形int</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E9%BB%9E%E5%9E%8Bfloat"><span class="nav-number">1.3.</span> <span class="nav-text">浮點型float</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2str"><span class="nav-number">1.4.</span> <span class="nav-text">字串str</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A4%87%E6%95%B8complex"><span class="nav-number">1.5.</span> <span class="nav-text">複數complex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E6%9E%97bool"><span class="nav-number">1.6.</span> <span class="nav-text">布林bool</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B8%BD%E7%AF%84%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">總範例:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E8%B3%A6%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">序列賦值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E8%B3%A6%E5%80%BC%E5%85%A7%E5%AD%98%E5%9C%96"><span class="nav-number">3.1.</span> <span class="nav-text">序列賦值內存圖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B%E8%BD%89%E6%8F%9B"><span class="nav-number">4.</span> <span class="nav-text">資料類型轉換</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B%E8%BD%89%E6%8F%9B%E6%87%89%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">資料類型轉換應用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B%E8%BD%89%E6%8F%9B-1"><span class="nav-number">5.</span> <span class="nav-text">資料類型轉換</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

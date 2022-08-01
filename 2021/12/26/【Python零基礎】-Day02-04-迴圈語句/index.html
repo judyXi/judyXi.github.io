@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="while語句 作用:可以讓一段代碼滿足條件，重複執行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day02_04_迴圈語句">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-04-%E8%BF%B4%E5%9C%88%E8%AA%9E%E5%8F%A5/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="while語句 作用:可以讓一段代碼滿足條件，重複執行。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-26T14:40:21.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:39.475Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-04-%E8%BF%B4%E5%9C%88%E8%AA%9E%E5%8F%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day02_04_迴圈語句 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-04-%E8%BF%B4%E5%9C%88%E8%AA%9E%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day02_04_迴圈語句
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 22:40:21" itemprop="dateCreated datePublished" datetime="2021-12-26T22:40:21+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:39" itemprop="dateModified" datetime="2022-06-16T15:47:39+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="while語句"><a href="#while語句" class="headerlink" title="while語句"></a>while語句</h2><ul>
+<li>作用:<br>可以讓一段代碼滿足條件，重複執行。<span id="more"></span></li>
+<li>語法:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 真值表達式: </span><br><span class="line">	循環體 </span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">	語句塊</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>執行流程 </p>
+<ol>
+<li>先定義一個初始條件 </li>
+<li>先判斷真值表達式，測試布林值為True 或 False </li>
+<li>如果真值表達式為True，則執行語句塊1，再返回到第一步，判斷真值表達式 </li>
+<li>如果真值表達式為False，則執行語句塊2，然後結束while迴圈語句的執行 </li>
+<li>當真值表達式為假，則執行else中的內容，else部分可以省略</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">content = <span class="built_in">input</span>(<span class="string">&quot;請輸入內容：&quot;</span>)</span><br><span class="line"><span class="comment"># if content != &quot;&quot;:</span></span><br><span class="line"><span class="comment">#     print(&quot;真值&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> content:  <span class="comment"># bool(content)</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;真值&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根據一個條件，為變數進行賦值。</span></span><br><span class="line"><span class="comment"># if input(&quot;請輸入性別：&quot;) == &quot;男&quot;:</span></span><br><span class="line"><span class="comment">#     sex = 1</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     sex = 0</span></span><br><span class="line"></span><br><span class="line">sex = <span class="number">1</span> <span class="keyword">if</span> <span class="built_in">input</span>(<span class="string">&quot;請輸入性別：&quot;</span>) == <span class="string">&quot;男&quot;</span> <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="while迴圈嵌套"><a href="#while迴圈嵌套" class="headerlink" title="while迴圈嵌套"></a>while迴圈嵌套</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 真值表達式:</span><br><span class="line">	<span class="keyword">while</span> 真值表達式:</span><br><span class="line">		循環體</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		語句塊<span class="number">1</span></span><br><span class="line">	循環體</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	語句塊<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># while迴圈嵌套</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:列印4行4列的小星星</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 列印1行4列的小星星</span></span><br><span class="line"><span class="comment"># x = 0</span></span><br><span class="line"><span class="comment"># while x &lt; 4:</span></span><br><span class="line"><span class="comment">#     print(&#x27;*&#x27;, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"><span class="comment"># print()   # 換行</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 列印1行4列的小星星</span></span><br><span class="line"><span class="comment"># x = 0</span></span><br><span class="line"><span class="comment"># while x &lt; 4:</span></span><br><span class="line"><span class="comment">#     print(&#x27;*&#x27;, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"><span class="comment"># print()   # 換行</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 列印1行4列的小星星</span></span><br><span class="line"><span class="comment"># x = 0</span></span><br><span class="line"><span class="comment"># while x &lt; 4:</span></span><br><span class="line"><span class="comment">#     print(&#x27;*&#x27;, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"><span class="comment"># print()   # 換行</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 列印1行4列的小星星</span></span><br><span class="line"><span class="comment"># x = 0</span></span><br><span class="line"><span class="comment"># while x &lt; 4:</span></span><br><span class="line"><span class="comment">#     print(&#x27;*&#x27;, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"><span class="comment"># print()   # 換行</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">分析</span></span><br><span class="line"><span class="string">                起始條件      結束條件      控制因素</span></span><br><span class="line"><span class="string">    外層迴圈(t)   t = 0        t &lt; 4         行</span></span><br><span class="line"><span class="string">    內層迴圈(x)   x = 0        x &lt; 4         列  [難點]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># times = 0</span></span><br><span class="line"><span class="comment"># while times &lt; 4:  # 外層迴圈:控制行</span></span><br><span class="line"><span class="comment">#     # 列印1行4列的小星星</span></span><br><span class="line"><span class="comment">#     x = 0</span></span><br><span class="line"><span class="comment">#     while x &lt; 4:  # 內層迴圈:控制列</span></span><br><span class="line"><span class="comment">#         print(&#x27;*&#x27;, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#         x += 1</span></span><br><span class="line"><span class="comment">#     print()   # 換行</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     times += 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列印:數字三角形</span></span><br><span class="line"><span class="comment"># 9行的數字三角形</span></span><br><span class="line"><span class="comment"># 1</span></span><br><span class="line"><span class="comment"># 1 2</span></span><br><span class="line"><span class="comment"># 1 2 3</span></span><br><span class="line"><span class="comment"># 1 2 3 4</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="comment"># 1 2 3 4 5 6 7 8 9</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">分析</span></span><br><span class="line"><span class="string">                起始條件      結束條件      控制因素</span></span><br><span class="line"><span class="string">    外層迴圈(t)   t = 1        t &lt; 10        行</span></span><br><span class="line"><span class="string">    內層迴圈(x)   x = 1        x &lt;= t        列  [難點]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">t = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> t &lt; <span class="number">10</span>:    <span class="comment"># 行</span></span><br><span class="line">    <span class="comment"># print(t, end=&#x27; &#x27;)</span></span><br><span class="line">    x = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> x &lt;= t:   <span class="comment"># 列</span></span><br><span class="line">        <span class="built_in">print</span>(x, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        x += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>()    <span class="comment"># 換行</span></span><br><span class="line">    t += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    總結: 外層迴圈執行1次,內層迴圈執行1圈</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="閉環-死循環"><a href="#閉環-死循環" class="headerlink" title="閉環(死循環)"></a>閉環(死循環)</h2><p>說明：真值表達式一直成立的while迴圈語句。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 真值表达式：</span><br><span class="line">	循环体</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	真值不表达式满足执行的语句</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 閉環(while)</span></span><br><span class="line"><span class="comment"># 場景: while閉環通常會和break語句結合使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># while 真值表達式一直成立(True):</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># x = 1</span></span><br><span class="line"><span class="comment"># while x &gt; 0:</span></span><br><span class="line"><span class="comment">#     print(x, end=&#x27; &#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 迴圈輸入,直到輸入為空,則結束輸入</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = <span class="built_in">input</span>(<span class="string">&#x27;請輸入:&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> data == <span class="string">&#x27;&#x27;</span>:   <span class="comment"># 直接回車,data的資料就是空字串</span></span><br><span class="line">        <span class="keyword">break</span>    <span class="comment"># 終止當前的迴圈</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;輸入的資料是:&#x27;</span>, data)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 閉環</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入整數：&quot;</span>))</span><br><span class="line">    state = <span class="string">&quot;奇數&quot;</span> <span class="keyword">if</span> number % <span class="number">2</span> <span class="keyword">else</span> <span class="string">&quot;偶數&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(state)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">input</span>(<span class="string">&quot;請輸入exit退出：&quot;</span>) == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">        <span class="keyword">break</span>  <span class="comment"># 退出迴圈</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count &lt; <span class="number">3</span>:</span><br><span class="line">    <span class="built_in">print</span>(count)  <span class="comment"># 0   1    2</span></span><br><span class="line">    count += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># while語句 + if語句</span></span><br><span class="line"><span class="comment"># 場景:在while迴圈中需要做判斷</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列印 20 - 1 之間的[奇數]</span></span><br><span class="line">x = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> x &gt; <span class="number">1</span>:</span><br><span class="line">     <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">         <span class="built_in">print</span>(x, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">     x -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="break語句"><a href="#break語句" class="headerlink" title="break語句"></a>break語句</h2><blockquote>
+<p>break語句<br>作用：用來終止當前迴圈語句的執行 </p>
+</blockquote>
+<p>說明： </p>
+<ol>
+<li>當break語句執行後，此迴圈語句中break之後的語句將不再執行； </li>
+<li>break語句終止迴圈時，迴圈語句的else子句的語句將不會被執行； </li>
+<li>break語句只能終止當前迴圈，如果有迴圈嵌套時，終止本次迴圈，執行外層迴圈 </li>
+<li>break語句只能在迴圈(while for語句)內部使用</li>
+</ol>
+<blockquote>
+<p>continue 語句<br>作用：跳過本次迴圈，繼續下一次新的迴圈 </p>
+</blockquote>
+<p>說明： </p>
+<ol>
+<li>continue語句執行後將不再執行本次迴圈內continue之後的語句</li>
+<li>在while語句中，執行continue將會直接跳轉到while語句的真值表達式處 重新判斷迴圈</li>
+<li>continue語句只能在迴圈(while for語句)內部使用</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># break語句</span></span><br><span class="line"><span class="comment"># 作用：用來終止當前迴圈語句的執行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># - 說明：</span></span><br><span class="line"><span class="comment">#   - 1、當break語句執行後，此迴圈語句中break之後的語句將不再執行；</span></span><br><span class="line"><span class="comment">#   - 2、break語句終止迴圈時，迴圈語句的else子句的語句將不會被執行；</span></span><br><span class="line"><span class="comment">#   - 3、break語句只能終止當前迴圈，如果有迴圈嵌套時，終止本次迴圈，執行外層迴圈</span></span><br><span class="line"><span class="comment">#   - 4、break語句只能在迴圈(while for語句)內部使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:當數字為4時,結束迴圈</span></span><br><span class="line"><span class="comment"># x = 1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># while x &lt; 11:</span></span><br><span class="line"><span class="comment">#     if x == 4:</span></span><br><span class="line"><span class="comment">#         break    # 終止當前的迴圈</span></span><br><span class="line"><span class="comment">#         # print(&#x27;執行了break語句&#x27;)   # 不執行</span></span><br><span class="line"><span class="comment">#     print(x, end=&#x27; &#x27;)</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"><span class="comment"># else: # 真值表達式不成立(x &gt;= 11),則執行 (不執行)</span></span><br><span class="line"><span class="comment">#     print(&#x27;列印結束&#x27;)</span></span><br><span class="line"></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> x &lt; <span class="number">3</span>:    <span class="comment"># 外層迴圈</span></span><br><span class="line">    <span class="comment"># print(x, end=&#x27; &#x27;)</span></span><br><span class="line">    y = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> y &lt;= <span class="number">2</span>:   <span class="comment"># 內層迴圈</span></span><br><span class="line">        <span class="keyword">if</span> y == <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">break</span>   <span class="comment"># 終止內層迴圈</span></span><br><span class="line">        <span class="built_in">print</span>(y, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        y += <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">break</span>   <span class="comment"># 終止外層迴圈</span></span><br><span class="line">    x += <span class="number">1</span></span><br><span class="line">    <span class="keyword">break</span>      <span class="comment"># 終止外層迴圈</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment">#     break   # break只能用在迴圈中</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">break終止哪層迴圈:</span></span><br><span class="line"><span class="string">    break是在哪個迴圈的[循環體]中</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h3><ul>
+<li>不同點 break語句：用來終止當前迴圈。</li>
+<li>continue語句：跳出本次迴圈繼續下一次迴圈。</li>
+</ul>
+<p>相同點 :</p>
+<ol>
+<li>break語句與continue語句都是使用在while、for迴圈中 </li>
+<li>break語句與continue語句之後的語句不在執行</li>
+</ol>
+<h2 id="continue-語句"><a href="#continue-語句" class="headerlink" title="continue 語句"></a>continue 語句</h2><blockquote>
+<p>跳過本次，繼續下次迴圈。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># continue語句</span></span><br><span class="line"><span class="comment"># - 作用：跳過本次迴圈，繼續下一次新的迴圈</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># - 說明：</span></span><br><span class="line"><span class="comment">#   - 1、continue語句執行後將不再執行本次迴圈內continue之後的語句</span></span><br><span class="line"><span class="comment">#   - 2、在while語句中，執行continue將會直接跳轉到while語句的真值表達式處重新判斷迴圈條件</span></span><br><span class="line"><span class="comment">#   - 3、continue語句只能在迴圈(while for語句)內部使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:列印1-10之間除了4以外的整數</span></span><br><span class="line">x = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> x &lt; <span class="number">9</span>:</span><br><span class="line">    x += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> x == <span class="number">4</span>:</span><br><span class="line">        <span class="keyword">continue</span>   <span class="comment"># 跳過本次迴圈,開啟一次新的迴圈(while)</span></span><br><span class="line">        <span class="comment"># print(&#x27;執行了continue語句&#x27;)  # 不執行</span></span><br><span class="line">    <span class="built_in">print</span>(x, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line">    <span class="comment"># continue    # continue只能使用在迴圈中</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="for-語句"><a href="#for-語句" class="headerlink" title="for 語句"></a>for 語句</h2><ul>
+<li><p>作用:<br>用來遍歷可反覆運算物件的資料元素。<br>可反覆運算物件是指能依次獲取資料元素的對象，例如：容器類型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 變數清單 <span class="keyword">in</span> 可反覆運算物件： </span><br><span class="line">	循環體 </span><br><span class="line"><span class="keyword">else</span> ： </span><br><span class="line">	語句塊</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>說明:<br>else子句可以省略。<br>在循環體內用break終止迴圈時,else子句不執行。</p>
+</li>
+</ul>
+<h2 id="可反覆運算物件-可迭代對象"><a href="#可反覆運算物件-可迭代對象" class="headerlink" title="可反覆運算物件 (可迭代對象)"></a>可反覆運算物件 (可迭代對象)</h2><p>指能依次獲取資料的物件，包括：<br>非空字串str、 非空列表list、 非空元組tuple、 非空字典dict、 非空集合set、 反覆運算器等。</p>
+<p>執行流程 </p>
+<ol>
+<li>變數依次接收可反覆運算物件給出的元素，然後執行循環體；</li>
+<li>可反覆運算物件不能提供資料元素後，執行else子句部分語句，然後退出迴圈； </li>
+<li>else子句部分可省略</li>
+</ol>
+<h2 id="range-函數"><a href="#range-函數" class="headerlink" title="range 函數"></a>range 函數</h2><p>作用:</p>
+<ul>
+<li>用來創建一個生成一系列整數的可反覆運算物件(也叫整數序列生成器)。</li>
+</ul>
+<p>語法:</p>
+<blockquote>
+<p>range(開始點，結束點，間隔)</p>
+</blockquote>
+<p>說明:</p>
+<ul>
+<li>函數返回的可反覆運算物件可以用for取出其中的元素</li>
+<li>返回的數位不包含結束點</li>
+<li>開始點默認為0</li>
+<li>間隔預設值為1</li>
+</ul>
+<p>參數： </p>
+<ol>
+<li>start：起始值，默認為0，可以省略 </li>
+<li>stop：終止值，必須存在，且終止值無法取得 </li>
+<li>step：步長，默認為1，可正可負，可以省略 <ul>
+<li>返回值：一個整數的range物件</li>
+<li>說明：從start開始，每次生成一個整數後移動step，直到stop為止</li>
+</ul>
+</li>
+</ol>
+<h3 id="練習題"><a href="#練習題" class="headerlink" title="練習題"></a>練習題</h3><ul>
+<li><p>第一題 : 猜數字2.0版本<br>        如果猜錯次數超過5次，則結束遊戲，並提示“失敗了”</p>
+</li>
+<li><p>第二題 : 列印數位矩形，輸入邊長,列印對應邊長的數字矩形</p>
+</li>
+<li><p>第三題 : 使下列代碼迴圈執行，直到錄入“exit”退出程式。<br>         season &#x3D; input(“請輸入季度：”)<br>         if season &#x3D;&#x3D; “春”:<br>         print(“1月2月3月”)<br>         elif season &#x3D;&#x3D; “夏”:<br>         print(“4月5月6月”)<br>         elif season &#x3D;&#x3D; “秋”:<br>         print(“7月8月9月”)<br>         elif season &#x3D;&#x3D; “冬”:<br>         print(“10月11月12月”)</p>
+</li>
+<li><p>第四題 :<br>         在控制台中輸出：0 1 2 3 4 5<br>         在控制台中輸出：2 3 4 5 6 7<br>         在控制台中輸出：0 2 4 6<br>         在控制台中輸出：4 3 2 1 0<br>         在控制台中輸出：-1  -2  -3  -4</p>
+</li>
+<li><p>第五題 : 在控制台中，獲取一個開始值，一個結束值。<br>        將中間的數字列印出來。<br>        輸入：3               9<br>        輸出：  4 5 6 7 8</p>
+</li>
+<li><p>第六題 : 一張紙的厚度是0.01毫米，請計算對折多少次，超過珠穆朗瑪峰8844.43米。<br>       答案：30</p>
+</li>
+<li><p>第七題 : 打印1-21之間的所有整數,每5個數一行</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第一題:猜數字2.0版本</span></span><br><span class="line"><span class="string">		       如果猜錯次數超過5次，則結束遊戲，並提示“失敗了”</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">random_number = random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line"><span class="built_in">print</span>(random_number)</span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count &lt; <span class="number">5</span>:</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    input_number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入數位：&quot;</span>))</span><br><span class="line">    <span class="keyword">if</span> input_number &gt; random_number:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;大了&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> input_number &lt; random_number:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;小了&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;猜對了，總共猜了&quot;</span> + <span class="built_in">str</span>(count) + <span class="string">&quot;次&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># 當迴圈不滿足條件時退出，才執行以下代碼</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;失敗了&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第二題 : 列印數位矩形</span></span><br><span class="line"><span class="comment"># 輸入邊長,列印對應邊長的數字矩形</span></span><br><span class="line"><span class="comment"># 如: 邊長為4</span></span><br><span class="line"><span class="comment">#   0 1 2 3     [col&lt;side+row]</span></span><br><span class="line"><span class="comment">#   1 2 3 4     [col&lt;side+row]</span></span><br><span class="line"><span class="comment">#   2 3 4 5     [col&lt;side+row]</span></span><br><span class="line"><span class="comment">#   3 4 5 6     [col&lt;side+row]</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">分析</span></span><br><span class="line"><span class="string">                  起始條件      結束條件      控制因素</span></span><br><span class="line"><span class="string">    外層迴圈(row)   row=0       row&lt;side      行</span></span><br><span class="line"><span class="string">    內層迴圈(col)   col=row     col&lt;side+row  列 [難點]</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">side = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入邊長:&#x27;</span>))</span><br><span class="line"></span><br><span class="line">row = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> row &lt; side:</span><br><span class="line">    col = row</span><br><span class="line">    <span class="keyword">while</span> col &lt; side + row:</span><br><span class="line">        <span class="built_in">print</span>(col, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">        col += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>()</span><br><span class="line">    row += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 思考:當數字超過2位元數,則取個位</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">第三題 : 使下列代碼迴圈執行，直到錄入“exit”退出程式。</span></span><br><span class="line"><span class="string">    season = input(&quot;請輸入季度：&quot;)</span></span><br><span class="line"><span class="string">    if season == &quot;春&quot;:</span></span><br><span class="line"><span class="string">        print(&quot;1月2月3月&quot;)</span></span><br><span class="line"><span class="string">    elif season == &quot;夏&quot;:</span></span><br><span class="line"><span class="string">        print(&quot;4月5月6月&quot;)</span></span><br><span class="line"><span class="string">    elif season == &quot;秋&quot;:</span></span><br><span class="line"><span class="string">        print(&quot;7月8月9月&quot;)</span></span><br><span class="line"><span class="string">    elif season == &quot;冬&quot;:</span></span><br><span class="line"><span class="string">        print(&quot;10月11月12月&quot;)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    season = <span class="built_in">input</span>(<span class="string">&quot;請輸入季度：&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> season == <span class="string">&quot;春&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;1月2月3月&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> season == <span class="string">&quot;夏&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;4月5月6月&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> season == <span class="string">&quot;秋&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;7月8月9月&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> season == <span class="string">&quot;冬&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;10月11月12月&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">input</span>(<span class="string">&quot;請輸入exit退出：&quot;</span>) == <span class="string">&quot;exit&quot;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">第四題 :</span></span><br><span class="line"><span class="string">    在控制台中輸出：0 1 2 3 4 5</span></span><br><span class="line"><span class="string">    在控制台中輸出：2 3 4 5 6 7</span></span><br><span class="line"><span class="string">    在控制台中輸出：0 2 4 6</span></span><br><span class="line"><span class="string">    在控制台中輸出：4 3 2 1 0</span></span><br><span class="line"><span class="string">    在控制台中輸出：-1  -2  -3  -4</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count &lt;=<span class="number">5</span>:</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    count +=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">2</span></span><br><span class="line"><span class="keyword">while</span> count &lt;=<span class="number">7</span>:</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    count +=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> count &lt;= <span class="number">6</span>:</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    count += <span class="number">2</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">4</span></span><br><span class="line"><span class="keyword">while</span> count &gt;= <span class="number">0</span>:<span class="comment"># 4  &gt;= 0</span></span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    count -=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">count = -<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> count &gt;= -<span class="number">4</span>:</span><br><span class="line">    <span class="built_in">print</span>(count)</span><br><span class="line">    count -=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">**<span class="string">&quot;&quot;&quot;**</span></span><br><span class="line"><span class="string">    第五題 :**在控制台中，獲取一個開始值，一個結束值。</span></span><br><span class="line"><span class="string">    將中間的數字列印出來。</span></span><br><span class="line"><span class="string">    輸入：3           9</span></span><br><span class="line"><span class="string">    輸出：  4 5 6 7 8</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">start = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入開始值：&quot;</span>))  <span class="comment"># 3</span></span><br><span class="line">stop = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入結束值：&quot;</span>))  <span class="comment"># 9</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># 3 --&gt; 9</span></span><br><span class="line"><span class="string">while start &lt; stop - 1:</span></span><br><span class="line"><span class="string">    start += 1</span></span><br><span class="line"><span class="string">    print(start)</span></span><br><span class="line"><span class="string"># 9 --&gt; 3</span></span><br><span class="line"><span class="string">while start &gt; stop +1:</span></span><br><span class="line"><span class="string">    start -=1</span></span><br><span class="line"><span class="string">    print(start)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="built_in">dir</span> = <span class="number">1</span> <span class="keyword">if</span> start &lt; stop <span class="keyword">else</span> -<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> start != stop - <span class="built_in">dir</span>:</span><br><span class="line">    start += <span class="built_in">dir</span></span><br><span class="line">    <span class="built_in">print</span>(start)**</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">第六題 :一張紙的厚度是0.01毫米，請計算對折多少次，超過珠穆朗瑪峰8844.43米。</span></span><br><span class="line"><span class="string">答案：30次</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># thickness = 0.01 / 1000</span></span><br><span class="line">thickness = <span class="number">1e-5</span></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> thickness &lt;  <span class="number">8844.43</span>:</span><br><span class="line">    <span class="comment"># 對折一次</span></span><br><span class="line">    thickness *= <span class="number">2</span></span><br><span class="line">    count +=<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;第&quot;</span>+<span class="built_in">str</span>(count)+<span class="string">&quot;次對折的厚度是：&quot;</span>+<span class="built_in">str</span>(thickness))</span><br><span class="line"><span class="built_in">print</span>(count)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 第七題 :打印1-21之间的所有整数,每5个数一行</span></span><br><span class="line"><span class="comment"># 1  2  3  4  5</span></span><br><span class="line"><span class="comment"># 6  7  8  9  10</span></span><br><span class="line"><span class="comment"># 11 12 13 14 15</span></span><br><span class="line"><span class="comment"># 16 17 18 19 20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分析:</span></span><br><span class="line"><span class="comment"># 1 循环1-21之间的整数</span></span><br><span class="line"><span class="comment"># 2 循环当数为5的倍数时换行,否则不换行(end=&#x27; &#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># x = 1</span></span><br><span class="line"><span class="comment"># while x &lt;= 20:</span></span><br><span class="line"><span class="comment">#     # 因为是5的倍数,数打印完毕后才换行</span></span><br><span class="line"><span class="comment">#     print(x, end=&#x27;\t&#x27;)    # &#x27;\t&#x27; 水平制表符</span></span><br><span class="line"><span class="comment">#     if x % 5 == 0:</span></span><br><span class="line"><span class="comment">#         print()      # 换行,print函数参数end=&#x27;\n&#x27;</span></span><br><span class="line"><span class="comment">#     x += 1</span></span><br><span class="line"></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> x &lt;= <span class="number">20</span>:</span><br><span class="line">    <span class="built_in">print</span>(x, x+<span class="number">1</span>, x+<span class="number">2</span>, x+<span class="number">3</span>, x+<span class="number">4</span>, sep=<span class="string">&#x27;\t&#x27;</span>)    <span class="comment"># &#x27;\t&#x27; 水平制表符</span></span><br><span class="line">    x += <span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-04-%E8%BF%B4%E5%9C%88%E8%AA%9E%E5%8F%A5/" title="【Python零基礎】_Day02_04_迴圈語句">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day02-04-迴圈語句/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/" rel="prev" title="【Python零基礎】_Day02_03_選擇語句">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day02_03_選擇語句
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-05-%E7%99%BB%E5%85%A5%E9%A9%97%E8%AD%89/" rel="next" title="【Python零基礎】_Day02_05_登入驗證">
+      【Python零基礎】_Day02_05_登入驗證 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#while%E8%AA%9E%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">while語句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while%E8%BF%B4%E5%9C%88%E5%B5%8C%E5%A5%97"><span class="nav-number">2.</span> <span class="nav-text">while迴圈嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%89%E7%92%B0-%E6%AD%BB%E5%BE%AA%E7%92%B0"><span class="nav-number">3.</span> <span class="nav-text">閉環(死循環)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break%E8%AA%9E%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">break語句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B8%BD%E7%B5%90"><span class="nav-number">4.1.</span> <span class="nav-text">總結</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#continue-%E8%AA%9E%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">continue 語句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-%E8%AA%9E%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">for 語句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%8F%8D%E8%A6%86%E9%81%8B%E7%AE%97%E7%89%A9%E4%BB%B6-%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%B0%8D%E8%B1%A1"><span class="nav-number">7.</span> <span class="nav-text">可反覆運算物件 (可迭代對象)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#range-%E5%87%BD%E6%95%B8"><span class="nav-number">8.</span> <span class="nav-text">range 函數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C"><span class="nav-number">8.1.</span> <span class="nav-text">練習題</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

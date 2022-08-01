@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="定義將模組以資料夾的形式進行分組管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【程式結構】_包package">
+<meta property="og:url" content="https://judyxi.github.io/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%8C%85package/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="定義將模組以資料夾的形式進行分組管理。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-04T17:03:12.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:45:10.827Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%8C%85package/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【程式結構】_包package | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%8C%85package/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【程式結構】_包package
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-01-05 01:03:12" itemprop="dateCreated datePublished" datetime="2022-01-05T01:03:12+08:00">2022-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:45:10" itemprop="dateModified" datetime="2022-06-16T15:45:10+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><p>將模組以資料夾的形式進行分組管理。</p>
+<span id="more"></span>
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>讓一些相關的模組組織在一起，使邏輯結構更加清晰。</p>
+<h2 id="導入"><a href="#導入" class="headerlink" title="導入"></a>導入</h2><p>import  包名.模組名 [as 模組新名]</p>
+<p>import  包名.子包名.模組名 [as 模組新名]</p>
+<p>from 包名 import 模組名 [as 模組新名]</p>
+<p>from 包名.子包名 import 模組名 [as 模組新名]</p>
+<p>from 包名.子包名.模組名 import 成員名 [as 屬性新名]</p>
+<h1 id="導入包內的所有子包和模組"><a href="#導入包內的所有子包和模組" class="headerlink" title="導入包內的所有子包和模組"></a>導入包內的所有子包和模組</h1><p>from 包名 import *</p>
+<p>from 包名.模組名 import *</p>
+<h3 id="init-py-文件"><a href="#init-py-文件" class="headerlink" title="init.py 文件"></a><strong>init</strong>.py 文件</h3><p>是包內必須存在的檔</p>
+<p>會在包載入時被自動調用</p>
+<h3 id="all"><a href="#all" class="headerlink" title="all"></a><strong>all</strong></h3><p>記錄from 包 import * 語句需要導入的模組</p>
+<h3 id="案例："><a href="#案例：" class="headerlink" title="案例："></a>案例：</h3><p>根據下列結構，創建包與模組。</p>
+<p>my_ project &#x2F;</p>
+<p>main.py</p>
+<p>common&#x2F;</p>
+<p><strong>init</strong>.py</p>
+<p>list_helper.py</p>
+<p>skill_system&#x2F;</p>
+<p><strong>init</strong>.py</p>
+<p>skill_deployer.py</p>
+<p>skill_manager.py</p>
+<ol>
+<li>在py中調用skill_manager.py中實例方法。</li>
+<li>在py中調用skill_deployer.py中實例方法。</li>
+<li>在py中調用list_helper.py中類方法。</li>
+</ol>
+<h2 id="搜索順序"><a href="#搜索順序" class="headerlink" title="搜索順序"></a>搜索順序</h2><p>內置模組<br>sys.path 提供的路徑</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    包</span></span><br><span class="line"><span class="string">    導入是否成功的條件：</span></span><br><span class="line"><span class="string">    系統路徑 + 導入路徑 == 真實路徑</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 導入方式1：import 路徑.模組名 as 別名</span></span><br><span class="line"><span class="comment"># 使用：別名.成員</span></span><br><span class="line"><span class="keyword">import</span> package01.m01 <span class="keyword">as</span> m</span><br><span class="line"></span><br><span class="line">m.func01()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 導入方式2：from 路徑.模組名 import 成員</span></span><br><span class="line"><span class="comment"># 使用：直接使用成員</span></span><br><span class="line"><span class="keyword">from</span> package01.package02.m02 <span class="keyword">import</span> func02</span><br><span class="line"></span><br><span class="line">func02()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 導入方式3：from 路徑.模組名 import *</span></span><br><span class="line"><span class="comment"># 使用：直接使用成員</span></span><br><span class="line"><span class="keyword">from</span> package01.package02.m02 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">func02()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%8C%85package/" title="【程式結構】_包package">https://judyxi.github.io/2022/01/05/2022-01-05-【程式結構】-包package/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E6%A8%A1%E7%B5%84-Module/" rel="prev" title="【程式結構】_模組 Module">
+      <i class="fa fa-chevron-left"></i> 【程式結構】_模組 Module
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/05/2022-01-05-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E7%95%B0%E5%B8%B8%E8%99%95%E7%90%86Error/" rel="next" title="【程式結構】_異常處理Error">
+      【程式結構】_異常處理Error <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9"><span class="nav-number">1.</span> <span class="nav-text">定義</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8E%E5%85%A5"><span class="nav-number">1.2.</span> <span class="nav-text">導入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8E%E5%85%A5%E5%8C%85%E5%85%A7%E7%9A%84%E6%89%80%E6%9C%89%E5%AD%90%E5%8C%85%E5%92%8C%E6%A8%A1%E7%B5%84"><span class="nav-number">2.</span> <span class="nav-text">導入包內的所有子包和模組</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init-py-%E6%96%87%E4%BB%B6"><span class="nav-number">2.0.1.</span> <span class="nav-text">init.py 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#all"><span class="nav-number">2.0.2.</span> <span class="nav-text">all</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9A"><span class="nav-number">2.0.3.</span> <span class="nav-text">案例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E9%A0%86%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">搜索順序</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

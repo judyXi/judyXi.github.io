@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="函數式程式設計(思想) 定義：用一系列函數解決問題。   函數可以賦值給變數，賦值後變數綁定函數。  允許將函數作為參數傳入另一個函數。  允許函數返回一個函數。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【程式結構】_函數式程式設計(思想)">
+<meta property="og:url" content="https://judyxi.github.io/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%87%BD%E6%95%B8%E5%BC%8F%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88-%E6%80%9D%E6%83%B3/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="函數式程式設計(思想) 定義：用一系列函數解決問題。   函數可以賦值給變數，賦值後變數綁定函數。  允許將函數作為參數傳入另一個函數。  允許函數返回一個函數。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-01-16T07:01:38.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:45:15.275Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%87%BD%E6%95%B8%E5%BC%8F%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88-%E6%80%9D%E6%83%B3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【程式結構】_函數式程式設計(思想) | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%87%BD%E6%95%B8%E5%BC%8F%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88-%E6%80%9D%E6%83%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【程式結構】_函數式程式設計(思想)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2022-01-16 15:01:38" itemprop="dateCreated datePublished" datetime="2022-01-16T15:01:38+08:00">2022-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:45:15" itemprop="dateModified" datetime="2022-06-16T15:45:15+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="函數式程式設計-思想"><a href="#函數式程式設計-思想" class="headerlink" title="函數式程式設計(思想)"></a>函數式程式設計(思想)</h2><ol>
+<li>定義：用一系列函數解決問題。</li>
+</ol>
+<ul>
+<li><p>函數可以賦值給變數，賦值後變數綁定函數。</p>
+</li>
+<li><p>允許將函數作為參數傳入另一個函數。</p>
+</li>
+<li><p>允許函數返回一個函數。</p>
+<span id="more"></span></li>
+</ul>
+<ol>
+<li>高階函數：將函數作為參數或返回值的函數。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數式程式設計 - 語法</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func01</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;func01執行&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = func01</span><br><span class="line">a()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func02</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;func02執行&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func03</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;func03執行&quot;</span>)</span><br><span class="line">    func()</span><br><span class="line"></span><br><span class="line">func03(func02)</span><br><span class="line">func03(func01)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數式程式設計 - 思想</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list01 = [<span class="number">4</span>, <span class="number">54</span>, <span class="number">56</span>, <span class="number">65</span>, <span class="number">67</span>, <span class="number">7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求1：定義函數,在清單中查找所有大於50的數字</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find01</span>():</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list01:</span><br><span class="line">        <span class="keyword">if</span> item &gt; <span class="number">50</span>:</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求2：定義函數,在清單中查找所有小於10的數字</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find02</span>():</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list01:</span><br><span class="line">        <span class="keyword">if</span> item &lt; <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># “封裝” -- 分</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">condition01</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">50</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">condition02</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> item &lt; <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用</span></span><br><span class="line"><span class="comment"># “繼承” - 隔</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list01:</span><br><span class="line">        <span class="comment"># if item &lt; 10:</span></span><br><span class="line">        <span class="comment"># if condition02(item):</span></span><br><span class="line">        <span class="keyword">if</span> func(item):</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="comment"># &quot;多態&quot; - 做</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> find(condition01):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> find(condition02):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<h2 id="函數作為參數"><a href="#函數作為參數" class="headerlink" title="函數作為參數"></a>函數作為參數</h2><p>將核心邏輯傳入方法體，使該方法的適用性更廣，體現了物件導向的開閉原則。</p>
+<h3 id="lambda-運算式"><a href="#lambda-運算式" class="headerlink" title="lambda 運算式"></a>lambda 運算式</h3><ol>
+<li>定義：是一種匿名方法。</li>
+<li>作用：作為參數傳遞時語法簡潔，優雅，代碼可讀性強。</li>
+</ol>
+<p>隨時創建和銷毀，減少程式耦合度。</p>
+<ol>
+<li>語法</li>
+</ol>
+<ul>
+<li>定義：</li>
+</ul>
+<p>變數 &#x3D; lambda 形參: 方法體</p>
+<p>– 調用：</p>
+<p>變數(實參)</p>
+<ol>
+<li>說明：</li>
+</ol>
+<ul>
+<li>形參沒有可以不填</li>
+<li>方法體只能有一條語句，且不支援設定陳述式。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    lambda運算式</span></span><br><span class="line"><span class="string">        匿名方法</span></span><br><span class="line"><span class="string">        語法：</span></span><br><span class="line"><span class="string">            lambda 參數:方法體</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># def func01(a,b):</span></span><br><span class="line"><span class="comment">#     return a &gt; b</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(func01(10,20))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 有參數有返回值</span></span><br><span class="line">func01 = <span class="keyword">lambda</span> a,b:a &gt; b</span><br><span class="line"><span class="built_in">print</span>(func01(<span class="number">10</span>,<span class="number">20</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 無參數有返回值</span></span><br><span class="line"><span class="comment"># def func02():</span></span><br><span class="line"><span class="comment">#     return &quot;ok&quot;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(func02())</span></span><br><span class="line">func02 = <span class="keyword">lambda</span> :<span class="string">&quot;ok&quot;</span></span><br><span class="line"><span class="built_in">print</span>(func02())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 無參數無返回值</span></span><br><span class="line"><span class="comment"># def func03():</span></span><br><span class="line"><span class="comment">#     print(&quot;ok&quot;)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># func03()</span></span><br><span class="line"></span><br><span class="line">func03 = <span class="keyword">lambda</span> :<span class="built_in">print</span>(<span class="string">&quot;ok&quot;</span>)</span><br><span class="line">func03()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 有參數無返回值</span></span><br><span class="line"><span class="comment"># def func03(a):</span></span><br><span class="line"><span class="comment">#     print(a)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># func03(100)</span></span><br><span class="line">func03 = <span class="keyword">lambda</span> a:<span class="built_in">print</span>(a)</span><br><span class="line">func03(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. lambda 不支持設定陳述式</span></span><br><span class="line"><span class="comment"># def func05(iterable):</span></span><br><span class="line"><span class="comment">#     iterable[0] = 100</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># list01 = [1]</span></span><br><span class="line"><span class="comment"># func05(list01)</span></span><br><span class="line"><span class="comment"># print(list01)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># func05 = lambda iterable: iterable[0] = 100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. lambda 不支持多條語句</span></span><br><span class="line"><span class="comment"># def func06(a,b):</span></span><br><span class="line"><span class="comment">#     print(a)</span></span><br><span class="line"><span class="comment">#     print(b)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># func06(10,20)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># func06 = lambda a,b: print(a);print(b)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="內置高階函數"><a href="#內置高階函數" class="headerlink" title="內置高階函數"></a>內置高階函數</h3><ol>
+<li><p>map（函數，可反覆運算物件）：使用可反覆運算物件中的每個元素調用函數，將返回值作為新可反覆運算物件元素；返回值為新可反覆運算對象。</p>
+</li>
+<li><p>filter(函數，可反覆運算物件)：根據條件篩選可反覆運算物件中的元素，返回值為新可反覆運算物件。</p>
+</li>
+<li><p>sorted(可反覆運算物件，key &#x3D; 函數,reverse &#x3D; bool值)：排序，返回值為排序結果。</p>
+</li>
+<li><p>max(可反覆運算物件，key &#x3D; 函數)：根據函數獲取可反覆運算物件的最大值。</p>
+</li>
+<li><p>min(可反覆運算物件，key &#x3D; 函數)：根據函數獲取可反覆運算物件的最小值。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    內置高階函數</span></span><br><span class="line"><span class="string">        這個函數的參數或者返回值是函數</span></span><br><span class="line"><span class="string">    練習:exercise02</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Wife</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span>, face_score=<span class="number">0</span>, age=<span class="number">0</span>, height=<span class="number">0</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.face_score = face_score</span><br><span class="line">        self.age = age</span><br><span class="line">        self.height = height</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;%s-%d-%d-%d&quot;</span> % (self.name, self.face_score, self.age, self.height)</span><br><span class="line"></span><br><span class="line">list_wife = [</span><br><span class="line">    Wife(<span class="string">&quot;雙兒&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;阿珂&quot;</span>, <span class="number">100</span>, <span class="number">23</span>, <span class="number">173</span>),</span><br><span class="line">    Wife(<span class="string">&quot;小郡主&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">161</span>),</span><br><span class="line">    Wife(<span class="string">&quot;方怡&quot;</span>, <span class="number">86</span>, <span class="number">27</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;蘇荃&quot;</span>, <span class="number">99</span>, <span class="number">31</span>, <span class="number">176</span>),</span><br><span class="line">    Wife(<span class="string">&quot;建寧&quot;</span>, <span class="number">93</span>, <span class="number">24</span>, <span class="number">163</span>),</span><br><span class="line">    Wife(<span class="string">&quot;曾柔&quot;</span>, <span class="number">88</span>, <span class="number">26</span>, <span class="number">170</span>),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.  map 映射</span></span><br><span class="line"><span class="comment">#  在老婆列表中獲取所有名稱</span></span><br><span class="line"><span class="comment">#  類似於：select</span></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> <span class="built_in">map</span>(<span class="keyword">lambda</span> item: item.name, list_wife):</span><br><span class="line">    <span class="built_in">print</span>(element)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. filter 篩檢程式</span></span><br><span class="line"><span class="comment"># 在老婆列表中獲取顏值大於90的所有老婆</span></span><br><span class="line"><span class="comment">#  類似於：find_all</span></span><br><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> <span class="built_in">filter</span>(<span class="keyword">lambda</span> item: item.face_score &gt; <span class="number">90</span>, list_wife):</span><br><span class="line">    <span class="built_in">print</span>(element)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. max/min</span></span><br><span class="line"><span class="comment"># 在老婆列表中獲取顏值最高的老婆</span></span><br><span class="line"><span class="comment">#  類似於：get_max</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(list_wife,key = <span class="keyword">lambda</span> item:item.face_score))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(list_wife,key = <span class="keyword">lambda</span> item:item.face_score))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.sorted 排序</span></span><br><span class="line"><span class="comment">#   注意：沒有改變原有列表,而是返回新的</span></span><br><span class="line"><span class="comment"># 昇冪</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">sorted</span>(list_wife,key = <span class="keyword">lambda</span> item:item.height):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"><span class="comment"># 降冪</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">sorted</span>(list_wife,key = <span class="keyword">lambda</span> item:item.height,reverse=<span class="literal">True</span>):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<h2 id="外部嵌套作用域"><a href="#外部嵌套作用域" class="headerlink" title="外部嵌套作用域"></a>外部嵌套作用域</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    外部嵌套作用域</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func01</span>():</span><br><span class="line">    a = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func02</span>():</span><br><span class="line">        <span class="comment"># 內建函式,可以訪問外部嵌套變數</span></span><br><span class="line">        <span class="comment"># print(a)</span></span><br><span class="line">        <span class="comment"># 內建函式,如果修改外部嵌套變數,需要使用nonlocal語句聲明</span></span><br><span class="line">        <span class="keyword">nonlocal</span> a</span><br><span class="line">        a = <span class="number">20</span></span><br><span class="line"></span><br><span class="line">    func02()</span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line">func01()</span><br></pre></td></tr></table></figure>
+
+<h2 id="函數作為返回值"><a href="#函數作為返回值" class="headerlink" title="函數作為返回值"></a>函數作為返回值</h2><p>邏輯連續，當內建函式被調用時，不脫離當前的邏輯。</p>
+<h2 id="閉包"><a href="#閉包" class="headerlink" title="閉包"></a>閉包</h2><ol>
+<li>三要素：</li>
+</ol>
+<ul>
+<li><p>必須有一個內嵌函數。</p>
+</li>
+<li><p>內嵌函數必須引用外部函數中變數。</p>
+</li>
+<li><p>外部函數返回值必須是內嵌函數。</p>
+</li>
+</ul>
+<ol>
+<li>語法</li>
+</ol>
+<ul>
+<li>定義：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">外部函數名</span>(<span class="params">參數</span>):</span><br><span class="line"></span><br><span class="line">    外部變數</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">內建函式名</span>(<span class="params">參數</span>):</span><br><span class="line"></span><br><span class="line">        使用外部變數</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> 內建函式名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>調用：</li>
+</ul>
+<p>變數 &#x3D; 外部函數名(參數)</p>
+<p>變數(參數)</p>
+<ol>
+<li><p>定義：在一個函數內部的函數,同時內建函式又引用了外部函數的變數。</p>
+</li>
+<li><p>本質：閉包是將內建函式和外部函數的執行環境綁定在一起的物件。</p>
+</li>
+<li><p>優點：內建函式可以使用外部變數。</p>
+</li>
+<li><p>缺點：外部變數一直存在於記憶體中，不會在調用結束後釋放，佔用記憶體。</p>
+</li>
+<li><p>作用：實現python裝飾器。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    閉包</span></span><br><span class="line"><span class="string">        三大要素：</span></span><br><span class="line"><span class="string">            具有內外函數</span></span><br><span class="line"><span class="string">            內建函式訪問外部函數變數</span></span><br><span class="line"><span class="string">            外部函數返回內建函式</span></span><br><span class="line"><span class="string">        字面意思：封閉程式運行環境  --&gt; 保存</span></span><br><span class="line"><span class="string">        體現：</span></span><br><span class="line"><span class="string">            外部函數執行過後,棧幀不釋放,等待內建函式使用.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func01</span>():</span><br><span class="line">    a = <span class="number">100</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">func02</span>():</span><br><span class="line">        <span class="built_in">print</span>(a)</span><br><span class="line">    <span class="keyword">return</span> func02</span><br><span class="line"></span><br><span class="line"><span class="comment"># 調用外部函數,返回內建函式</span></span><br><span class="line">result = func01()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因為python支援閉包,所以在外部函數執行過後,棧幀沒有釋放.</span></span><br><span class="line"><span class="comment"># 因此內建函式執行時,可以正確訪問外部嵌套變數.</span></span><br><span class="line">result()</span><br></pre></td></tr></table></figure>
+
+<h2 id="練習1"><a href="#練習1" class="headerlink" title="練習1"></a>練習1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習1:在老婆列表中,查找顏值大於90的所有老婆</span></span><br><span class="line"><span class="string">    練習2:在老婆列表中,查找身高小於170的所有老婆</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Wife</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span>, face_score=<span class="number">0</span>, age=<span class="number">0</span>, height=<span class="number">0</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.face_score = face_score</span><br><span class="line">        self.age = age</span><br><span class="line">        self.height = height</span><br><span class="line"></span><br><span class="line">list_wife = [</span><br><span class="line">    Wife(<span class="string">&quot;雙兒&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;阿珂&quot;</span>, <span class="number">100</span>, <span class="number">23</span>, <span class="number">173</span>),</span><br><span class="line">    Wife(<span class="string">&quot;小郡主&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">161</span>),</span><br><span class="line">    Wife(<span class="string">&quot;方怡&quot;</span>, <span class="number">86</span>, <span class="number">27</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;蘇荃&quot;</span>, <span class="number">99</span>, <span class="number">31</span>, <span class="number">176</span>),</span><br><span class="line">    Wife(<span class="string">&quot;建寧&quot;</span>, <span class="number">93</span>, <span class="number">24</span>, <span class="number">163</span>),</span><br><span class="line">    Wife(<span class="string">&quot;曾柔&quot;</span>, <span class="number">88</span>, <span class="number">26</span>, <span class="number">170</span>),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find01</span>():</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list_wife:</span><br><span class="line">        <span class="keyword">if</span> item.face_score &gt; <span class="number">90</span>:</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find02</span>():</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list_wife:</span><br><span class="line">        <span class="keyword">if</span> item.height &lt; <span class="number">170</span>:</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">condition01</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> item.face_score &gt; <span class="number">90</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">condition02</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> item.height &lt; <span class="number">170</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list_wife:</span><br><span class="line">        <span class="comment"># if item.face_score &gt; 90:</span></span><br><span class="line">        <span class="comment"># if condition01(item):</span></span><br><span class="line">        <span class="keyword">if</span> func(item):</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> find(condition01):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> find(condition02):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 函數裝飾器decorator</span><br><span class="line"></span><br><span class="line">1. 定義：在不改變原函數的調用以及內部代碼情況下，為其添加新功能的函數。</span><br><span class="line">2. 語法</span><br><span class="line"></span><br><span class="line">def 函數裝飾器名稱(func):</span><br><span class="line"></span><br><span class="line">    def 內嵌函數(*args, **kwargs):</span><br><span class="line"></span><br><span class="line">        需要添加的新功能</span><br><span class="line"></span><br><span class="line">    return func(*args, **kwargs)</span><br><span class="line"></span><br><span class="line">return內嵌函數</span><br><span class="line"></span><br><span class="line">原函數 = 內嵌函數</span><br><span class="line"></span><br><span class="line">@ 函數裝飾器名稱</span><br><span class="line"></span><br><span class="line">def 原函數名稱(參數):</span><br><span class="line"></span><br><span class="line">函數體</span><br><span class="line"></span><br><span class="line">原函數(參數)</span><br><span class="line"></span><br><span class="line">1. 本質：使用“@函數裝飾器名稱”修飾原函數，等同於創建與原函數名稱相同的變數，關聯內嵌函數；故調用原函數時執行內嵌函數。</span><br><span class="line"></span><br><span class="line">原函數名稱 = 函數裝飾器名稱（原函數名稱）</span><br><span class="line"></span><br><span class="line">1. 裝飾器鏈：</span><br><span class="line"></span><br><span class="line">一個函數可以被多個裝飾器修飾，執行順序為從近到遠。</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">    裝飾器</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">def func01():</span><br><span class="line">    print(&quot;func01執行嘍&quot;)</span><br><span class="line">    return &quot;ok&quot;</span><br><span class="line"></span><br><span class="line">def func02(a):</span><br><span class="line">    print(a, &quot;func02執行嘍&quot;)</span><br><span class="line"></span><br><span class="line">def print_func_name(func):</span><br><span class="line">    def wrapper(*args, **kwargs):  # 合</span><br><span class="line">        # 新功能</span><br><span class="line">        print(func.__name__)</span><br><span class="line">        # 舊功能</span><br><span class="line">        return func(*args, **kwargs)  # 拆</span><br><span class="line"></span><br><span class="line">    return wrapper</span><br><span class="line"></span><br><span class="line"># func01 = 新功能  +  舊功能</span><br><span class="line"># func01 = print_func_name + func01</span><br><span class="line">func01 = print_func_name(func01)</span><br><span class="line"></span><br><span class="line">print(func01())  # 執行的是內建函式</span><br><span class="line"></span><br><span class="line">func02 = print_func_name(func02)</span><br><span class="line"></span><br><span class="line">func02(100)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    裝飾器</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_func_name</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):  <span class="comment"># 合</span></span><br><span class="line">        <span class="comment"># 新功能</span></span><br><span class="line">        <span class="built_in">print</span>(func.__name__)</span><br><span class="line">        <span class="comment"># 舊功能</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)  <span class="comment"># 拆</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@print_func_name</span><span class="comment"># func01 = print_func_name(func01)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func01</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;func01執行嘍&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;ok&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@print_func_name </span><span class="comment"># func02 = print_func_name(func02)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func02</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="built_in">print</span>(a, <span class="string">&quot;func02執行嘍&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(func01())  <span class="comment"># 執行的是內建函式</span></span><br><span class="line"></span><br><span class="line">func02(<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="練習2"><a href="#練習2" class="headerlink" title="練習2"></a>練習2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    需求1：</span></span><br><span class="line"><span class="string">        1. 在老婆清單中查找方怡對象</span></span><br><span class="line"><span class="string">        2. 在老婆列表中查找顏值大於95的單個老婆對象</span></span><br><span class="line"><span class="string">        first</span></span><br><span class="line"><span class="string">    需求2：</span></span><br><span class="line"><span class="string">        1. 計算老婆列表中姓名大於2個字的老婆數量</span></span><br><span class="line"><span class="string">        2. 計算老婆列表年齡小於25的老婆數量</span></span><br><span class="line"><span class="string">        get_count</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求3：</span></span><br><span class="line"><span class="string">        1. 獲取老婆列表中所有老婆的姓名</span></span><br><span class="line"><span class="string">        2. 獲取老婆列表中所有老婆的姓名與顏值</span></span><br><span class="line"><span class="string">        select</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求4：</span></span><br><span class="line"><span class="string">        1. 在老婆列表中判斷是否存在姓名是蘇荃的元素</span></span><br><span class="line"><span class="string">        2. 在老婆列表中判斷是否存在高度大於170的元素</span></span><br><span class="line"><span class="string">        is_exists</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求5：</span></span><br><span class="line"><span class="string">        1. 累加老婆列表中所有人的年齡</span></span><br><span class="line"><span class="string">        2. 累加老婆列表中所有人的高度</span></span><br><span class="line"><span class="string">        sum</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求7：</span></span><br><span class="line"><span class="string">        1. 在老婆列表中找出顏值最高的老婆物件</span></span><br><span class="line"><span class="string">        2. 在老婆清單中找出年齡最大的老婆物件</span></span><br><span class="line"><span class="string">        get_max</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求8：</span></span><br><span class="line"><span class="string">        1. 在老婆列表中刪除年齡小於25的所有老婆</span></span><br><span class="line"><span class="string">        2. 在老婆列表中刪除身高大於170的所有老婆</span></span><br><span class="line"><span class="string">        delete_all</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    需求9：</span></span><br><span class="line"><span class="string">        1. 對老婆清單根據年齡進行昇冪排列</span></span><br><span class="line"><span class="string">        2. 對老婆清單根據顏值進行昇冪排列</span></span><br><span class="line"><span class="string">        order_by</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    步驟：</span></span><br><span class="line"><span class="string">        1. 根據需求，定義函數.</span></span><br><span class="line"><span class="string">        2. 將變化點單獨定義為函數.</span></span><br><span class="line"><span class="string">        3. 將通用代碼定義位元函數(使用參數隔離變化點)</span></span><br><span class="line"><span class="string">        4. 在IterableHelper類中添加新功能</span></span><br><span class="line"><span class="string">        5. 在當前模組中進行測試</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> common.iterable_tools <span class="keyword">import</span> IterableHelper</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Wife</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span>, face_score=<span class="number">0</span>, age=<span class="number">0</span>, height=<span class="number">0</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.face_score = face_score</span><br><span class="line">        self.age = age</span><br><span class="line">        self.height = height</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;%s-%d-%d-%d&quot;</span>%(self.name,self.face_score,self.age,self.height)</span><br><span class="line"></span><br><span class="line">list_wife = [</span><br><span class="line">    Wife(<span class="string">&quot;雙兒&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;阿珂&quot;</span>, <span class="number">100</span>, <span class="number">23</span>, <span class="number">173</span>),</span><br><span class="line">    Wife(<span class="string">&quot;小郡主&quot;</span>, <span class="number">96</span>, <span class="number">22</span>, <span class="number">161</span>),</span><br><span class="line">    Wife(<span class="string">&quot;方怡&quot;</span>, <span class="number">86</span>, <span class="number">27</span>, <span class="number">166</span>),</span><br><span class="line">    Wife(<span class="string">&quot;蘇荃&quot;</span>, <span class="number">99</span>, <span class="number">31</span>, <span class="number">176</span>),</span><br><span class="line">    Wife(<span class="string">&quot;建寧&quot;</span>, <span class="number">93</span>, <span class="number">24</span>, <span class="number">163</span>),</span><br><span class="line">    Wife(<span class="string">&quot;曾柔&quot;</span>, <span class="number">88</span>, <span class="number">26</span>, <span class="number">170</span>),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># def condition01(item):</span></span><br><span class="line"><span class="comment">#     return item.face_score &gt; 90</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for item in IterableHelper.find_all(list_wife,condition01):</span></span><br><span class="line"><span class="comment">#     print(item)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> IterableHelper.find_all(list_wife,<span class="keyword">lambda</span> item:item.face_score &gt; <span class="number">90</span>):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習1：</span></span><br><span class="line"><span class="comment"># def first01():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if item.name == &quot;方怡&quot;:</span></span><br><span class="line"><span class="comment">#             return item</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def first02():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if item.face_score &gt; 95:</span></span><br><span class="line"><span class="comment">#             return item</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def condition01(item):</span></span><br><span class="line"><span class="comment">#     return item.name == &quot;方怡&quot;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def condition02(item):</span></span><br><span class="line"><span class="comment">#     return item.face_score &gt; 95</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def first(func):</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         # if item.face_score &gt; 95:</span></span><br><span class="line"><span class="comment">#         # if condition02(item):</span></span><br><span class="line"><span class="comment">#         if func(item):</span></span><br><span class="line"><span class="comment">#             return item</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(IterableHelper.first(list_wife,condition02))</span></span><br><span class="line"><span class="built_in">print</span>(IterableHelper.first(list_wife,<span class="keyword">lambda</span> item:item.face_score &gt; <span class="number">95</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習2：</span></span><br><span class="line"><span class="comment"># def get_count01():</span></span><br><span class="line"><span class="comment">#     count = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if len(item.name) &gt; 2:</span></span><br><span class="line"><span class="comment">#             count += 1</span></span><br><span class="line"><span class="comment">#     return count</span></span><br><span class="line"><span class="comment"># def get_count02():</span></span><br><span class="line"><span class="comment">#     count = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if item.age &lt; 25:</span></span><br><span class="line"><span class="comment">#             count += 1</span></span><br><span class="line"><span class="comment">#     return count</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def condition01(item):</span></span><br><span class="line"><span class="comment">#     return len(item.name) &gt; 2</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def condition02(item):</span></span><br><span class="line"><span class="comment">#     return item.age &lt; 25</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def get_count(func):</span></span><br><span class="line"><span class="comment">#     count = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         # if item.age &lt; 25:</span></span><br><span class="line"><span class="comment">#         # if condition02(item):</span></span><br><span class="line"><span class="comment">#         if func(item):</span></span><br><span class="line"><span class="comment">#             count += 1</span></span><br><span class="line"><span class="comment">#     return count</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># print(IterableHelper.get_count(list_wife,condition02))</span></span><br><span class="line"><span class="built_in">print</span>(IterableHelper.get_count(list_wife,<span class="keyword">lambda</span> item: item.age &lt; <span class="number">25</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習3</span></span><br><span class="line"><span class="comment"># def select01():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         yield item.name</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def select02():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         yield (item.name,item.face_score)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle01</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> item.name</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handle02</span>(<span class="params">item</span>):</span><br><span class="line">    <span class="keyword">return</span> (item.name,item.face_score)</span><br><span class="line"></span><br><span class="line"><span class="comment"># def select(func):</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         # yield (item.name,item.face_score)</span></span><br><span class="line"><span class="comment">#         # yield handle02(item)</span></span><br><span class="line"><span class="comment">#         yield func(item)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> IterableHelper.select(list_wife,handle02):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習4：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def is_exists01():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if item.name == &quot;蘇荃&quot;:</span></span><br><span class="line"><span class="comment">#             return True</span></span><br><span class="line"><span class="comment">#     return False</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def is_exists02():</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         if item.height &gt; 170:</span></span><br><span class="line"><span class="comment">#             return True</span></span><br><span class="line"><span class="comment">#     return False</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def condition01(item):</span></span><br><span class="line"><span class="comment">#     return item.name == &quot;蘇荃&quot;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def condition02(item):</span></span><br><span class="line"><span class="comment">#     return item.height &gt; 170</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def is_exists(func):</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         # if item.height &gt; 170:</span></span><br><span class="line"><span class="comment">#         # if condition02(item):</span></span><br><span class="line"><span class="comment">#         if func(item):</span></span><br><span class="line"><span class="comment">#             return True</span></span><br><span class="line"><span class="comment">#     return False</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(IterableHelper.is_exists(list_wife,<span class="keyword">lambda</span> item:item.height &gt; <span class="number">170</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習5：</span></span><br><span class="line"><span class="comment"># def sum01():</span></span><br><span class="line"><span class="comment">#     sum_value = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         sum_value += item.age</span></span><br><span class="line"><span class="comment">#     return sum_value</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def sum02():</span></span><br><span class="line"><span class="comment">#     sum_value = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         sum_value += item.height</span></span><br><span class="line"><span class="comment">#     return sum_value</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def sum(func):</span></span><br><span class="line"><span class="comment">#     sum_value = 0</span></span><br><span class="line"><span class="comment">#     for item in list_wife:</span></span><br><span class="line"><span class="comment">#         # sum_value += item.height</span></span><br><span class="line"><span class="comment">#         sum_value += func(item)</span></span><br><span class="line"><span class="comment">#     return sum_value</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(IterableHelper.<span class="built_in">sum</span>(list_wife,<span class="keyword">lambda</span> item:item.height))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習6：</span></span><br><span class="line"><span class="built_in">print</span>(IterableHelper.get_max(list_wife,<span class="keyword">lambda</span> element:element.height))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習7:</span></span><br><span class="line"><span class="comment"># print(IterableHelper.delete_all(list_wife,lambda e:e.age &gt; 25))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習8:</span></span><br><span class="line">IterableHelper.order_by(list_wife,<span class="keyword">lambda</span> e:e.age)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> list_wife:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    使用內置高級函數實現下列功能：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    1. 在敵人列表中查找所有敵人名稱與攻擊力</span></span><br><span class="line"><span class="string">    2. 在敵人列表中查找血量大於500的所有敵人</span></span><br><span class="line"><span class="string">    3. 對敵人列表進行降冪排列</span></span><br><span class="line"><span class="string">    4. 找出列表[(1,),(2,2,2),(3,3)]中長度最大的元素</span></span><br><span class="line"><span class="string">    5. 根據value對字典進行昇冪排列&#123;&quot;張無忌&quot;:306,&quot;趙敏&quot;:305,&quot;小昭&quot;:102&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Enemy</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span>, hp=<span class="number">0</span>, atk=<span class="number">0</span>, defence=<span class="number">0</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.hp = hp</span><br><span class="line">        self.atk = atk</span><br><span class="line">        self.defence = defence</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__str__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;%s-%d-%d-%d&quot;</span> % (self.name, self.hp, self.atk, self.defence)</span><br><span class="line"></span><br><span class="line">list_enemy = [</span><br><span class="line">    Enemy(<span class="string">&quot;滅霸&quot;</span>,<span class="number">999</span>,<span class="number">555</span>,<span class="number">333</span>),</span><br><span class="line">    Enemy(<span class="string">&quot;成昆&quot;</span>,<span class="number">360</span>,<span class="number">100</span>,<span class="number">50</span>),</span><br><span class="line">    Enemy(<span class="string">&quot;玄冥二老&quot;</span>,<span class="number">300</span>,<span class="number">90</span>,<span class="number">70</span>),</span><br><span class="line">    Enemy(<span class="string">&quot;白骨精&quot;</span>, <span class="number">600</span>, <span class="number">200</span>,<span class="number">60</span>),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">map</span>(<span class="keyword">lambda</span> item:(item.name,item.atk),list_enemy):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">filter</span>(<span class="keyword">lambda</span> item:item.hp &gt; <span class="number">500</span>,list_enemy):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">sorted</span>(list_enemy,key = <span class="keyword">lambda</span> item:item.hp):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line">list01 = [(<span class="number">1</span>,),(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">3</span>)]</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(list01,key = <span class="keyword">lambda</span> item:<span class="built_in">len</span>(item)))</span><br><span class="line"></span><br><span class="line">dict01 = &#123;<span class="string">&quot;張無忌&quot;</span>:<span class="number">306</span>,<span class="string">&quot;趙敏&quot;</span>:<span class="number">305</span>,<span class="string">&quot;小昭&quot;</span>:<span class="number">102</span>&#125;</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">sorted</span>(dict01.items(),key = <span class="keyword">lambda</span> item:item[<span class="number">1</span>]):</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    閉包應用</span></span><br><span class="line"><span class="string">        邏輯連續</span></span><br><span class="line"><span class="string">        裝飾器</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">give_gife_money</span>(<span class="params">money</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;得到了&quot;</span>, money, <span class="string">&quot;元壓歲錢&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">child_buy</span>(<span class="params">target, price</span>):</span><br><span class="line">        <span class="keyword">nonlocal</span> money</span><br><span class="line">        money -= price</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;購買了&quot;</span>, target, <span class="string">&quot;還剩&quot;</span>, money, <span class="string">&quot;元&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> child_buy</span><br><span class="line"></span><br><span class="line">action = give_gife_money(<span class="number">500</span>)</span><br><span class="line">action(<span class="string">&quot;變形金剛&quot;</span>, <span class="number">130</span>)</span><br><span class="line">action(<span class="string">&quot;遙控飛機&quot;</span>, <span class="number">250</span>)</span><br><span class="line">action(<span class="string">&quot;零食&quot;</span>, <span class="number">120</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在不改變原有功能的定義與調用情況下(進入後臺、刪除訂單),</span></span><br><span class="line"><span class="string">    為其增加新功能(驗證許可權).</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify_permissions</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):  <span class="comment"># 合</span></span><br><span class="line">        <span class="comment"># 新功能</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;驗證許可權&quot;</span>)</span><br><span class="line">        <span class="comment"># 舊功能</span></span><br><span class="line">        <span class="keyword">return</span> func(*args, **kwargs)  <span class="comment"># 拆</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@verify_permissions</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">enter_background</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;進入後臺&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@verify_permissions</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">delete_order</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;刪除訂單&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># enter_background = verify_permissions(enter_background)</span></span><br><span class="line"><span class="comment"># delete_order = verify_permissions(delete_order)</span></span><br><span class="line"></span><br><span class="line">enter_background()</span><br><span class="line">delete_order()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在不改變原有功能的定義與調用情況下,為其增加新功能.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_execute_time</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        result = func(*args, **kwargs)</span><br><span class="line">        stop_time = time.time()</span><br><span class="line">        <span class="built_in">print</span>(stop_time - start_time)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@print_execute_time</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func01</span>():</span><br><span class="line">    sum_value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">        sum_value += i</span><br><span class="line">    <span class="keyword">return</span> sum_value</span><br><span class="line"></span><br><span class="line"><span class="meta">@print_execute_time</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func02</span>(<span class="params">n</span>):</span><br><span class="line">    sum_value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        sum_value += i</span><br><span class="line">    <span class="keyword">return</span> sum_value</span><br><span class="line"></span><br><span class="line">func01()</span><br><span class="line"></span><br><span class="line">func02(<span class="number">100000</span>)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E5%87%BD%E6%95%B8%E5%BC%8F%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88-%E6%80%9D%E6%83%B3/" title="【程式結構】_函數式程式設計(思想)">https://judyxi.github.io/2022/01/16/2022-01-16-【程式結構】-函數式程式設計-思想/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E7%94%9F%E6%88%90%E5%99%A8generator/" rel="prev" title="【程式結構】_生成器generator">
+      <i class="fa fa-chevron-left"></i> 【程式結構】_生成器generator
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/23/2022-01-23-%E3%80%90Python%E5%85%A8%E3%80%91-%E7%B8%BD%E8%A4%87%E7%BF%92/" rel="next" title="【Python全】_總複習">
+      【Python全】_總複習 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E5%BC%8F%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88-%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">函數式程式設計(思想)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E4%BD%9C%E7%82%BA%E5%8F%83%E6%95%B8"><span class="nav-number">2.</span> <span class="nav-text">函數作為參數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda-%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">lambda 運算式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A7%E7%BD%AE%E9%AB%98%E9%9A%8E%E5%87%BD%E6%95%B8"><span class="nav-number">2.2.</span> <span class="nav-text">內置高階函數</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%B5%8C%E5%A5%97%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">3.</span> <span class="nav-text">外部嵌套作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E4%BD%9C%E7%82%BA%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">函數作為返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%89%E5%8C%85"><span class="nav-number">5.</span> <span class="nav-text">閉包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%921"><span class="nav-number">6.</span> <span class="nav-text">練習1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%922"><span class="nav-number">7.</span> <span class="nav-text">練習2</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

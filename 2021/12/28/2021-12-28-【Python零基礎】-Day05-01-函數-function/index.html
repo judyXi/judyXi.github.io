@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="pycharm相關設置 “代碼自動完成”時間延時設置File -&gt; Settings -&gt; Editor -&gt; General -&gt; Code Completion -&gt; Autopopup in (ms):0   快速鍵：Ctrl + P                     參數資訊（在方法中調用參數）Ctrl + Q                     快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day05_01_函數 function">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day05-01-%E5%87%BD%E6%95%B8-function/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="pycharm相關設置 “代碼自動完成”時間延時設置File -&gt; Settings -&gt; Editor -&gt; General -&gt; Code Completion -&gt; Autopopup in (ms):0   快速鍵：Ctrl + P                     參數資訊（在方法中調用參數）Ctrl + Q                     快">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-28T12:45:39.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:54.815Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day05-01-%E5%87%BD%E6%95%B8-function/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day05_01_函數 function | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day05-01-%E5%87%BD%E6%95%B8-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day05_01_函數 function
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-28 20:45:39" itemprop="dateCreated datePublished" datetime="2021-12-28T20:45:39+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:54" itemprop="dateModified" datetime="2022-06-16T15:47:54+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="pycharm相關設置"><a href="#pycharm相關設置" class="headerlink" title="pycharm相關設置"></a>pycharm相關設置</h2><blockquote>
+<p>“代碼自動完成”時間延時設置<br>File -&gt; Settings -&gt; Editor -&gt; General -&gt; Code Completion -&gt; Autopopup in (ms):0</p>
+</blockquote>
+<ul>
+<li>快速鍵：<br><code>Ctrl + P  </code>                   參數資訊（在方法中調用參數）<br><code>Ctrl + Q  </code>                   快速查看文檔<br><code>Ctrl + Alt + M    </code>       提取方法</li>
+</ul>
+<h2 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h2><ul>
+<li>用於封裝一個特定的功能，表示一個功能或者行為。</li>
+<li>函數是可以重複執行的語句塊, 可以重複調用。<span id="more"></span></li>
+</ul>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>提高代碼的再使用性和可維護性（代碼層次結構更清晰）。</p>
+<h2 id="定義函數"><a href="#定義函數" class="headerlink" title="定義函數"></a>定義函數</h2><ul>
+<li><p>語法：<br>def 函數名(形式參數):<br>函數體</p>
+</li>
+<li><p>說明：<br>def 關鍵字：全稱是define，意為”定義”。<br>函數名：對函數體中語句的描述，規則與變數名相同。<br>形式參數：方法定義者要求調用者提供的資訊。<br>函數體：完成該功能的語句。</p>
+</li>
+<li><p>函數的第一行語句建議使用文檔字串描述函數的功能與參數。</p>
+</li>
+</ul>
+<h3 id="調用函數"><a href="#調用函數" class="headerlink" title="調用函數"></a>調用函數</h3><ul>
+<li>語法：函數名(實際參數)</li>
+<li>說明：根據形參傳遞內容。</li>
+</ul>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><ul>
+<li>定義：<br>方法定義者告訴調用者的結果。</li>
+<li>語法：<br>return 數據</li>
+<li>說明：<br>return後沒有語句，相當於返回 None。<br>函數體沒有return，相當於返回None。</li>
+</ul>
+<h2 id="可變／不可變類型在傳參時的區別"><a href="#可變／不可變類型在傳參時的區別" class="headerlink" title="可變／不可變類型在傳參時的區別"></a>可變／不可變類型在傳參時的區別</h2><h3 id="不可變類型參數有"><a href="#不可變類型參數有" class="headerlink" title="不可變類型參數有:"></a>不可變類型參數有:</h3><p>數值型(整數，浮點數,複數)</p>
+<p>布林值bool</p>
+<p>None 空值</p>
+<p>字串str</p>
+<p>元組tuple</p>
+<p>固定集合frozenset</p>
+<h3 id="可變類型參數有"><a href="#可變類型參數有" class="headerlink" title="可變類型參數有:"></a>可變類型參數有:</h3><p>列表 list</p>
+<p>字典 dict</p>
+<p>集合 set</p>
+<blockquote>
+<p>傳參說明：<br>不可變類型的數據傳參時，函數內部不會改變原資料的值。<br>可變類型的數據傳參時，函數內部可以改變原資料。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數-參數</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attack</span>():</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        攻擊函數</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;側踹&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;直拳&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;擺拳&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;勾拳&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;肘擊&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># attack()</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">attack()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有參數函數</span></span><br><span class="line"><span class="comment"># 形式參數</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attack_repeat</span>(<span class="params">count</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        重複攻擊</span></span><br><span class="line"><span class="string">    :param count:int類型，重複的次數 </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;側踹&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;直拳&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;擺拳&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;勾拳&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;肘擊&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 實際參數</span></span><br><span class="line">attack_repeat(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">print(&quot;直拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;擺拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;勾拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;肘擊&quot;)</span></span><br><span class="line"><span class="string">#.......</span></span><br><span class="line"><span class="string">print(&quot;直拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;擺拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;勾拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;肘擊&quot;)</span></span><br><span class="line"><span class="string">#.......</span></span><br><span class="line"><span class="string">print(&quot;直拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;擺拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;勾拳&quot;)</span></span><br><span class="line"><span class="string">print(&quot;肘擊&quot;)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數-返回值</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun01</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;fun01執行嘍&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span><span class="comment"># 返回100</span></span><br><span class="line"></span><br><span class="line">number = fun01()</span><br><span class="line"><span class="built_in">print</span>(number)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun02</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;fun01執行嘍&quot;</span>)</span><br><span class="line">    <span class="comment"># return # return關鍵字後面如果沒有資料，相當於返回None</span></span><br><span class="line">    <span class="comment"># 如果函數沒有返回值，也相當於返回None</span></span><br><span class="line"></span><br><span class="line">re = fun02()</span><br><span class="line"><span class="built_in">print</span>(re)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 即使有返回值，調用者仍然可以不使用變數來接受。</span></span><br><span class="line">fun01()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數-應用</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 函數：封裝一個特定功能，表示一個行為。</span></span><br><span class="line"><span class="comment">#      小而精</span></span><br><span class="line"><span class="comment"># 兩個數值相加功能</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>():</span><br><span class="line">    number_one = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入第一個資料：&quot;</span>))</span><br><span class="line">    number_two = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入第二個資料：&quot;</span>))</span><br><span class="line">    result = number_one + number_two</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;結果是：&quot;</span> + <span class="built_in">str</span>(result))</span><br><span class="line"></span><br><span class="line">add()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add</span>(<span class="params">number_one, number_two</span>):</span><br><span class="line">    <span class="keyword">return</span> number_one + number_two</span><br><span class="line"></span><br><span class="line">result = add(<span class="number">5</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    函數記憶體分配</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 將函數的代碼，存儲到代碼區，函數體中的代碼不執行。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun01</span>():</span><br><span class="line">    a = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 調用函數時，在記憶體中開闢空間，存儲函數內部定義的變數，該空間叫做棧幀。</span></span><br><span class="line"><span class="comment"># 函數執行過後，棧幀釋放。</span></span><br><span class="line">fun01()</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun02</span>(<span class="params">p1,p2</span>):</span><br><span class="line">    p1 = <span class="number">20</span></span><br><span class="line">    p2[<span class="number">0</span>] = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 結論1：傳入不可變物件，函數體內部不可能修改資料</span></span><br><span class="line">a = <span class="number">10</span></span><br><span class="line"><span class="comment"># 結論2：傳入可變物件，函數體內部可能修改資料</span></span><br><span class="line">b = [<span class="number">10</span>]</span><br><span class="line">fun02(a,b)</span><br><span class="line"><span class="built_in">print</span>(a)<span class="comment">#?</span></span><br><span class="line"><span class="built_in">print</span>(b)<span class="comment">#?20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun03</span>(<span class="params">p1,p2</span>):</span><br><span class="line">    p1[<span class="number">0</span>] = <span class="number">20</span></span><br><span class="line">    p2 = <span class="number">20</span></span><br><span class="line"></span><br><span class="line">a = [<span class="number">10</span>]</span><br><span class="line">b = [<span class="number">10</span>]</span><br><span class="line">fun02(a,b)</span><br><span class="line"><span class="built_in">print</span>(a)<span class="comment">#?</span></span><br><span class="line"><span class="built_in">print</span>(b)<span class="comment">#?</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="練習題"><a href="#練習題" class="headerlink" title="練習題:"></a>練習題:</h3><p>練習題一 : 將下列代碼，定義到函數中，列印矩形。</p>
+<p>練習題二 : 定義函數，計算多位元整數每位元相加和。</p>
+<p>練習題三 : 定義函數，根據成績計算等級。</p>
+<p>練習題四 : 定義函數，判斷清單中是否存在相同元素。</p>
+<p>練習題五 : 定義函數計數器，統計函數被調用的次數。</p>
+<p>練習題六 : 定義函數，根據小時、分鐘、秒計算總秒數。</p>
+<p>要求：</p>
+<ul>
+<li>根據小時、分鐘、秒</li>
+<li>根據小時、分鐘</li>
+<li>根據分鐘、秒</li>
+<li>根據分鐘</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">練習題一 :</span></span><br><span class="line"><span class="string">將下列代碼，定義到函數中，列印矩形。</span></span><br><span class="line"><span class="string">	for r in range(3):</span></span><br><span class="line"><span class="string">        for c in range(5):</span></span><br><span class="line"><span class="string">            print(&quot;*&quot;, end=&quot; &quot;)</span></span><br><span class="line"><span class="string">        print()</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">print_rectangle</span>(<span class="params">r_count,c_count,char</span>):</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(r_count):</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(c_count):</span><br><span class="line">            <span class="built_in">print</span>(char, end=<span class="string">&quot; &quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>()</span><br><span class="line"></span><br><span class="line">print_rectangle(<span class="number">5</span>,<span class="number">3</span>,<span class="string">&quot;*&quot;</span>)</span><br><span class="line">print_rectangle(<span class="number">2</span>,<span class="number">7</span>,<span class="string">&quot;#&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">   練習題二 : 定義函數，計算多位元整數每位元相加和.</span></span><br><span class="line"><span class="string">    輸入：12345</span></span><br><span class="line"><span class="string">    輸出：15</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">each_unit_sum</span>(<span class="params">number</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        計算整數的每位元相加和</span></span><br><span class="line"><span class="string">    :param number:需要操作的資料，int類型</span></span><br><span class="line"><span class="string">    :return:相加的結果，int類型</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    sum_value = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">str</span>(number):</span><br><span class="line">        sum_value += <span class="built_in">int</span>(item)</span><br><span class="line">    <span class="keyword">return</span> sum_value</span><br><span class="line"></span><br><span class="line">re = each_unit_sum(<span class="number">12345</span>)</span><br><span class="line"><span class="built_in">print</span>(re)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習題三 :定義函數，根據成績計算等級。</span></span><br><span class="line"><span class="string">    輸入：96</span></span><br><span class="line"><span class="string">    輸出：優秀</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def get_score_level(score):</span></span><br><span class="line"><span class="comment">#     if score &lt; 0 or score &gt; 100:</span></span><br><span class="line"><span class="comment">#         return &quot;成績輸入有誤&quot;</span></span><br><span class="line"><span class="comment">#     elif 90 &lt;= score:</span></span><br><span class="line"><span class="comment">#         return &quot;優秀&quot;</span></span><br><span class="line"><span class="comment">#     elif 80 &lt;= score:</span></span><br><span class="line"><span class="comment">#         return &quot;良好&quot;</span></span><br><span class="line"><span class="comment">#     elif 60 &lt;= score:</span></span><br><span class="line"><span class="comment">#         return &quot;及格&quot;</span></span><br><span class="line"><span class="comment">#     else:</span></span><br><span class="line"><span class="comment">#         return &quot;不及格&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_score_level</span>(<span class="params">score</span>):</span><br><span class="line">    <span class="keyword">if</span> score &lt; <span class="number">0</span> <span class="keyword">or</span> score &gt; <span class="number">100</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;成績輸入有誤&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">90</span> &lt;= score:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;優秀&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">80</span> &lt;= score:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;良好&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">60</span> &lt;= score:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;及格&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;不及格&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_score_level(<span class="number">95</span>))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習題四 :定義函數，判斷清單中是否存在相同元素</span></span><br><span class="line"><span class="string">    輸入：[3,4,6,8,6]</span></span><br><span class="line"><span class="string">    輸出：True</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">is_repeating</span>(<span class="params">list_target</span>):</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list_target) - <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(r + <span class="number">1</span>, <span class="built_in">len</span>(list_target)):</span><br><span class="line">            <span class="keyword">if</span> list_target[r] == list_target[c]:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">list01 = [<span class="number">3</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">7</span>]</span><br><span class="line"><span class="built_in">print</span>(is_repeating(list01))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習題五 :定義函數計數器，統計函數被調用的次數。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fun01</span>():</span><br><span class="line">    <span class="keyword">global</span> count</span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">fun01()</span><br><span class="line">fun01()</span><br><span class="line">fun01()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;執行次數是：&quot;</span> + <span class="built_in">str</span>(count))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習題六 :定義函數，根據小時、分鐘、秒計算總秒數。</span></span><br><span class="line"><span class="string">    要求：</span></span><br><span class="line"><span class="string">        根據小時、分鐘、秒</span></span><br><span class="line"><span class="string">        根據小時、分鐘</span></span><br><span class="line"><span class="string">        根據分鐘、秒</span></span><br><span class="line"><span class="string">        根據分鐘</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_total_second</span>(<span class="params">hour=<span class="number">0</span>, minute=<span class="number">0</span>, second=<span class="number">0</span></span>):</span><br><span class="line">    <span class="keyword">return</span> hour * <span class="number">3600</span> + minute * <span class="number">60</span> + second</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(get_total_second(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(get_total_second(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(get_total_second(minute=<span class="number">2</span>, second=<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(get_total_second(minute=<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day05-01-%E5%87%BD%E6%95%B8-function/" title="【Python零基礎】_Day05_01_函數 function">https://judyxi.github.io/2021/12/28/2021-12-28-【Python零基礎】-Day05-01-函數-function/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day04-03-%E9%9B%86%E5%90%88-set/" rel="prev" title="【Python零基礎】_Day04_03_集合 set">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day04_03_集合 set
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day05-02-%E5%AF%A6%E5%8F%83%E5%82%B3%E9%81%9E%E6%96%B9%E5%BC%8F-argument/" rel="next" title="【Python零基礎】_Day05_02_實參傳遞方式 argument">
+      【Python零基礎】_Day05_02_實參傳遞方式 argument <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm%E7%9B%B8%E9%97%9C%E8%A8%AD%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">pycharm相關設置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9"><span class="nav-number">2.</span> <span class="nav-text">定義</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9%E5%87%BD%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">定義函數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%BF%E7%94%A8%E5%87%BD%E6%95%B8"><span class="nav-number">3.1.</span> <span class="nav-text">調用函數</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%AE%8A%EF%BC%8F%E4%B8%8D%E5%8F%AF%E8%AE%8A%E9%A1%9E%E5%9E%8B%E5%9C%A8%E5%82%B3%E5%8F%83%E6%99%82%E7%9A%84%E5%8D%80%E5%88%A5"><span class="nav-number">5.</span> <span class="nav-text">可變／不可變類型在傳參時的區別</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E8%AE%8A%E9%A1%9E%E5%9E%8B%E5%8F%83%E6%95%B8%E6%9C%89"><span class="nav-number">5.1.</span> <span class="nav-text">不可變類型參數有:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%AE%8A%E9%A1%9E%E5%9E%8B%E5%8F%83%E6%95%B8%E6%9C%89"><span class="nav-number">5.2.</span> <span class="nav-text">可變類型參數有:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C"><span class="nav-number">5.3.</span> <span class="nav-text">練習題:</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

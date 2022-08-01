@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="練習題1練習1：在終端中錄入一個半徑，輸出圓形的面積(3.14 × 半徑的平方)，輸出的格式：圓形面積是：xxx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day02_02_算數運算練習題">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="練習題1練習1：在終端中錄入一個半徑，輸出圓形的面積(3.14 × 半徑的平方)，輸出的格式：圓形面積是：xxx">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-26T09:38:07.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:48:34.992Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day02_02_算數運算練習題 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day02_02_算數運算練習題
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 17:38:07" itemprop="dateCreated datePublished" datetime="2021-12-26T17:38:07+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:48:34" itemprop="dateModified" datetime="2022-06-16T15:48:34+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="練習題1"><a href="#練習題1" class="headerlink" title="練習題1"></a>練習題1</h2><p>練習1：在終端中錄入一個半徑，輸出圓形的面積(3.14 × 半徑的平方)，輸出的格式：圓形面積是：xxx</p>
+<span id="more"></span>
+<p>練習2：在終端中分別錄入3個資料(分鐘數、小時數、天數)，輸出總秒數。</p>
+<p>練習3：在終端中首先獲取一個變數，再獲取一個變數，然後交換他們，最後輸出兩個變數。</p>
+<p>練習4：獲取用戶輸入的秒數，計算是多少小時多少分鐘多少秒？</p>
+<p>練習5：古代的秤1斤是16兩，獲取輸入的總兩數，計算是多少斤多少兩？</p>
+<h3 id="解法"><a href="#解法" class="headerlink" title="解法:"></a>解法:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習1：在終端中錄入一個半徑，輸出圓形的面積(3.14 × 半徑的平方)，輸出的格式：圓形面積是：xxx</span></span><br><span class="line">radius = <span class="built_in">input</span>(<span class="string">&quot;請輸入圓形半徑:&quot;</span>)</span><br><span class="line">area = <span class="number">3.14</span> * <span class="built_in">float</span>(radius) ** <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;圓形面積是：&quot;</span> + <span class="built_in">str</span>(area))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習2：在終端中分別錄入3個資料(分鐘數、小時數、天數)，輸出總秒數</span></span><br><span class="line">minute = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入分鐘：&quot;</span>))</span><br><span class="line">hour = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入小時：&quot;</span>))</span><br><span class="line">day = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入天：&quot;</span>))</span><br><span class="line"></span><br><span class="line">result = minute * <span class="number">60</span> + hour * <span class="number">60</span> * <span class="number">60</span> + day * <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;總秒數是：&quot;</span> + <span class="built_in">str</span>(result))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習3：在終端中首先獲取一個變數，再獲取一個變數，然後交換他們，最後輸出兩個變數。</span></span><br><span class="line">variable01 = <span class="built_in">input</span>(<span class="string">&quot;請輸入第一個變數：&quot;</span>)</span><br><span class="line">variable02 = <span class="built_in">input</span>(<span class="string">&quot;請輸入第二個變數：&quot;</span>)</span><br><span class="line"><span class="comment"># 變數交換思想：</span></span><br><span class="line"><span class="comment"># temp = variable01</span></span><br><span class="line"><span class="comment"># variable01= variable02</span></span><br><span class="line"><span class="comment"># variable02 = temp</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># python交換變數</span></span><br><span class="line">variable01, variable02 = variable02, variable01</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第一個變數是：&quot;</span> + variable01)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第二個變數是：&quot;</span> + variable02)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習4：獲取用戶輸入的秒數，計算是多少小時多少分鐘多少秒？</span></span><br><span class="line">seconds = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入秒數:&#x27;</span>))</span><br><span class="line"></span><br><span class="line">hour = seconds // <span class="number">3600</span></span><br><span class="line"><span class="comment">#minute = seconds // 60 % 60</span></span><br><span class="line">minute = seconds % <span class="number">3600</span> // <span class="number">60</span></span><br><span class="line">second = seconds % <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(hour) + <span class="string">&#x27;小時&#x27;</span> + <span class="built_in">str</span>(minute) + <span class="string">&#x27;分鐘&#x27;</span> + <span class="built_in">str</span>(second) + <span class="string">&#x27;秒&#x27;</span>)</span><br><span class="line"></span><br><span class="line">result = hour * <span class="number">3600</span> + minute * <span class="number">60</span> + second</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;總秒數:&#x27;</span> + <span class="built_in">str</span>(result))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習5：古代的秤1斤是16兩，獲取輸入的總兩數，計算是多少斤多少兩？</span></span><br><span class="line"><span class="comment">#解法一</span></span><br><span class="line">weight = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入總兩數:&#x27;</span>))</span><br><span class="line">jin = weight // <span class="number">16</span></span><br><span class="line">liang = weight % <span class="number">16</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(jin) + <span class="string">&#x27;斤&#x27;</span> + <span class="built_in">str</span>(liang) + <span class="string">&#x27;兩&#x27;</span>)</span><br><span class="line"></span><br><span class="line">result = jin * <span class="number">16</span> + liang</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;總兩數:&#x27;</span>, result)</span><br><span class="line"></span><br><span class="line"><span class="comment">#解法二</span></span><br><span class="line">liang_weight = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入量：&quot;</span>))</span><br><span class="line">jin = liang_weight // <span class="number">16</span></span><br><span class="line">liang = liang_weight % <span class="number">16</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">str</span>(jin) + <span class="string">&quot;斤零&quot;</span> + <span class="built_in">str</span>(liang) + <span class="string">&quot;兩&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="練習題2"><a href="#練習題2" class="headerlink" title="練習題2"></a>練習題2</h2><ul>
+<li><p>練習題1:判斷以下運算式返回結果。<br>print(None and 1 or not False)<br>print(0 or not True and True)<br>print(1 &gt; 10 or 1 &lt; 10)<br>print(5 &lt; 8 and 7 &gt; 4)<br>print(‘3’ &#x3D;&#x3D; ‘3’ and 8 &gt; 4)<br>print(1 &gt; 10 or 10 &gt; 1)<br>print(5 &lt; 8 and 7 &lt; 4)<br>print(“3” &#x3D;&#x3D; “3” and 8 &gt; 4)<br>print(6 &#x3D;&#x3D; “6” or 9 &gt; 3)<br>print(“a” !&#x3D; “1” and 5 &#x3D;&#x3D; 5)</p>
+</li>
+<li><p>練習題2:寫出判斷平年或閏年的判斷邏輯。</p>
+</li>
+<li><p>練習題3:寫出判斷平年或閏年的判斷邏輯。</p>
+</li>
+<li><p>在終端中錄入年份，判斷是否為閏年。<br>  條件1：年份能被4整除，但是不能被100整除。<br>  條件2：能被400整除。</p>
+</li>
+<li><p>練習題4:在終端獲取一個四位元數，計算每位相加的和並列印。</p>
+</li>
+<li><p>練習題5:在終端中錄入距離，時間，初速度，計算加速度。</p>
+</li>
+</ul>
+<h3 id="解法-1"><a href="#解法-1" class="headerlink" title="解法:"></a>解法:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題1:判斷以下運算式返回結果。</span></span><br><span class="line"><span class="built_in">print</span>(<span class="literal">None</span> <span class="keyword">and</span> <span class="number">1</span> <span class="keyword">or</span> <span class="keyword">not</span> <span class="literal">False</span>)  <span class="comment">#True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> <span class="keyword">or</span> <span class="keyword">not</span> <span class="literal">True</span> <span class="keyword">and</span> <span class="literal">True</span>)   <span class="comment">#False</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">1</span> &gt; <span class="number">10</span> <span class="keyword">or</span> <span class="number">1</span> &lt; <span class="number">10</span>)   <span class="comment">#True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">5</span> &lt; <span class="number">8</span> <span class="keyword">and</span> <span class="number">7</span> &gt; <span class="number">4</span>)    <span class="comment">#True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;3&#x27;</span> == <span class="string">&#x27;3&#x27;</span> <span class="keyword">and</span> <span class="number">8</span> &gt; <span class="number">4</span>)   <span class="comment">#True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">1</span> &gt; <span class="number">10</span> <span class="keyword">or</span> <span class="number">10</span> &gt; <span class="number">1</span>)<span class="comment"># 一真俱真  --&gt; True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">5</span> &lt; <span class="number">8</span> <span class="keyword">and</span> <span class="number">7</span> &lt; <span class="number">4</span>)<span class="comment"># 一假俱假  --&gt; False</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;3&quot;</span> == <span class="string">&quot;3&quot;</span> <span class="keyword">and</span> <span class="number">8</span> &gt; <span class="number">4</span>)<span class="comment"># 俱真  --&gt; True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">6</span> == <span class="string">&quot;6&quot;</span> <span class="keyword">or</span> <span class="number">9</span> &gt; <span class="number">3</span>)<span class="comment"># 一真俱真  --&gt; True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;a&quot;</span> != <span class="string">&quot;1&quot;</span> <span class="keyword">and</span> <span class="number">5</span> == <span class="number">5</span>)<span class="comment"># 俱真  --&gt; True</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題2:寫出判斷平年或閏年的判斷邏輯</span></span><br><span class="line"><span class="comment"># 閏年的判斷邏輯:</span></span><br><span class="line"><span class="comment">#   1 年份能被4整除,(並且) 但不能被100整除</span></span><br><span class="line"><span class="comment">#   2 年份能被400整除  (條件1與條件2 或者關係)</span></span><br><span class="line"><span class="comment">#  整除: 年份 % 4 == 0</span></span><br><span class="line"></span><br><span class="line">year = -<span class="number">1900</span></span><br><span class="line"></span><br><span class="line">res = year &gt; <span class="number">0</span> <span class="keyword">and</span> \</span><br><span class="line">      (year % <span class="number">4</span> == <span class="number">0</span> <span class="keyword">and</span></span><br><span class="line">      year % <span class="number">100</span> != <span class="number">0</span> <span class="keyword">or</span></span><br><span class="line">      year % <span class="number">400</span> == <span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題3:寫出判斷平年或閏年的判斷邏輯。</span></span><br><span class="line">		<span class="comment">#在終端中錄入年份，判斷是否為閏年。</span></span><br><span class="line">    <span class="comment">#條件1：年份能被4整除，但是不能被100整除。</span></span><br><span class="line">    <span class="comment">#條件2：能被400整除。</span></span><br><span class="line"><span class="comment">#解法一</span></span><br><span class="line">year = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入年份：&quot;</span>))</span><br><span class="line">result = year % <span class="number">4</span> == <span class="number">0</span> <span class="keyword">and</span> year % <span class="number">100</span> != <span class="number">0</span> <span class="keyword">or</span> year % <span class="number">400</span> == <span class="number">0</span></span><br><span class="line"><span class="built_in">print</span>(result)</span><br><span class="line"></span><br><span class="line"><span class="comment">#解法二</span></span><br><span class="line">year = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個年份:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> year &gt; <span class="number">0</span>:</span><br><span class="line">     <span class="keyword">if</span> year % <span class="number">4</span> == <span class="number">0</span> <span class="keyword">and</span> year % <span class="number">100</span> != <span class="number">0</span> <span class="keyword">or</span> year % <span class="number">400</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;閏年&#x27;</span>)</span><br><span class="line">     <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;平年&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;年份輸入錯誤&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題4:在終端獲取一個四位元數，計算每位相加的和並列印。</span></span><br><span class="line"><span class="comment"># 解法一</span></span><br><span class="line"><span class="comment"># 1 獲取資料(四位元數)</span></span><br><span class="line">number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個四位數:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 獲取各個位上的數</span></span><br><span class="line">thousand = number // <span class="number">1000</span></span><br><span class="line">hundred = number % <span class="number">1000</span> // <span class="number">100</span></span><br><span class="line">ten = number % <span class="number">100</span> // <span class="number">10</span></span><br><span class="line">one = number % <span class="number">10</span></span><br><span class="line"><span class="comment"># print(thousand, hundred, ten, one)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 將各個位上的數相加</span></span><br><span class="line">sums = thousand + hundred + ten + one</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4 列印結果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;四位數的和為:&#x27;</span>, sums)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解法二</span></span><br><span class="line"><span class="comment"># 增強運算子處理方法</span></span><br><span class="line">number = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個四位數:&#x27;</span>))</span><br><span class="line"></span><br><span class="line">sums = number // <span class="number">1000</span></span><br><span class="line">sums += number % <span class="number">1000</span> // <span class="number">100</span></span><br><span class="line">sums += number % <span class="number">100</span> // <span class="number">10</span></span><br><span class="line">sums += number % <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;四位數的和為:&#x27;</span>, sums)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題5:在終端中錄入距離，時間，初速度，計算加速度。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    勻變速直線運動的位移與時間公式：</span></span><br><span class="line"><span class="string">        距離=初速度 * 時間 + 加速度 * 時間平方的一半</span></span><br><span class="line"><span class="string">    輸入：</span></span><br><span class="line"><span class="string">        距離:100</span></span><br><span class="line"><span class="string">        初速度:2</span></span><br><span class="line"><span class="string">        時間:5</span></span><br><span class="line"><span class="string">    輸出：加速度7.2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    公式：</span></span><br><span class="line"><span class="string">        距離=初速度 * 時間 + 加速度 * 時間**2 * 0.5</span></span><br><span class="line"><span class="string">        (距離 - 初速度 * 時間) * 2/ 時間**2 = 加速度</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">distance = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入距離：&quot;</span>))</span><br><span class="line">initial_velocity = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入初速度：&quot;</span>))</span><br><span class="line">time = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入時間：&quot;</span>))</span><br><span class="line">accelerated_speed = (distance - initial_velocity * time) * <span class="number">2</span> / time ** <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;加速度是：&quot;</span> + <span class="built_in">str</span>(accelerated_speed))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="練習題3"><a href="#練習題3" class="headerlink" title="練習題3"></a>練習題3</h2><p>練習題1:輸入4個同學的體重，列印出體重最重的值。</p>
+<p>練習題2:輸入一個成績，判斷該成績是屬於哪個成績等級？</p>
+<p>練習題3:玩家重複猜測，直到猜對為止。每次提示：大了、小了，若猜對了則列印恭喜猜對並結束猜數，列印總共猜了多少次。</p>
+<p>練習題4:列印 20 - 1 之間的[偶數]</p>
+<h3 id="解法-2"><a href="#解法-2" class="headerlink" title="解法:"></a>解法:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題1:輸入4個同學的體重，列印出體重最重的值</span></span><br><span class="line">weight1 = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入第1個學生的體重:&#x27;</span>))</span><br><span class="line">weight2 = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入第2個學生的體重:&#x27;</span>))</span><br><span class="line">weight3 = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入第3個學生的體重:&#x27;</span>))</span><br><span class="line">weight4 = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入第4個學生的體重:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> weight4 &gt; <span class="number">0</span> <span class="keyword">and</span> weight3 &gt; <span class="number">0</span> <span class="keyword">and</span> weight2 &gt; <span class="number">0</span> <span class="keyword">and</span> weight1 &gt; <span class="number">0</span>:</span><br><span class="line"><span class="comment">#     # 假設法: 假設其中一個資料最大,依次後後續的資料比較,最終計算出最大值</span></span><br><span class="line">     max_weight = weight1</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> weight2 &gt; max_weight:</span><br><span class="line">         max_weight = weight2</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> weight3 &gt; max_weight:</span><br><span class="line">         max_weight = weight3</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span> weight4 &gt; max_weight:</span><br><span class="line">         max_weight = weight4</span><br><span class="line"></span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;最重體重值為:&#x27;</span>, max_weight)</span><br><span class="line"> <span class="keyword">else</span>:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;請輸入正確的體重值&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#練習題2:輸入一個成績，判斷該成績是屬於哪個成績等級？</span></span><br><span class="line"><span class="comment"># 	  [0-60) 屬於E級</span></span><br><span class="line"><span class="comment">#     [60, 70)屬於D級</span></span><br><span class="line"><span class="comment">#     [70, 80)屬於C級</span></span><br><span class="line"><span class="comment">#     [80, 90)屬於B級</span></span><br><span class="line"><span class="comment">#     [90, 100]屬於A級</span></span><br><span class="line"><span class="comment">#     其他值均錯誤</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法1:</span></span><br><span class="line">score = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個成績:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="number">0</span> &lt;= score &lt; <span class="number">60</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;E等級&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="number">60</span> &lt;= score &lt; <span class="number">70</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;D等級&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="number">70</span> &lt;= score &lt; <span class="number">80</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;C等級&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="number">80</span> &lt;= score &lt; <span class="number">90</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;B等級&#x27;</span>)</span><br><span class="line"><span class="keyword">elif</span> <span class="number">90</span> &lt;= score &lt;= <span class="number">100</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;A等級&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;成績輸入錯誤&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2: if語句嵌套</span></span><br><span class="line">score = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個成績:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="number">100</span> &gt;= score &gt;= <span class="number">0</span>:   <span class="comment"># 成績正確</span></span><br><span class="line">    <span class="keyword">if</span> score &lt; <span class="number">60</span>:   <span class="comment"># [0, 60)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;E等級&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> score &lt; <span class="number">70</span>: <span class="comment"># [60, 70)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;D等級&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> score &lt; <span class="number">80</span>: <span class="comment"># [70, 80)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;C等級&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> score &lt; <span class="number">90</span>: <span class="comment"># [80, 90)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;B等級&#x27;</span>)</span><br><span class="line">    <span class="comment"># elif score &lt;= 100: # [90, 100]</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;A等級&#x27;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;成績輸入錯誤&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 隨機猜數：產生1個1到100之間的亂數：</span></span><br><span class="line"><span class="comment">#練習題3:玩家重複猜測，直到猜對為止。每次提示：大了、小了，若猜對了則列印恭喜猜對並結束猜數，列印總共猜了多少次。</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">分析:</span></span><br><span class="line"><span class="string">    1 產生一個1-100(包含)之間的隨機整數</span></span><br><span class="line"><span class="string">    2 創建變數,記錄次數</span></span><br><span class="line"><span class="string">    3 迴圈輸入數:</span></span><br><span class="line"><span class="string">        記錄次數 += 1</span></span><br><span class="line"><span class="string">        判斷輸入的數與亂數的大小關係:</span></span><br><span class="line"><span class="string">            大: 輸入的數 &gt; 亂數</span></span><br><span class="line"><span class="string">            小: 輸入的數 &lt; 亂數</span></span><br><span class="line"><span class="string">            等: 輸入的數 == 亂數,列印猜測次數,結束迴圈</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">randNum = random.randint(<span class="number">1</span>, <span class="number">10</span>)  <span class="comment"># 隨機產生[1,10]的整數</span></span><br><span class="line"><span class="comment"># print(randNum)</span></span><br><span class="line">times = <span class="number">0</span>  <span class="comment"># 記錄次數</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  <span class="comment"># 未知迴圈次數</span></span><br><span class="line">    userNum = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個[1,100]的整數&#x27;</span>))</span><br><span class="line">    times += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> userNum &gt; randNum:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;大了&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> userNum &lt; randNum:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;小了&#x27;</span>)</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment"># userNum == randNum</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;恭喜您猜對了&#x27;</span>, <span class="string">&quot;共使用&quot;</span> + <span class="built_in">str</span>(times) + <span class="string">&quot;次機會&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 練習題4:列印 1 - 20 之間的整數</span></span><br><span class="line"><span class="comment"># 方法1: 先列印後加</span></span><br><span class="line">x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> x &lt; <span class="number">20</span>:</span><br><span class="line">    <span class="built_in">print</span>(x, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    x += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2:先加後列印</span></span><br><span class="line">x = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> x &lt; <span class="number">19</span>:</span><br><span class="line">    x += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(x, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#練習題4:列印 20 - 1 之間的[偶數]</span></span><br><span class="line"><span class="comment"># 偶數: 數 % 2 == 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 方法1:</span></span><br><span class="line">y = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> y &gt; <span class="number">1</span>:    <span class="comment"># 1 迴圈列印20-1之間的整數</span></span><br><span class="line">     <span class="keyword">if</span> y % <span class="number">2</span> == <span class="number">0</span>: <span class="comment"># 2 判斷20-1之間的哪些是偶數,是則列印</span></span><br><span class="line">         <span class="built_in">print</span>(y, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">     y -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2:</span></span><br><span class="line">y = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> y &gt; <span class="number">1</span>:</span><br><span class="line">    <span class="built_in">print</span>(y, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    y -= <span class="number">2</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/" title="【Python零基礎】_Day02_02_算數運算練習題">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day01-08-算數運算練習題/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/" rel="prev" title="【Python零基礎】_Day02_01_算數運算">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day02_01_算數運算
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/" rel="next" title="【Python零基礎】_Day02_03_選擇語句">
+      【Python零基礎】_Day02_03_選擇語句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C1"><span class="nav-number">1.</span> <span class="nav-text">練習題1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">解法:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C2"><span class="nav-number">2.</span> <span class="nav-text">練習題2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95-1"><span class="nav-number">2.1.</span> <span class="nav-text">解法:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C3"><span class="nav-number">3.</span> <span class="nav-text">練習題3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%B3%95-2"><span class="nav-number">3.1.</span> <span class="nav-text">解法:</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

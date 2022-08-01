@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="算術運算子+加法-減法*乘法&#x2F;	除法：結果為浮點數&#x2F;&#x2F;	地板除：除的結果去掉小數部分%	求餘**	冪運算優先順序從高到低： (  **     —&gt;     * &#x2F; % &#x2F;&#x2F;        —&gt;  + -     )  凡是浮點數參與的運算,結果一定是浮點數">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day02_01_算數運算">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="算術運算子+加法-減法*乘法&#x2F;	除法：結果為浮點數&#x2F;&#x2F;	地板除：除的結果去掉小數部分%	求餘**	冪運算優先順序從高到低： (  **     —&gt;     * &#x2F; % &#x2F;&#x2F;        —&gt;  + -     )  凡是浮點數參與的運算,結果一定是浮點數">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/6CJrCBT.png">
+<meta property="article:published_time" content="2021-12-26T09:30:40.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:37.133Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/6CJrCBT.png">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day02_01_算數運算 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day02_01_算數運算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 17:30:40" itemprop="dateCreated datePublished" datetime="2021-12-26T17:30:40+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:37" itemprop="dateModified" datetime="2022-06-16T15:47:37+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="算術運算子"><a href="#算術運算子" class="headerlink" title="算術運算子"></a>算術運算子</h2><p>+加法<br>-減法<br>*乘法<br>&#x2F;	除法：結果為浮點數<br>&#x2F;&#x2F;	地板除：除的結果去掉小數部分<br>%	求餘<br>**	冪運算<br>優先順序從高到低： (  **     <strong>—&gt;</strong>     * &#x2F; % &#x2F;&#x2F;        <strong>—&gt;</strong>  + -     )</p>
+<blockquote>
+<p>凡是浮點數參與的運算,結果一定是浮點數</p>
+</blockquote>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="number">4.3</span> + <span class="number">6</span>)  <span class="comment"># 加法</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">4.3</span> - <span class="number">6</span>)  <span class="comment"># 減法</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">4</span> * <span class="number">6</span>)    <span class="comment"># 乘法</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> / <span class="number">2</span>)   <span class="comment"># 除法 [/ 返回值結果是浮點數]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">13</span> / <span class="number">5</span>)   <span class="comment"># 除法 - 取小數商</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">13</span> % <span class="number">5</span>)   <span class="comment"># 取餘(取模)  - 取餘數</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">13</span> // <span class="number">5</span>)  <span class="comment"># 地板除(向下取整)  - 取整數商</span></span><br><span class="line"><span class="built_in">print</span>(-<span class="number">13</span> // <span class="number">5</span>)  <span class="comment"># 地板除(向下取整)  - 取整數商</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">13.9</span> // <span class="number">2</span>)  <span class="comment"># 地板除(向下取整)  - 取整數商</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">2</span> ** <span class="number">10</span>)   <span class="comment"># 求冪 - 2的10次方</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">12</span> * <span class="number">10</span> ** <span class="number">9</span>)   <span class="comment"># 求冪 - 12乘以10的9次方</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="literal">True</span> + <span class="number">1</span>)   <span class="comment"># True對應的數值為1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="literal">False</span> + <span class="number">1</span>)   <span class="comment"># False對應的數值為0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="練習"><a href="#練習" class="headerlink" title="練習"></a>練習</h3><ol>
+<li>超市西瓜 13 元一個, 問，你拿100 元可以買幾個西瓜，找零多少?</li>
+<li>獲取數字：324  百位、十位、個位上對應的數字</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一題</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;個數&#x27;</span>, <span class="number">100</span> // <span class="number">13</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;找零&#x27;</span>, <span class="number">100</span> % <span class="number">13</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二題</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;百位:&#x27;</span>, <span class="number">324</span> // <span class="number">100</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;十位:&#x27;</span>, <span class="number">324</span> % <span class="number">100</span> // <span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;十位:&#x27;</span>, <span class="number">324</span> // <span class="number">10</span> % <span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;個位:&#x27;</span>, <span class="number">324</span> % <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgur.com/6CJrCBT"><img src="https://i.imgur.com/6CJrCBT.png" title="source: imgur.com" /></a></p>
+<h2 id="增強運算子"><a href="#增強運算子" class="headerlink" title="增強運算子"></a>增強運算子</h2><ul>
+<li>功能 : 變數與其他資料運算的結果重新賦值給變數(節省記憶體)</li>
+<li>y +&#x3D; x		等同於 y &#x3D; y + x</li>
+<li>y -&#x3D; x		等同於 y &#x3D; y - x</li>
+<li>y *&#x3D; x		等同於 y &#x3D; y * x</li>
+<li>y &#x2F;&#x3D; x		等同於 y &#x3D; y &#x2F; x</li>
+<li>y &#x2F;&#x2F;&#x3D; x		等同於 y &#x3D; y &#x2F;&#x2F; x</li>
+<li>y %&#x3D; x		等同於 y &#x3D; y % x</li>
+<li>y **&#x3D; x		等同於 y &#x3D; y ** x</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:在a的基礎上,加2 (自增)  [其他程式設計語言: ++/--]</span></span><br><span class="line">a += <span class="number">2</span>   <span class="comment"># 等效於</span></span><br><span class="line"><span class="comment"># a = a + 2</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 創建新的變數(佔用記憶體)</span></span><br><span class="line">a1 = a + <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(a1)</span><br><span class="line"></span><br><span class="line">a //= <span class="number">6</span></span><br><span class="line"><span class="built_in">print</span>(a)</span><br></pre></td></tr></table></figure>
+
+<h2 id="比較運算子"><a href="#比較運算子" class="headerlink" title="比較運算子"></a>比較運算子</h2><p>“&lt;		小於”<br>“&lt;&#x3D;		小於等於”<br>“&gt;&#x3D;      大於”<br>“&gt;&#x3D;		大於等於”<br>“&#x3D;&#x3D;		等於等於”<br>“!&#x3D;		不等於”<br>返回布林類型的值<br>比較運算的數學表示方式:0 &lt;&#x3D; x &lt;&#x3D; 100</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">10</span></span><br><span class="line">b = <span class="number">15</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a &gt; b)   <span class="comment"># 10 &gt; 15  不成立(False)</span></span><br><span class="line"><span class="built_in">print</span>(a &lt; b)   <span class="comment"># 10 &lt; 15  成立(True)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(a &lt;= <span class="number">15</span>)  <span class="comment"># 10 &lt;= 15 [10 &lt; 15 或者 10 == 15]  成立(True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判斷值是否在某個區間內</span></span><br><span class="line">age = <span class="number">16</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> &lt;= age &lt;= <span class="number">18</span>)   <span class="comment"># 鏈式比較</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># == 與 !=</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> == <span class="number">2</span> * <span class="number">5</span>)    <span class="comment"># 等於</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> != <span class="number">2</span> * <span class="number">5</span>)    <span class="comment"># 不等於</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10.0</span> == <span class="number">2</span> * <span class="number">5</span>)  <span class="comment"># 等於</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="布林-邏輯-運算子"><a href="#布林-邏輯-運算子" class="headerlink" title="布林(邏輯)運算子"></a>布林(邏輯)運算子</h2><ul>
+<li>短路邏輯<br>說明：一旦結果確定，後面的運算式將不再執行<br>擴展：邏輯運算時，儘量將複雜的（耗時的）判斷放在最後面</li>
+</ul>
+<h2 id="與and"><a href="#與and" class="headerlink" title="與and"></a>與and</h2><ul>
+<li>表示並且的關係，一假俱假。(都得滿足條件，結論才滿足條件表達並且的關係)</li>
+</ul>
+<p>示例:<br>True and True   # True<br>True and False  # False<br>False and True  # False<br>False and False # False</p>
+<h2 id="或or"><a href="#或or" class="headerlink" title="或or"></a>或or</h2><ul>
+<li>表示或者的關係，一真俱真。(一個滿足就行 表達或者的關係)</li>
+</ul>
+<p>示例:<br>True or True              # True<br>True or False             # True<br>False or True             # True<br>False or False            # False</p>
+<h2 id="非-not"><a href="#非-not" class="headerlink" title="非 not"></a>非 not</h2><ul>
+<li>表示取反</li>
+</ul>
+<p>例如：<br>not True   # 返回False<br>not False  # 返回True</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例:"></a>示例:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># and - 描述:並且</span></span><br><span class="line"><span class="comment"># or - 描述:或者</span></span><br><span class="line"><span class="comment"># not - 描述:不(非)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:有房有車有存款</span></span><br><span class="line">house = <span class="built_in">input</span>(<span class="string">&#x27;請問有房嗎?&#x27;</span>)</span><br><span class="line">money = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請問您的資產:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(house == <span class="string">&#x27;有&#x27;</span> <span class="keyword">and</span> money &gt;= <span class="number">1000000</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">and</span></span><br><span class="line"><span class="string">    運算式1      運算式2       結果</span></span><br><span class="line"><span class="string">     True        True        True</span></span><br><span class="line"><span class="string">     True        False       False</span></span><br><span class="line"><span class="string">     False       True        False</span></span><br><span class="line"><span class="string">     False       False       False</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  結論: 一假俱假</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">house = <span class="built_in">input</span>(<span class="string">&#x27;請問有房嗎?&#x27;</span>)</span><br><span class="line">money = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請問您的資產:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(house == <span class="string">&#x27;有&#x27;</span> <span class="keyword">or</span> money &gt;= <span class="number">1000000</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">or</span></span><br><span class="line"><span class="string">    運算式1      運算式2       結果</span></span><br><span class="line"><span class="string">     True        True        True</span></span><br><span class="line"><span class="string">     True        False       True</span></span><br><span class="line"><span class="string">     False       True        True</span></span><br><span class="line"><span class="string">     False       False       False</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  結論: 一真俱真</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">需求: 資產不少於<span class="number">1000000</span></span><br><span class="line">money = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請問您的資產:&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> money &lt; <span class="number">1000000</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">not   </span></span><br><span class="line"><span class="string">       運算式     結果</span></span><br><span class="line"><span class="string">       True      False</span></span><br><span class="line"><span class="string">       False     True</span></span><br><span class="line"><span class="string">       </span></span><br><span class="line"><span class="string">  結論: 真亦假,假亦真</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># bool 函數</span></span><br><span class="line"><span class="comment"># bool(物件)    # 判斷物件的真假狀態</span></span><br><span class="line"><span class="comment"># 為假的情況:</span></span><br><span class="line"><span class="comment">#  0</span></span><br><span class="line"><span class="comment">#  0.0</span></span><br><span class="line"><span class="comment">#  False</span></span><br><span class="line"><span class="comment">#  None</span></span><br><span class="line"><span class="comment">#  &#x27;&#x27;/&quot;&quot;</span></span><br><span class="line"><span class="comment">#  空容器</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 數值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">bool</span>(<span class="number">10</span>), <span class="built_in">bool</span>(<span class="number">20</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span>)    <span class="comment"># 20</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> <span class="keyword">and</span> <span class="number">0</span>)     <span class="comment"># 0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> <span class="keyword">and</span> <span class="number">0.0</span>)    <span class="comment"># 0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> <span class="keyword">and</span> <span class="number">10</span>)     <span class="comment"># 0</span></span><br><span class="line"><span class="comment"># and: 優先返回為假(如果運算式1為真,則返回運算式2,否則直接返回運算式1)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> <span class="keyword">or</span> <span class="number">20</span>)    <span class="comment"># 10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">10</span> <span class="keyword">or</span> <span class="number">0</span>)     <span class="comment"># 10</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> <span class="keyword">or</span> <span class="number">0.0</span>)    <span class="comment"># 0.0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="number">0</span> <span class="keyword">or</span> <span class="number">10</span>)     <span class="comment"># 10</span></span><br><span class="line"><span class="comment"># or: 優先返回為真(如果運算式1為真,則直接返回運算式1,否則返回運算式2)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> <span class="number">0</span>)    <span class="comment"># not bool(0) --&gt; True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> <span class="number">1</span>)    <span class="comment"># not bool(1) --&gt; False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># and</span></span><br><span class="line"><span class="comment"># 運算式1(True) --&gt; 運算式2(True)  --&gt; 結果(True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="comment"># 運算式1(True) --&gt;  結果(True)</span></span><br><span class="line"><span class="comment"># 運算式2(True) --&gt;  結果(True)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># and</span></span><br><span class="line"><span class="comment"># print(input(&#x27;請問有房嗎?&#x27;) == &#x27;有&#x27; and</span></span><br><span class="line"><span class="comment">#       int(input(&#x27;請問您的資產:&#x27;)) &gt;= 1000000)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line"><span class="comment"># print(input(&#x27;請問有房嗎?&#x27;) == &#x27;有&#x27; or</span></span><br><span class="line"><span class="comment">#       int(input(&#x27;請問您的資產:&#x27;)) &gt;= 1000000)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># not</span></span><br><span class="line"><span class="built_in">print</span>(<span class="keyword">not</span> <span class="built_in">input</span>(<span class="string">&#x27;請問有房嗎?&#x27;</span>) == <span class="string">&#x27;有&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="短路運算"><a href="#短路運算" class="headerlink" title="短路運算"></a>短路運算</h2><ul>
+<li>一但結果確定，後面的語句將不再執行。</li>
+</ul>
+<h2 id="身份運算子"><a href="#身份運算子" class="headerlink" title="身份運算子"></a>身份運算子</h2><p>語法:</p>
+<ul>
+<li>x is y</li>
+<li>x is not y</li>
+</ul>
+<p>作用：</p>
+<ul>
+<li>is 用於判斷兩個物件是否是同一個物件,是時返回True,否則返回False。</li>
+<li>is not 的作用與is相反</li>
+</ul>
+<h3 id="優先順序"><a href="#優先順序" class="headerlink" title="優先順序"></a>優先順序</h3><p>高到低：</p>
+<blockquote>
+<p>算數運算子 —&gt;  比較運算子 —&gt;  快捷運算子 —&gt;  身份運算子 —&gt;  邏輯運算子</p>
+</blockquote>
+<h2 id="語句"><a href="#語句" class="headerlink" title="語句"></a>語句</h2><h3 id="行"><a href="#行" class="headerlink" title="行"></a>行</h3><ol>
+<li>物理行：程式師編寫代碼的行。</li>
+<li>邏輯行：python解譯器需要執行的指令。</li>
+<li>建議一個邏輯行在一個物理行上。</li>
+<li>如果一個物理行中使用多個邏輯行，需要使用分號；隔開。</li>
+<li>如果邏輯行過長，可以使用隱式換行或顯式換行。</li>
+</ol>
+<ul>
+<li>隱式換行：所有括弧的內容換行,稱為隱式換行</li>
+<li>括弧包括:  ()  []   {} 三種</li>
+<li>顯式換行：通過折行符 \ (反斜線)換行，必須放在一行的末尾，目的是告訴解譯器,下一行也是本行的語句。</li>
+</ul>
+<h3 id="pass-語句"><a href="#pass-語句" class="headerlink" title="pass 語句"></a>pass 語句</h3><ul>
+<li>通常用來填充語法空白。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3個物理行,3個邏輯行</span></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">b = <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(a, b)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2個物理行,3個邏輯行(不推薦)</span></span><br><span class="line">a = <span class="number">1</span>;b = <span class="number">2</span></span><br><span class="line"><span class="built_in">print</span>(a, b)</span><br><span class="line"></span><br><span class="line">year = -<span class="number">1900</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4個物理行,1個邏輯行</span></span><br><span class="line"><span class="comment"># 顯式換行: \  續行符</span></span><br><span class="line">res = year &gt; <span class="number">0</span> <span class="keyword">and</span> \</span><br><span class="line">      (year % <span class="number">4</span> == <span class="number">0</span> <span class="keyword">and</span></span><br><span class="line">       year % <span class="number">100</span> != <span class="number">0</span> <span class="keyword">or</span></span><br><span class="line">       year % <span class="number">400</span> == <span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 隱式換行</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(res)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-01-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97/" title="【Python零基礎】_Day02_01_算數運算">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day02-01-算數運算/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-06-%E6%A0%B8%E5%BF%83%E6%95%B8%E6%93%9A%E9%A1%9E%E5%9E%8B/" rel="prev" title="【Python零基礎】_Day01_06_核心數據類型">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day01_06_核心數據類型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/" rel="next" title="【Python零基礎】_Day02_02_算數運算練習題">
+      【Python零基礎】_Day02_02_算數運算練習題 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">算術運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92"><span class="nav-number">1.1.</span> <span class="nav-text">練習</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%BC%B7%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">增強運算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%94%E8%BC%83%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">3.</span> <span class="nav-text">比較運算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E6%9E%97-%E9%82%8F%E8%BC%AF-%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">4.</span> <span class="nav-text">布林(邏輯)運算子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%88%87and"><span class="nav-number">5.</span> <span class="nav-text">與and</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%96or"><span class="nav-number">6.</span> <span class="nav-text">或or</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E-not"><span class="nav-number">7.</span> <span class="nav-text">非 not</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">示例:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%AD%E8%B7%AF%E9%81%8B%E7%AE%97"><span class="nav-number">9.</span> <span class="nav-text">短路運算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">10.</span> <span class="nav-text">身份運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%84%AA%E5%85%88%E9%A0%86%E5%BA%8F"><span class="nav-number">10.1.</span> <span class="nav-text">優先順序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AA%9E%E5%8F%A5"><span class="nav-number">11.</span> <span class="nav-text">語句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C"><span class="nav-number">11.1.</span> <span class="nav-text">行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pass-%E8%AA%9E%E5%8F%A5"><span class="nav-number">11.2.</span> <span class="nav-text">pass 語句</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

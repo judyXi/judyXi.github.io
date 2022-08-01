@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="定義 由一系列變數組成的可變序列容器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day03_04_列表">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-04-%E5%88%97%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="定義 由一系列變數組成的可變序列容器。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-27T15:35:36.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:43.809Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-04-%E5%88%97%E8%A1%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day03_04_列表 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-04-%E5%88%97%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day03_04_列表
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-27 23:35:36" itemprop="dateCreated datePublished" datetime="2021-12-27T23:35:36+08:00">2021-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:43" itemprop="dateModified" datetime="2022-06-16T15:47:43+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h1><blockquote>
+<p>由一系列變數組成的可變序列容器。</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="基礎操作"><a href="#基礎操作" class="headerlink" title="基礎操作"></a>基礎操作</h2><p>創建列表：</p>
+<ul>
+<li><p>列表名 &#x3D; []</p>
+</li>
+<li><p>清單名 &#x3D; list(可反覆運算對象)</p>
+</li>
+</ul>
+<p>添加元素：</p>
+<ul>
+<li><p>列表名.append(元素)</p>
+</li>
+<li><p>列表.insert(索引，元素)</p>
+</li>
+</ul>
+<p>定位元素：</p>
+<ul>
+<li>清單名[索引] &#x3D; 元素</li>
+<li>變數 &#x3D; 清單名[索引]</li>
+<li>變數 &#x3D; 清單名[切片] # 賦值給變數的是切片所創建的新列表</li>
+<li>列表名[切片] &#x3D; 容器 # 右側必須是可反覆運算物件，左側切片沒有創建新列表。遍歷列表：</li>
+</ul>
+<p>正向：</p>
+<ul>
+<li>for 變數名 in 列表名:</li>
+<li>變數名就是元素</li>
+</ul>
+<p>反向：</p>
+<ul>
+<li>for 索引名 in range(len(列表名)-1,-1,-1):</li>
+<li>清單名[索引名]就是元素</li>
+</ul>
+<p>刪除元素：</p>
+<ul>
+<li>列表名.remove(元素)</li>
+<li>del 清單名[索引或切片]</li>
+</ul>
+<h3 id="實際操作"><a href="#實際操作" class="headerlink" title="實際操作"></a>實際操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    列表 list</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 1. 創建列表</span></span><br><span class="line">list01 = []</span><br><span class="line">list02 = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line">list01 = [<span class="number">90</span>,<span class="string">&quot;唐僧&quot;</span>,<span class="literal">True</span>]</span><br><span class="line"><span class="comment"># 根據其他可反覆運算物件</span></span><br><span class="line">list02 = <span class="built_in">list</span>(<span class="string">&quot;我是齊天大聖&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 添加</span></span><br><span class="line"><span class="comment"># -- 追加</span></span><br><span class="line">list01.append(<span class="string">&quot;悟空&quot;</span>)</span><br><span class="line"><span class="comment"># -- 插入</span></span><br><span class="line">list01.insert(<span class="number">2</span>,<span class="string">&quot;八戒&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 獲取</span></span><br><span class="line"><span class="comment"># 索引：單個</span></span><br><span class="line"><span class="built_in">print</span>(list01[-<span class="number">1</span>])</span><br><span class="line"><span class="comment"># 切片：多個</span></span><br><span class="line"><span class="comment"># 創建新列表</span></span><br><span class="line"><span class="built_in">print</span>(list01[:<span class="number">3</span>])</span><br><span class="line"><span class="comment"># 迴圈：所有</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> list01:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"><span class="comment"># 倒序</span></span><br><span class="line"><span class="comment"># 因為切片會產生新清單，浪費記憶體，所以不建議下面的方式</span></span><br><span class="line"><span class="comment"># for item in list01[::-1]:</span></span><br><span class="line"><span class="comment">#     print(item)</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list01)-<span class="number">1</span>,-<span class="number">1</span>,-<span class="number">1</span>):</span><br><span class="line">    <span class="built_in">print</span>(list01[i])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 修改</span></span><br><span class="line"><span class="comment"># 索引</span></span><br><span class="line"><span class="comment"># 將右側的資料位址賦值給左側定位的元素</span></span><br><span class="line">list01[-<span class="number">1</span>] = <span class="string">&quot;end&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片</span></span><br><span class="line"><span class="comment"># 遍歷右側的可反覆運算物件，將每個元素賦值給左側定位的元素</span></span><br><span class="line"><span class="comment"># list01[:2] = [1,2]</span></span><br><span class="line"><span class="built_in">print</span>(list01)</span><br><span class="line"><span class="comment"># list01[:2] = [1,2,3,4,5,6,7,8,9,10]</span></span><br><span class="line"><span class="comment"># list01[:3] = []</span></span><br><span class="line">list01[<span class="number">1</span>:<span class="number">1</span>] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="comment"># 迴圈</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(list01)):</span><br><span class="line">    list01[i] = <span class="literal">None</span></span><br><span class="line"><span class="built_in">print</span>(list01)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 刪除</span></span><br><span class="line"><span class="comment"># 根據元素移除</span></span><br><span class="line">list02.remove(<span class="string">&quot;我&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根據索引、切片移除</span></span><br><span class="line"><span class="keyword">del</span> list02[-<span class="number">1</span>]</span><br><span class="line"><span class="keyword">del</span> list02[:<span class="number">2</span>]</span><br><span class="line"><span class="built_in">print</span>(list02)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    列表記憶體分配(列表內存分配)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list01 = [<span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">list02 = list01</span><br><span class="line">list01[<span class="number">0</span>] = <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(list02[<span class="number">0</span>])  <span class="comment"># ?100</span></span><br><span class="line"></span><br><span class="line">list01 = [<span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">list02 = list01</span><br><span class="line">list01 = <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(list02[<span class="number">0</span>])  <span class="comment"># ?10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 練習：</span></span><br><span class="line">list01 = [<span class="number">10</span>, <span class="number">20</span>]</span><br><span class="line">list02 = list01[:]</span><br><span class="line">list01[<span class="number">0</span>] = <span class="number">100</span></span><br><span class="line"><span class="built_in">print</span>(list02[<span class="number">0</span>])  <span class="comment"># ?</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"></span><br><span class="line">list01 = [<span class="number">10</span>, [<span class="number">20</span>, <span class="number">30</span>]]</span><br><span class="line">list02 = list01[:]  <span class="comment"># 淺拷貝</span></span><br><span class="line">list03 = list01  <span class="comment"># 賦值</span></span><br><span class="line">list04 = copy.deepcopy(list01)  <span class="comment"># 深拷貝</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 深拷貝</span></span><br><span class="line"><span class="comment"># 優點:互不影響</span></span><br><span class="line"><span class="comment"># 缺點：往往佔用記憶體過多</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表資料類型</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 創建一個空列表</span></span><br><span class="line">list01 = [] <span class="comment"># 一個空清單 (空清單邏輯為假 非空清單邏輯為真)</span></span><br><span class="line"><span class="built_in">print</span>(list01,<span class="built_in">type</span>(list01))</span><br><span class="line"></span><br><span class="line">list02 = <span class="built_in">list</span>()</span><br><span class="line"><span class="built_in">print</span>(list02,<span class="built_in">type</span>(list02))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 創建一個非空列表 (所有Python支持的資料類型均可放入列表)</span></span><br><span class="line">list03 = [<span class="number">1</span>,<span class="number">3.14</span>,<span class="literal">True</span>,<span class="string">&quot;abc&quot;</span>,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]]</span><br><span class="line"><span class="built_in">print</span>(list03)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通過list將可反覆運算對象生成清單</span></span><br><span class="line">list04 = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">5</span>))</span><br><span class="line">list04 = <span class="built_in">list</span>(<span class="string">&quot;abcdef&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(list04)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表運算</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">list01 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">list02 = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">list03 = list01 + list02</span><br><span class="line"><span class="built_in">print</span>(list03)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;list-1:&quot;</span>,<span class="built_in">id</span>(list01))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;list-2:&quot;</span>,<span class="built_in">id</span>(list02))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;list-3:&quot;</span>,<span class="built_in">id</span>(list03))</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">list01 += list02</span><br><span class="line"><span class="built_in">print</span>(list01)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;list-1:&quot;</span>,<span class="built_in">id</span>(list01))</span><br><span class="line"></span><br><span class="line">列表重複  列表預留</span><br><span class="line"><span class="built_in">print</span>(list01 * <span class="number">3</span>)</span><br><span class="line">list01 *= <span class="number">3</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(list01))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表比較</span></span><br><span class="line">list01 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">list02 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="built_in">print</span>(list01 &gt; list02)</span><br><span class="line"><span class="built_in">print</span>(list01 == list02)</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 獲取列表長度 -&gt; 列表之間比較大小並不是比長度</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(list01))</span><br><span class="line"></span><br><span class="line"><span class="comment"># in  操作</span></span><br><span class="line">L = [<span class="string">&quot;tom&quot;</span>,<span class="string">&quot;Lily&quot;</span>,<span class="string">&quot;Jame&quot;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;tom&quot;</span> <span class="keyword">in</span> L)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Joy&quot;</span> <span class="keyword">not</span> <span class="keyword">in</span> L)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">切片 slice</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">L = <span class="built_in">list</span>(<span class="string">&quot;abcdefghijklmn&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(L) <span class="comment"># [ a, b-&gt;1 ,c ,d-&gt;3,e,f-5,g,h,i,......n -1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片取值  [start起始索引: end取到end-1的索引位元]</span></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">1</span>:<span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(L[:<span class="number">5</span>]) <span class="comment">#ｓｔａｒｔ 0可以省略</span></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">5</span>:]) <span class="comment">#想取到最後一項，ｅｎｄ可以略  len(L) = 最後索引　＋　１</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># print(L[5:-1])</span></span><br><span class="line"><span class="built_in">print</span>(L[:]) <span class="comment"># 從頭到尾</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 步長</span></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">1</span>:<span class="number">10</span>:<span class="number">3</span>]) <span class="comment"># 正步長　ｓｔａｒｔ索引代表的元素在　ｅｎｄ索引元素前邊</span></span><br><span class="line"><span class="built_in">print</span>(L[-<span class="number">6</span>:<span class="number">1</span>:-<span class="number">2</span>]) <span class="comment"># 負步長　ｓｔａｒｔ索引元素在ｅｎｄ元素的後邊</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表索引取值</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">L = [<span class="number">5</span>,<span class="string">&quot;Python&quot;</span>,<span class="number">3</span>,[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;第一項:&quot;</span>,L[<span class="number">0</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最後項:&quot;</span>,L[<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取清單元素中的子元素</span></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">3</span>][<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 反向取值</span></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">0</span>],L[<span class="number">1</span>],L[<span class="number">2</span>],L[<span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(L[-<span class="number">4</span>],L[-<span class="number">3</span>],L[-<span class="number">2</span>],L[-<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">修改列表中的值</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">L = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改其中一個  : 指定元素重新賦值</span></span><br><span class="line">L[<span class="number">1</span>] = <span class="number">10</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">L[<span class="number">1</span>],L[<span class="number">3</span>] = <span class="number">20</span>,<span class="number">40</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替換其中一段</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(L[<span class="number">1</span>]))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(L[<span class="number">4</span>]))</span><br><span class="line">L[<span class="number">1</span>:<span class="number">4</span>] = [<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>] <span class="comment"># 通過切片截取原列表中的一段進行替換</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">id</span>(L[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(L[<span class="number">1</span>:<span class="number">5</span>:<span class="number">2</span>])</span><br><span class="line">L[<span class="number">1</span>:<span class="number">5</span>:<span class="number">2</span>] = [<span class="number">20</span>,<span class="number">40</span>]</span><br><span class="line"><span class="comment"># L[1],L[3] = [20,40]</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L[:-<span class="number">4</span>:-<span class="number">2</span>] = [<span class="number">70</span>,<span class="number">50</span>]</span><br><span class="line"></span><br><span class="line">a,b,c = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">print</span>(a,b,c)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看</span></span><br><span class="line"><span class="built_in">print</span>(L.index(<span class="number">20</span>)) <span class="comment"># 返回對應值的索引,找不到報錯</span></span><br><span class="line"><span class="built_in">print</span>(L.index(<span class="number">20</span>,<span class="number">3</span>,<span class="number">5</span>)) <span class="comment"># L[3:5]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">內建函數　　內置函數　：　　Ｐｙｔｈｏｎ自帶的函數</span></span><br><span class="line"><span class="string">builtin  function</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">L = [<span class="number">1</span>,<span class="number">2</span>,<span class="literal">False</span>,<span class="number">4</span>,<span class="number">5</span>] <span class="comment"># True -&gt; 1  False -&gt; 0</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最大:&quot;</span>,<span class="built_in">max</span>(L))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最小:&quot;</span>,<span class="built_in">min</span>(L))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;求和:&quot;</span>,<span class="built_in">sum</span>(L)) <span class="comment"># 13</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;列表長度:&quot;</span>,<span class="built_in">len</span>(L))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假: 0  False []  &quot;&quot;   None</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;是否有邏輯真的元素:&quot;</span>,<span class="built_in">any</span>(L)) <span class="comment"># 一個真--&gt;True</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;是否全都是邏輯真的元素:&quot;</span>,<span class="built_in">all</span>(L)) <span class="comment">#　全都為真　－－＞　Ｔｒｕｅ</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表操作</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">L = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="string">&quot;Python&quot;</span>,<span class="string">&quot;Java&quot;</span>,<span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">L.append(<span class="string">&quot;Go&quot;</span>)   <span class="comment"># 末尾添加一項</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L.insert(<span class="number">3</span>,<span class="number">4</span>) <span class="comment"># 在3號索引位置增加一個4</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L.extend([<span class="string">&quot;桃園&quot;</span>,<span class="string">&quot;台東&quot;</span>,<span class="string">&quot;台南&quot;</span>]) <span class="comment"># 合併一個列表 L += [xxxxx]</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刪除</span></span><br><span class="line">res = L.pop(<span class="number">0</span>) <span class="comment"># 刪除一項並返回這一項元素內容</span></span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L.remove(<span class="string">&quot;台東&quot;</span>) <span class="comment"># 刪除第一個&quot;台東&quot;值</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> L[<span class="number">1</span>] <span class="comment"># 單獨擦除一項</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> L[<span class="number">1</span>:<span class="number">3</span>] <span class="comment"># 更靈活的刪除</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L.clear() <span class="comment"># 清空列表</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表排序</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">L = [<span class="number">0</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]</span><br><span class="line"></span><br><span class="line">L.sort() <span class="comment"># 昇冪排序</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">L.sort(reverse=<span class="literal">True</span>) <span class="comment"># 降冪排序</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L.reverse() <span class="comment"># 列表翻轉</span></span><br><span class="line"><span class="built_in">print</span>(L)</span><br><span class="line"></span><br><span class="line">L = [<span class="string">&quot;Python&quot;</span>,<span class="string">&quot;Java&quot;</span>,<span class="string">&quot;Go&quot;</span>,<span class="string">&quot;PHP&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">func</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(a) <span class="comment"># 按照長度排序呢</span></span><br><span class="line"></span><br><span class="line">L.sort(key=func)</span><br><span class="line"><span class="built_in">print</span>(L)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">列表遍歷</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">L = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> L:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> L[<span class="number">1</span>:<span class="number">5</span>]:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(L)):</span><br><span class="line">    <span class="built_in">print</span>(L[i])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> L[::-<span class="number">1</span>]:</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(L) - <span class="number">1</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">    <span class="built_in">print</span>(L[i])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    練習題1 : 在控制台中迴圈錄入同學們的身高，如果輸入空，則停止。</span></span><br><span class="line"><span class="string">    列印所有人的身高(一行一個)。</span></span><br><span class="line"><span class="string">    列印總數。</span></span><br><span class="line"><span class="string">    列印最高、最低、和平均的身高。</span></span><br><span class="line"><span class="string">    使用 max   min    sum</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list_height = []</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    str_height = <span class="built_in">input</span>(<span class="string">&quot;請輸入身高：&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> str_height == <span class="string">&quot;&quot;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    list_height.append(<span class="built_in">float</span>(str_height))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> list_height:</span><br><span class="line">    <span class="built_in">print</span>(item)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(list_height))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">max</span>(list_height))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">min</span>(list_height))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">sum</span>(list_height)/<span class="built_in">len</span>(list_height))</span><br></pre></td></tr></table></figure>
+
+<h2 id="清單-列表-VS字串"><a href="#清單-列表-VS字串" class="headerlink" title="清單(列表)VS字串"></a>清單(列表)VS字串</h2><ol>
+<li>清單和字串都是序列,元素之間有先後順序關係。</li>
+<li>字串是不可變的序列,列表是可變的序列。</li>
+<li>字串中每個元素只能存儲字元,而清單可以存儲任意類型。</li>
+<li>清單和字串都是可反覆運算物件。</li>
+<li>函數：<ul>
+<li>將多個字串拼接為一個。</li>
+<li>result &#x3D; “連接子”.join(列表)</li>
+<li>將一個字串拆分為多個。</li>
+<li>列表 &#x3D; “a-b-c-d”.split(“分隔符號”)</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">清單與字串淵源</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">l1 = <span class="built_in">list</span>(<span class="string">&quot;abcdef&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(l1) <span class="comment"># [a,b,c,d,e,f]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表拼接: 使用指定字串將清單中每項連接起來形成一個大字串</span></span><br><span class="line"><span class="comment"># str01 = &#x27;##&#x27;.join(l1)</span></span><br><span class="line"><span class="comment"># print(str01)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模擬 join</span></span><br><span class="line"><span class="comment"># str02 = &#x27;&#x27;</span></span><br><span class="line"><span class="comment"># for i in l1:</span></span><br><span class="line"><span class="comment">#     str02 += i</span></span><br><span class="line"><span class="comment">#     str02 += &quot;##&quot;</span></span><br><span class="line"><span class="comment"># print(str02)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照指定的子串進行拆分　－－＞　列表</span></span><br><span class="line">str03 = <span class="string">&quot;Hello world nihao china&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str03.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">str03 = <span class="string">&quot;Hello world nihao china&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str03.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">str03 = <span class="string">&quot;Hello world nihao china&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str03.split(<span class="string">&quot; &quot;</span>,<span class="number">2</span>)) <span class="comment">#最多拆分2次</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="列表推導式"><a href="#列表推導式" class="headerlink" title="列表推導式"></a>列表推導式</h2><ul>
+<li><p>定義：<br>使用簡易方法，將可反覆運算物件轉換為清單。</p>
+</li>
+<li><p>語法：<br>變數 &#x3D; [運算式 for 變數 in 可反覆運算物件]<br>變數 &#x3D; [運算式 for 變數 in 可反覆運算物件 if 條件]</p>
+</li>
+<li><p>說明:<br>如果if真值表達式的布林值為False,則可反覆運算物件生成的資料將被丟棄。</p>
+</li>
+</ul>
+<h2 id="列表推導式嵌套"><a href="#列表推導式嵌套" class="headerlink" title="列表推導式嵌套"></a>列表推導式嵌套</h2><ul>
+<li><p>語法：<br>變數 &#x3D; [運算式 for 變數1 in 可反覆運算物件1 for 變數2 in可反覆運算物件2]</p>
+</li>
+<li><p>傳統寫法：<br>result &#x3D; []</p>
+<p>  for r in  [“a”, “b”, “c”]:</p>
+<p>  for c in [“A”, “B”, “C”]:</p>
+<p>  result.append(r + c)</p>
+</li>
+<li><p>推導式寫法：<br>result &#x3D; [r + c for r in list01 for c in list02]</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    list --&gt; str</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 根據xx邏輯，拼接一個字串。</span></span><br><span class="line"><span class="comment"># range(10) --&gt; &quot;0123456789&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># str_result = &quot;&quot;# 不可變</span></span><br><span class="line"><span class="comment"># for item in range(10):</span></span><br><span class="line"><span class="comment">#     # str_result += str(item)</span></span><br><span class="line"><span class="comment">#     # 每次迴圈 每次拼接 都會創建新物件 產生一個垃圾</span></span><br><span class="line"><span class="comment">#     str_result = str_result + str(item)</span></span><br><span class="line"><span class="comment"># print(str_result)</span></span><br><span class="line"></span><br><span class="line">list_temp = []<span class="comment">#可變</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="comment"># 每次追加新物件 不會產生垃圾</span></span><br><span class="line">    list_temp.append(<span class="built_in">str</span>(item))</span><br><span class="line"></span><br><span class="line">str_result = <span class="string">&quot;-&quot;</span>.join(list_temp)</span><br><span class="line"><span class="built_in">print</span>(str_result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在終端中迴圈錄入字串，如果輸入空則停止。</span></span><br><span class="line"><span class="string">    最後列印所有的內容(拼接後的字串)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list_temp = []</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    str_input = <span class="built_in">input</span>(<span class="string">&quot;請輸入：&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> str_input == <span class="string">&quot;&quot;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    list_temp.append(str_input)</span><br><span class="line">str_result = <span class="string">&quot;&quot;</span>.join(list_temp)</span><br><span class="line"><span class="built_in">print</span>(str_result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    str --&gt; list</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">message = <span class="string">&quot;悟空-豬八戒-沙和尚&quot;</span></span><br><span class="line">list_result = message.split(<span class="string">&quot;-&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(list_result)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    list 推導式</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list01 = [<span class="number">5</span>, <span class="number">56</span>, <span class="number">67</span>, <span class="number">7</span>, <span class="number">89</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># list02 = []</span></span><br><span class="line"><span class="comment"># for item in list01:</span></span><br><span class="line"><span class="comment">#     list02.append( item + 1 )</span></span><br><span class="line"></span><br><span class="line">list02 = [item + <span class="number">1</span> <span class="keyword">for</span> item <span class="keyword">in</span> list01]</span><br><span class="line"><span class="built_in">print</span>(list02)</span><br><span class="line"></span><br><span class="line"><span class="comment"># list03 = []</span></span><br><span class="line"><span class="comment"># for item in list01:</span></span><br><span class="line"><span class="comment">#     if item % 2 ==0:</span></span><br><span class="line"><span class="comment">#         list03.append(item)</span></span><br><span class="line">list03 = [item <span class="keyword">for</span> item <span class="keyword">in</span> list01 <span class="keyword">if</span> item % <span class="number">2</span> == <span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(list03)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    列表推導式嵌套</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">list01 = [<span class="string">&quot;香蕉&quot;</span>,<span class="string">&quot;蘋果&quot;</span>,<span class="string">&quot;哈密瓜&quot;</span>]</span><br><span class="line">list02 = [<span class="string">&quot;咖啡&quot;</span>,<span class="string">&quot;牛奶&quot;</span>,<span class="string">&quot;雪碧&quot;</span>,<span class="string">&quot;可樂&quot;</span>]</span><br><span class="line"><span class="comment"># list03 = []</span></span><br><span class="line"><span class="comment"># for r in list01:</span></span><br><span class="line"><span class="comment">#     for c in list02:</span></span><br><span class="line"><span class="comment">#         list03.append(r +c)</span></span><br><span class="line">list03 = [r +c <span class="keyword">for</span> r <span class="keyword">in</span> list01 <span class="keyword">for</span> c <span class="keyword">in</span> list02]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(list03)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-04-%E5%88%97%E8%A1%A8/" title="【Python零基礎】_Day03_04_列表">https://judyxi.github.io/2021/12/27/【Python零基礎】-Day03-04-列表/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-03-%E5%AE%B9%E5%99%A8%E9%80%9A%E7%94%A8%E6%93%8D%E4%BD%9C/" rel="prev" title="【Python零基礎】_Day03_03_容器通用操作">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day03_03_容器通用操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/28/2021-12-28-%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day04-01-%E5%85%83%E7%A5%96-tuple/" rel="next" title="【Python零基礎】_Day04_01_元祖 tuple">
+      【Python零基礎】_Day04_01_元祖 tuple <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9"><span class="nav-number">1.</span> <span class="nav-text">定義</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">基礎操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.1.</span> <span class="nav-text">實際操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E5%96%AE-%E5%88%97%E8%A1%A8-VS%E5%AD%97%E4%B8%B2"><span class="nav-number">1.2.</span> <span class="nav-text">清單(列表)VS字串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%8E%A8%E5%B0%8E%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">列表推導式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E6%8E%A8%E5%B0%8E%E5%BC%8F%E5%B5%8C%E5%A5%97"><span class="nav-number">1.4.</span> <span class="nav-text">列表推導式嵌套</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

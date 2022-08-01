@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="設計原則開-閉原則（目標、總的指導思想）Open Closed Principle對擴展開放，對修改關閉。增加新功能，不改變原有代碼。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【物件導向Object Oriented】_07_設計原則">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-07-%E8%A8%AD%E8%A8%88%E5%8E%9F%E5%89%87/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="設計原則開-閉原則（目標、總的指導思想）Open Closed Principle對擴展開放，對修改關閉。增加新功能，不改變原有代碼。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-28T14:25:00.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:50.064Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-07-%E8%A8%AD%E8%A8%88%E5%8E%9F%E5%89%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【物件導向Object Oriented】_07_設計原則 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-07-%E8%A8%AD%E8%A8%88%E5%8E%9F%E5%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【物件導向Object Oriented】_07_設計原則
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-28 22:25:00" itemprop="dateCreated datePublished" datetime="2021-12-28T22:25:00+08:00">2021-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:50" itemprop="dateModified" datetime="2022-06-16T15:47:50+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="設計原則"><a href="#設計原則" class="headerlink" title="設計原則"></a>設計原則</h2><h3 id="開-閉原則（目標、總的指導思想）"><a href="#開-閉原則（目標、總的指導思想）" class="headerlink" title="開-閉原則（目標、總的指導思想）"></a>開-閉原則（目標、總的指導思想）</h3><p><strong>O</strong>pen <strong>C</strong>losed <strong>P</strong>rinciple<br>對擴展開放，對修改關閉。<br>增加新功能，不改變原有代碼。</p>
+<span id="more"></span>
+<h3 id="類的單一職責（一個類的定義）"><a href="#類的單一職責（一個類的定義）" class="headerlink" title="類的單一職責（一個類的定義）"></a>類的單一職責（一個類的定義）</h3><p><strong>S</strong>ingle <strong>R</strong>esponsibility <strong>P</strong>rinciple<br>一個類有且只有一個改變它的原因。</p>
+<h3 id="依賴倒置（依賴抽象）"><a href="#依賴倒置（依賴抽象）" class="headerlink" title="依賴倒置（依賴抽象）"></a>依賴倒置（依賴抽象）</h3><p><strong>D</strong>ependency <strong>I</strong>nversion <strong>P</strong>rinciple<br>用戶端代碼(調用的類)儘量依賴(使用)抽象。<br>抽象不應該依賴細節，細節應該依賴抽象。</p>
+<h3 id="組合複用原則（複用的最佳實踐）"><a href="#組合複用原則（複用的最佳實踐）" class="headerlink" title="組合複用原則（複用的最佳實踐）"></a>組合複用原則（複用的最佳實踐）</h3><p><strong>C</strong>omposite <strong>R</strong>euse <strong>P</strong>rinciple<br>如果僅僅為了代碼複用優先選擇組合複用，而非繼承複用。<br>組合的耦合性相對繼承低。</p>
+<h3 id="里氏替換（繼承後的重寫，指導繼承的設計）"><a href="#里氏替換（繼承後的重寫，指導繼承的設計）" class="headerlink" title="里氏替換（繼承後的重寫，指導繼承的設計）"></a>里氏替換（繼承後的重寫，指導繼承的設計）</h3><p><strong>L</strong>iskov <strong>S</strong>ubstitution <strong>P</strong>rinciple<br>父類出現的地方可以被子類替換，在替換後依然保持原功能。<br>子類要擁有父類的所有功能。<br>子類在重寫父類方法時，儘量選擇擴展重寫，防止改變了功能。</p>
+<h3 id="迪米特法則（類與類交互的原則）"><a href="#迪米特法則（類與類交互的原則）" class="headerlink" title="迪米特法則（類與類交互的原則）"></a>迪米特法則（類與類交互的原則）</h3><p><strong>L</strong>aw <strong>o</strong>f <strong>D</strong>emeter<br>不要和陌生人說話。<br>類與類交互時，在滿足功能要求的基礎上，傳遞的資料量越少越好。因為這樣可能降低耦合度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    設計思想 - 引入</span></span><br><span class="line"><span class="string">        老張開車去東北</span></span><br><span class="line"><span class="string">        變化點：飛機、火車、輪船...</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">go_to</span>(<span class="params">self, vehicle</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;走嘍&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">type</span>(vehicle) == Car:</span><br><span class="line">            vehicle.run()</span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">type</span>(vehicle) == Airplane:</span><br><span class="line">            vehicle.fly()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">run</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;嘟嘟～&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Airplane</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fly</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;嗖嗖~&quot;</span>)</span><br><span class="line"></span><br><span class="line">p01 = Person(<span class="string">&quot;老張&quot;</span>)</span><br><span class="line">c01 = Car()</span><br><span class="line">a01 = Airplane()</span><br><span class="line">p01.go_to(a01)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    設計思想</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">go_to</span>(<span class="params">self, vehicle</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;走嘍&quot;</span>)</span><br><span class="line">        <span class="comment"># 1. 調用交通工具(父)</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(vehicle,Vehicle):</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;傳入的必須是交通工具&quot;</span>)</span><br><span class="line"></span><br><span class="line">        vehicle.transport()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vehicle</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        交通工具:隔離人與具體交通工具的變化</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">transport</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------------------------</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Car</span>(<span class="title class_ inherited__">Vehicle</span>):</span><br><span class="line">    <span class="comment"># 3. 重寫</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">transport</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;嘟嘟～&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Airplane</span>(<span class="title class_ inherited__">Vehicle</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">transport</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;嗖嗖~&quot;</span>)</span><br><span class="line"></span><br><span class="line">p01 = Person(<span class="string">&quot;老張&quot;</span>)</span><br><span class="line">c01 = Car()</span><br><span class="line">a01 = Airplane()</span><br><span class="line"><span class="comment"># 2. 創建子類對象</span></span><br><span class="line">p01.go_to(c01)</span><br></pre></td></tr></table></figure>
+<h2 id="練習"><a href="#練習" class="headerlink" title="練習:"></a>練習:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    創建員工管理器：</span></span><br><span class="line"><span class="string">        1. 記錄所有員工</span></span><br><span class="line"><span class="string">        2. 計算總薪資</span></span><br><span class="line"><span class="string">    崗位：</span></span><br><span class="line"><span class="string">        1. 程式師:底薪 + 項目分紅</span></span><br><span class="line"><span class="string">        2. 測試員：底薪 + Bug數 * 5</span></span><br><span class="line"><span class="string">        ...</span></span><br><span class="line"><span class="string">    要求：</span></span><br><span class="line"><span class="string">        增加新員工,管理器代碼不變.</span></span><br><span class="line"><span class="string">    體會：三大特徵，四大原則</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EmployeeManager</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.__employees = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_employee</span>(<span class="params">self, emp</span>):</span><br><span class="line">        self.__employees.append(emp)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calculate_total_salary</span>(<span class="params">self</span>):</span><br><span class="line">        total_salary = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> self.__employees:</span><br><span class="line">            total_salary += item.get_salary()</span><br><span class="line">        <span class="keyword">return</span> total_salary</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_salary=<span class="number">0</span></span>):</span><br><span class="line">        self.base_salary = base_salary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_salary</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.base_salary</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Programmer</span>(<span class="title class_ inherited__">Employee</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_salary=<span class="number">0</span>, bonus=<span class="number">0</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(base_salary)</span><br><span class="line">        self.bonus = bonus</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_salary</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># return self.base_salary + self.bonus</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().get_salary() + self.bonus</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Tester</span>(<span class="title class_ inherited__">Employee</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, base_salary=<span class="number">0</span>, bug_count=<span class="number">0</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__(base_salary)</span><br><span class="line">        self.bug_count = bug_count</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_salary</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>().get_salary() + self.bug_count * <span class="number">5</span></span><br><span class="line"></span><br><span class="line">manager = EmployeeManager()</span><br><span class="line">manager.add_employee(Programmer(<span class="number">10000</span>, <span class="number">50000</span>))</span><br><span class="line">manager.add_employee(Tester(<span class="number">8000</span>, <span class="number">200</span>))</span><br><span class="line"><span class="built_in">print</span>(manager.calculate_total_salary())</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    風清揚使用獨孤九劍攻擊</span></span><br><span class="line"><span class="string">    任我行使用吸星大法攻擊</span></span><br><span class="line"><span class="string">    令狐沖即使用獨孤九劍有使用吸星大法攻擊</span></span><br><span class="line"><span class="string">    ...</span></span><br><span class="line"><span class="string">    可能還有很多人,很多技能。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name=<span class="string">&quot;&quot;</span></span>):</span><br><span class="line">        self.name = name</span><br><span class="line">        self.__skills = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_skill</span>(<span class="params">self, skill</span>):</span><br><span class="line">        self.__skills.append(skill)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">release_skill</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(self.name, <span class="string">&quot;釋放技能&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> self.__skills:</span><br><span class="line">            item.attack()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Skill</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DuGuJiuJian</span>(<span class="title class_ inherited__">Skill</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().attack()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;獨孤九劍攻擊&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">XiXinDaFa</span>(<span class="title class_ inherited__">Skill</span>):</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">attack</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>().attack()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;吸心大法攻擊&quot;</span>)</span><br><span class="line"></span><br><span class="line">fqy = Person(<span class="string">&quot;風清揚&quot;</span>)</span><br><span class="line">fqy.add_skill(DuGuJiuJian())</span><br><span class="line">fqy.release_skill()</span><br><span class="line"></span><br><span class="line">lhc = Person(<span class="string">&quot;令狐沖&quot;</span>)</span><br><span class="line">lhc.add_skill(DuGuJiuJian())</span><br><span class="line">lhc.add_skill(XiXinDaFa())</span><br><span class="line">lhc.release_skill()</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/28/2021-12-28-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-07-%E8%A8%AD%E8%A8%88%E5%8E%9F%E5%89%87/" title="【物件導向Object Oriented】_07_設計原則">https://judyxi.github.io/2021/12/28/2021-12-28-【物件導向Object-Oriented】-07-設計原則/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/28/2021-12-28-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-06-%E4%B8%89%E5%A4%A7%E7%89%B9%E5%BE%B5-%E7%B7%B4%E7%BF%92/" rel="prev" title="【物件導向Object Oriented】_06_三大特徵-練習">
+      <i class="fa fa-chevron-left"></i> 【物件導向Object Oriented】_06_三大特徵-練習
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/05/2022-01-05-%E3%80%90%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91Object-Oriented%E3%80%91-08-%E6%8A%80%E8%83%BD%E7%B3%BB%E7%B5%B1/" rel="next" title="【物件導向Object Oriented】_08_技能系統">
+      【物件導向Object Oriented】_08_技能系統 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A8%AD%E8%A8%88%E5%8E%9F%E5%89%87"><span class="nav-number">1.</span> <span class="nav-text">設計原則</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%96%8B-%E9%96%89%E5%8E%9F%E5%89%87%EF%BC%88%E7%9B%AE%E6%A8%99%E3%80%81%E7%B8%BD%E7%9A%84%E6%8C%87%E5%B0%8E%E6%80%9D%E6%83%B3%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">開-閉原則（目標、總的指導思想）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%9E%E7%9A%84%E5%96%AE%E4%B8%80%E8%81%B7%E8%B2%AC%EF%BC%88%E4%B8%80%E5%80%8B%E9%A1%9E%E7%9A%84%E5%AE%9A%E7%BE%A9%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">類的單一職責（一個類的定義）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B3%B4%E5%80%92%E7%BD%AE%EF%BC%88%E4%BE%9D%E8%B3%B4%E6%8A%BD%E8%B1%A1%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">依賴倒置（依賴抽象）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B5%84%E5%90%88%E8%A4%87%E7%94%A8%E5%8E%9F%E5%89%87%EF%BC%88%E8%A4%87%E7%94%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AF%A6%E8%B8%90%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">組合複用原則（複用的最佳實踐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E6%9B%BF%E6%8F%9B%EF%BC%88%E7%B9%BC%E6%89%BF%E5%BE%8C%E7%9A%84%E9%87%8D%E5%AF%AB%EF%BC%8C%E6%8C%87%E5%B0%8E%E7%B9%BC%E6%89%BF%E7%9A%84%E8%A8%AD%E8%A8%88%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">里氏替換（繼承後的重寫，指導繼承的設計）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%89%87%EF%BC%88%E9%A1%9E%E8%88%87%E9%A1%9E%E4%BA%A4%E4%BA%92%E7%9A%84%E5%8E%9F%E5%89%87%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">迪米特法則（類與類交互的原則）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92"><span class="nav-number">2.</span> <span class="nav-text">練習:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

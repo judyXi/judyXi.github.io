@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="If elif else 語句 作用:根據條件有選擇性的執行某條語句或某些語句。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day02_03_選擇語句">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="If elif else 語句 作用:根據條件有選擇性的執行某條語句或某些語句。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-26T14:39:51.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:38.334Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day02_03_選擇語句 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day02_03_選擇語句
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 22:39:51" itemprop="dateCreated datePublished" datetime="2021-12-26T22:39:51+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:38" itemprop="dateModified" datetime="2022-06-16T15:47:38+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="If-elif-else-語句"><a href="#If-elif-else-語句" class="headerlink" title="If elif else 語句"></a>If elif else 語句</h2><blockquote>
+<p>作用:<br>根據條件有選擇性的執行某條語句或某些語句。</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="if結構"><a href="#if結構" class="headerlink" title="if結構"></a>if結構</h3><p>以下使用場景：適用於判斷事物1種情況</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">語句<span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> 條件運算式: </span><br><span class="line">	語句<span class="number">1</span> </span><br><span class="line">語句<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="if-else結構"><a href="#if-else結構" class="headerlink" title="if-else結構"></a>if-else結構</h3><p>以下使用場景：適用於判斷事物2種情況</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">語句<span class="number">0</span> </span><br><span class="line"><span class="keyword">if</span> 條件運算式: </span><br><span class="line">	語句<span class="number">1</span> </span><br><span class="line"><span class="keyword">else</span>: </span><br><span class="line">	語句<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="if-elif-else-結構"><a href="#if-elif-else-結構" class="headerlink" title="if-elif-else 結構"></a>if-elif-else 結構</h3><p>以下使用場景：適用於判斷事物3種或3種以上的情況</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">語句<span class="number">0</span> </span><br><span class="line">	<span class="keyword">if</span> 條件運算式<span class="number">1</span>： </span><br><span class="line">語句<span class="number">1</span>… </span><br><span class="line">	<span class="keyword">elif</span> 條件運算式<span class="number">2</span>: </span><br><span class="line">語句<span class="number">2</span>… </span><br><span class="line">	<span class="keyword">elif</span> 條件運算式<span class="number">3</span>: </span><br><span class="line">語句<span class="number">3</span>… … <span class="keyword">else</span>: </span><br><span class="line">	語句n</span><br></pre></td></tr></table></figure>
+
+<p>結構縮進：官方描述為4個空格（不同的編輯器縮進存在不同），表示代碼的結構層次。</p>
+<ul>
+<li>說明:</li>
+<li>elif 子句可以有0個或多個。</li>
+<li>else 子句可以有0個或1個，且只能放在if語句的最後。</li>
+</ul>
+<h2 id="if-語句的真值表達式"><a href="#if-語句的真值表達式" class="headerlink" title="if 語句的真值表達式"></a>if 語句的真值表達式</h2><p>if 100:<br>print(“真值”)<br>等同於<br>if bool(100):<br>print(“真值”)</p>
+<h2 id="條件運算式"><a href="#條件運算式" class="headerlink" title="條件運算式"></a>條件運算式</h2><ul>
+<li>語法：變數 &#x3D; 結果1 if 條件 else 結果2。</li>
+<li>作用：根據條件(True&#x2F;False) 來決定返回結果1還是結果2。</li>
+<li>執行： 先執行真值表達式，若為True，返回運算式1，否則，返回運算式2。</li>
+<li>使用場景： 適用於簡單事物的2種的情況</li>
+</ul>
+<h2 id="代碼調試"><a href="#代碼調試" class="headerlink" title="代碼調試"></a>代碼調試</h2><p>功能：讓程式中斷，逐行執行。<br>目的：審查代碼的執行流程，明確每行執行的結果<br>流程：<br>1添加中斷點：點擊代碼行【】前，<code>出現紅點</code>。<br>2調試模式：右擊選擇 “debug” 。<br>3點擊“向下”或F7，逐行語句執行。<br>4<code>Ctrl + F2</code> 結束調試模式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">sex = <span class="built_in">input</span>(<span class="string">&quot;請輸入性別：&quot;</span>)</span><br><span class="line"><span class="comment"># sex  變數 等於 &quot;男&quot;</span></span><br><span class="line"><span class="keyword">if</span> sex == <span class="string">&quot;男&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;您好，先生！&quot;</span>)</span><br><span class="line"><span class="comment"># 否則如果</span></span><br><span class="line"><span class="keyword">elif</span> sex == <span class="string">&quot;女&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;您好，女士！&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;性別未知&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 調試：讓程式中斷，逐語句執行。</span></span><br><span class="line"><span class="comment"># 目的：審查程式執行流程</span></span><br><span class="line"><span class="comment">#      查看執行過程中變數的取值</span></span><br><span class="line"><span class="comment"># 步驟：</span></span><br><span class="line"><span class="comment"># 1. 添加中斷點</span></span><br><span class="line"><span class="comment"># 2. 調試運行Debug</span></span><br><span class="line"><span class="comment"># 3. F7 逐語句執行</span></span><br><span class="line"><span class="comment"># 4. Ctrl + F2 停止調試</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="練習題"><a href="#練習題" class="headerlink" title="練習題"></a>練習題</h3><p>第一題 : 先在終端中錄入一個數位</p>
+<ul>
+<li><p>再錄入一個運算子</p>
+</li>
+<li><p>最後錄入一個數字</p>
+</li>
+<li><p>列印計算的結果</p>
+</li>
+<li><p>要求：如果運算子不是+ - * &#x2F;提示“運算子輸入有誤”</p>
+</li>
+</ul>
+<p>第二題 : 在終端中錄入月份，然後列印天數。</p>
+<ul>
+<li><p>輸入：2 輸出：28天</p>
+</li>
+<li><p>輸入：1 3 5 7 8 10 12 輸出：31天</p>
+</li>
+<li><p>輸入：4 6 9 11 輸出： 30天</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第一題 : 先在終端中錄入一個數位</span></span><br><span class="line"><span class="string">    再錄入一個運算子</span></span><br><span class="line"><span class="string">    最後錄入一個數字</span></span><br><span class="line"><span class="string">    列印計算的結果</span></span><br><span class="line"><span class="string">    要求：如果運算子不是+ - * /提示“運算子輸入有誤”</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">number_one = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入第一個數字：&quot;</span>))</span><br><span class="line">operator = <span class="built_in">input</span>(<span class="string">&quot;請輸入運算子：&quot;</span>)</span><br><span class="line">number_two = <span class="built_in">float</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入第二個數字：&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> operator == <span class="string">&quot;+&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(number_one + number_two)</span><br><span class="line"><span class="keyword">elif</span> operator == <span class="string">&quot;-&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(number_one - number_two)</span><br><span class="line"><span class="keyword">elif</span> operator == <span class="string">&quot;*&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(number_one * number_two)</span><br><span class="line"><span class="keyword">elif</span> operator == <span class="string">&quot;/&quot;</span>:</span><br><span class="line">    <span class="built_in">print</span>(number_one / number_two)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;運算子輸入有誤&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    第二題 : 在終端中錄入月份，然後列印天數。</span></span><br><span class="line"><span class="string">    輸入：2 輸出：28天</span></span><br><span class="line"><span class="string">    輸入：1 3 5 7 8 10 12 輸出：31天</span></span><br><span class="line"><span class="string">    輸入：4 6 9 11 輸出： 30天</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">month = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;請輸入月份：&quot;</span>))</span><br><span class="line"><span class="keyword">if</span> month &lt;<span class="number">1</span> <span class="keyword">or</span> month &gt;<span class="number">12</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;月份輸入有誤&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> month == <span class="number">2</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;28天&quot;</span>)</span><br><span class="line"><span class="keyword">elif</span> month == <span class="number">4</span> <span class="keyword">or</span> month == <span class="number">6</span> <span class="keyword">or</span> month ==<span class="number">9</span> <span class="keyword">or</span> month == <span class="number">11</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;30天&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;31天&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><a href="https://judyxi.github.io/2021/12/26/python-ling-ji-chu-day01-08-suan-shu-yun-suan-lian-xi-ti/">【Python零基礎】_Day02_02_算數運算練習題 - 有練習題</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-03-%E9%81%B8%E6%93%87%E8%AA%9E%E5%8F%A5/" title="【Python零基礎】_Day02_03_選擇語句">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day02-03-選擇語句/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-08-%E7%AE%97%E6%95%B8%E9%81%8B%E7%AE%97%E7%B7%B4%E7%BF%92%E9%A1%8C/" rel="prev" title="【Python零基礎】_Day02_02_算數運算練習題">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day02_02_算數運算練習題
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day02-04-%E8%BF%B4%E5%9C%88%E8%AA%9E%E5%8F%A5/" rel="next" title="【Python零基礎】_Day02_04_迴圈語句">
+      【Python零基礎】_Day02_04_迴圈語句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#If-elif-else-%E8%AA%9E%E5%8F%A5"><span class="nav-number">1.</span> <span class="nav-text">If elif else 語句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#if%E7%B5%90%E6%A7%8B"><span class="nav-number">1.1.</span> <span class="nav-text">if結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-else%E7%B5%90%E6%A7%8B"><span class="nav-number">1.2.</span> <span class="nav-text">if-else結構</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-elif-else-%E7%B5%90%E6%A7%8B"><span class="nav-number">1.3.</span> <span class="nav-text">if-elif-else 結構</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-%E8%AA%9E%E5%8F%A5%E7%9A%84%E7%9C%9F%E5%80%BC%E8%A1%A8%E9%81%94%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">if 語句的真值表達式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%9D%E4%BB%B6%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">條件運算式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A2%BC%E8%AA%BF%E8%A9%A6"><span class="nav-number">4.</span> <span class="nav-text">代碼調試</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B7%B4%E7%BF%92%E9%A1%8C"><span class="nav-number">4.1.</span> <span class="nav-text">練習題</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

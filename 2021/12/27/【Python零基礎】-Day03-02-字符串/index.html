@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="定義由一系列字元組成的不可變序列容器，存儲的是字元的編碼值。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day03_02_字符串">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-02-%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="定義由一系列字元組成的不可變序列容器，存儲的是字元的編碼值。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2021-12-27T15:34:57.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:42.136Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-02-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day03_02_字符串 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-02-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day03_02_字符串
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-27 23:34:57" itemprop="dateCreated datePublished" datetime="2021-12-27T23:34:57+08:00">2021-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:42" itemprop="dateModified" datetime="2022-06-16T15:47:42+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="定義"><a href="#定義" class="headerlink" title="定義"></a>定義</h2><p>由一系列字元組成的不可變序列容器，存儲的是字元的編碼值。</p>
+<span id="more"></span>
+<h2 id="編碼"><a href="#編碼" class="headerlink" title="編碼"></a>編碼</h2><ol>
+<li>位元組byte：電腦最小存儲單位，等於8 位元</li>
+<li>字元：單個的數位，文字與符號。</li>
+<li>字元集(碼表)：存儲字元與二進位序列的對應關係。</li>
+<li>編碼：將字元轉換為對應的二進位序列的過程。</li>
+<li>解碼：將二進位序列轉換為對應的字元的過程。</li>
+<li>編碼方式：</li>
+</ol>
+<ul>
+<li>-ASCII編碼：包含英文、數位等字元，每個字元1個位元組。<br>–GBK編碼：相容ASCII編碼，包含21003個中文；英文1個位元組，漢字2個位元組。<br>–Unicode字元集：國際統一編碼，舊字元集每個字元2位元組，新字元集4位元組。<br>–UTF-8編碼：Unicode的存儲與傳輸方式，英文1位元組，中文3位元組。</li>
+</ul>
+<h2 id="相關函數"><a href="#相關函數" class="headerlink" title="相關函數"></a>相關函數</h2><ol>
+<li>ord(字串):返回該字串的Unicode碼。</li>
+<li>chr(整數):返回該整數對應的字串。</li>
+</ol>
+<h2 id="單引和雙引號的區別"><a href="#單引和雙引號的區別" class="headerlink" title="單引和雙引號的區別"></a>單引和雙引號的區別</h2><ol>
+<li>單引號內的雙引號不算結束符</li>
+<li>雙引號內的單引號不算結束符</li>
+</ol>
+<h2 id="三引號作用"><a href="#三引號作用" class="headerlink" title="三引號作用"></a>三引號作用</h2><ol>
+<li>換行會自動轉換為分行符號\n</li>
+<li>三引號內可以包含單引號和雙引號</li>
+<li>作為文檔字串</li>
+</ol>
+<h2 id="轉義字元"><a href="#轉義字元" class="headerlink" title="轉義字元"></a>轉義字元</h2><ul>
+<li><p>改變字元的原始含義。<br>          \’  \”  \”””  \n  \  \t  \0 空字元</p>
+</li>
+<li><p>原始字串：取消轉義。<br>          a &#x3D; r”C:\newfile\test.py”</p>
+</li>
+</ul>
+<h2 id="字串格式化"><a href="#字串格式化" class="headerlink" title="字串格式化"></a>字串格式化</h2><ul>
+<li><p>定義：<br>生成一定格式的字串。</p>
+</li>
+<li><p>語法：<br>字串%(變數)<br>          “我的名字是%s,年齡是%s” % (name, age)</p>
+</li>
+<li><p>類型碼：</p>
+</li>
+<li><p>%s 字串     %d整數     %f 浮點數</p>
+</li>
+</ul>
+<h2 id="實際範例"><a href="#實際範例" class="headerlink" title="實際範例:"></a>實際範例:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    字串編碼</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># 字 --&gt; 數</span></span><br><span class="line">number = <span class="built_in">ord</span>(<span class="string">&quot;a&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(number)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 數 --&gt; 字</span></span><br><span class="line">str01 = <span class="built_in">chr</span>(<span class="number">3498573945793475</span>)</span><br><span class="line"><span class="built_in">print</span>(str01)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    字串字面值</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">name01 = <span class="string">&quot;悟空&quot;</span></span><br><span class="line">name02 = <span class="string">&#x27;悟空&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三引號：可見即所得</span></span><br><span class="line">name03 = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">   悟</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">空&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(name03)</span><br><span class="line">name03 = <span class="string">&quot;&quot;&quot;悟空&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">message = <span class="string">&#x27;我是&quot;齊天大聖&quot;孫悟空.&#x27;</span></span><br><span class="line">message = <span class="string">&quot;我是&#x27;齊天大聖&#x27;孫悟空.&quot;</span></span><br><span class="line">message = <span class="string">&#x27;&#x27;&#x27;我是&#x27;齊天大聖&#x27;&quot;孫悟空&quot;.&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 轉義符：改變原有含義的特殊字元</span></span><br><span class="line"><span class="comment"># \&quot;   \&#x27;    水準制表格\t    換行\n    \\</span></span><br><span class="line">message = <span class="string">&quot;我是\&quot;齊天\n大聖\&quot;孫\t悟空.&quot;</span></span><br><span class="line"><span class="built_in">print</span>(message)</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;c:\\a\\b\c\d\\a.txt&quot;</span></span><br><span class="line"><span class="built_in">print</span>(url)</span><br><span class="line"><span class="comment"># 原是字串(沒有轉義符)</span></span><br><span class="line">url = <span class="string">r&quot;c:\a\b\c\d\a.txt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化字串</span></span><br><span class="line"><span class="comment"># &quot;..%d...%s...%f..&quot;%(整數變數,字串變數,小數變數)</span></span><br><span class="line"><span class="comment"># 1 + 2 = 3</span></span><br><span class="line">number_one = <span class="number">1</span></span><br><span class="line">number_two = <span class="number">2</span></span><br><span class="line">str_resutl = <span class="string">&quot;%d + %d = %d&quot;</span>%(number_one,number_two,number_one +number_two)</span><br><span class="line"><span class="built_in">print</span>(str_resutl)</span><br><span class="line"></span><br><span class="line">name = <span class="string">&quot;張小盒&quot;</span></span><br><span class="line">age = <span class="number">25</span></span><br><span class="line">score = <span class="number">95.5</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;我叫%s今年%d歲了，考試%.1f。&quot;</span>%(name,age,score))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字串 - str</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># # 表示方式</span></span><br><span class="line"><span class="comment"># # 單引號中可嵌套雙引號，雙引號中可嵌套單引號（內容中有誰不用誰）。</span></span><br><span class="line"><span class="comment"># # 三引號：可實現自動換行（分行符號 \n），三引號可嵌套單引號與雙引號；用作文檔字串【所見及所得】</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> s1 = <span class="string">&#x27;hello, baby~&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s1, <span class="built_in">type</span>(s1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># s4 = &#x27;&#x27;&#x27;python class</span></span><br><span class="line"><span class="comment"># 1 python核心</span></span><br><span class="line"><span class="comment"># 2 python物件導向</span></span><br><span class="line"><span class="comment"># 3 python高級&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># print(s4, type(s4))</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 運算子</span></span><br><span class="line"><span class="comment"># +   拼接</span></span><br><span class="line"> s1 = <span class="string">&#x27;hello&#x27;</span></span><br><span class="line"> s2 = <span class="string">&#x27;baby&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s1 + s2)</span><br><span class="line"> <span class="built_in">print</span>(s1 + <span class="number">12</span>)   <span class="comment"># str + int  不行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 檔路徑</span></span><br><span class="line"> project_path = <span class="string">&#x27;/home/tarena/AIDVN2111&#x27;</span></span><br><span class="line"> file_path = <span class="string">&#x27;/Day05/demo5_str.py&#x27;</span></span><br><span class="line"> path = project_path + file_path</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;檔的路徑是:&#x27;</span>, path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># +=   將拼接的結果重新賦值給變數</span></span><br><span class="line"> path = <span class="string">&#x27;/home/tarena/blog&#x27;</span></span><br><span class="line"> file_path = <span class="string">&#x27;/Day05/demo5_str.py&#x27;</span></span><br><span class="line"> path += file_path</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;檔的路徑是:&#x27;</span>, path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># *   重複    str * int</span></span><br><span class="line"> word = <span class="string">&#x27;我錯了&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(word * <span class="number">100</span>)</span><br><span class="line"> <span class="built_in">print</span>(word)</span><br><span class="line"></span><br><span class="line"><span class="comment"># *=</span></span><br><span class="line"> word *= <span class="number">10</span></span><br><span class="line"> <span class="built_in">print</span>(word)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 比較運算子</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;10000&#x27;</span> &gt; <span class="string">&quot;90&quot;</span>)</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;10000&#x27;</span> == <span class="string">&quot;90&quot;</span>)</span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">ord</span>(<span class="string">&#x27;1&#x27;</span>))</span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">ord</span>(<span class="string">&#x27;9&#x27;</span>))</span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">ord</span>(<span class="string">&#x27;台&#x27;</span>))   <span class="comment"># 21488</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">chr</span>(<span class="number">21488</span>))  <span class="comment"># &#x27;台&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># in/not in 運算子(重要)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;py&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;Python&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;py&#x27;</span> <span class="keyword">in</span> <span class="string">&#x27;python&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;no&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> <span class="string">&#x27;python&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字串 - str</span></span><br><span class="line"><span class="comment"># 作用: 描述文本資料</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 轉義字元 - \字元  轉義功能</span></span><br><span class="line"> path = <span class="string">&#x27;C:\teacher\nature\vector\read.txt&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法1:</span></span><br><span class="line"> path = <span class="string">&#x27;C:\\teacher\\nature\\vector\\read.txt&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法2: - 讓轉義字元的功能失效 --源字元(raw)</span></span><br><span class="line"> path = <span class="string">r&#x27;C:\teacher\nature\vector\read.txt&#x27;</span></span><br><span class="line"> path = <span class="string">r&#x27;&#x27;&#x27;C:\teacher\nature\vector\read.txt&#x27;&#x27;&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(path)</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 索引 - 獲取索引值對應的單個字元</span></span><br><span class="line"> s = <span class="string">&#x27;Python&#x27;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;t=&#x27;</span>, s[<span class="number">2</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;t=&#x27;</span>, s[-<span class="number">4</span>])</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;o=&#x27;</span>, s[<span class="number">4</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;o=&#x27;</span>, s[-<span class="number">2</span>])</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;P=&#x27;</span>, s[<span class="number">0</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;P=&#x27;</span>, s[-<span class="number">6</span>])</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # &#x27;就近原則&#x27; - 從哪邊索引方便,從哪邊開始</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;t=&#x27;</span>, s[<span class="number">2</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;o=&#x27;</span>, s[-<span class="number">2</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;P=&#x27;</span>, s[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 計算字串長度 - len  [重點]</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">len</span>(s))   <span class="comment"># int</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 注意:</span></span><br><span class="line"> <span class="built_in">print</span>(s[<span class="number">8</span>])   <span class="comment"># 索引值超出範圍 - 索引值越界</span></span><br><span class="line"> <span class="built_in">print</span>(s[-<span class="number">8</span>])  <span class="comment"># 索引值超出範圍 - 索引值越界</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 索引值運算式 --&gt; 結果(str)</span></span><br><span class="line"> <span class="built_in">print</span>(s[-<span class="number">5</span>])   <span class="comment"># &#x27;y&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[-<span class="number">1</span>])   <span class="comment"># &quot;n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片 - 獲取一定間隔或連續的字串</span></span><br><span class="line"> s = <span class="string">&#x27;Python&#x27;</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">print</span>(s[:])    <span class="comment"># &#x27;Python&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[<span class="number">2</span>:])    <span class="comment"># &#x27;thon&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[<span class="number">2</span>:<span class="number">5</span>])    <span class="comment"># &#x27;tho&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[<span class="number">2</span>:-<span class="number">1</span>])    <span class="comment"># &#x27;tho&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[<span class="number">2</span>:-<span class="number">1</span>:<span class="number">2</span>])    <span class="comment"># &#x27;to&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[-<span class="number">1</span>:<span class="number">1</span>:-<span class="number">2</span>])    <span class="comment"># &#x27;nh&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[:<span class="number">1</span>:-<span class="number">2</span>])       <span class="comment"># &#x27;nh&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>(s[::-<span class="number">1</span>])         <span class="comment"># &#x27;nohtyP&#x27;  [反向]</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;--&gt;&#x27;</span>, s[<span class="number">1</span>:<span class="number">5</span>:-<span class="number">2</span>])   <span class="comment"># &#x27;&#x27;  [切片方向與索引值範圍方向相反]</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;--&lt;&#x27;</span>, s[-<span class="number">1</span>:<span class="number">5</span>:-<span class="number">2</span>])   <span class="comment"># &#x27;&#x27;  [起始與終止索引值重合]</span></span><br><span class="line"> <span class="built_in">print</span>(s[:<span class="number">100</span>])             <span class="comment"># &#x27;Python&#x27; [不推薦]</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;oy&#x27;</span>, s[-<span class="number">2</span>:<span class="number">0</span>:-<span class="number">3</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;oy&#x27;</span>, s[-<span class="number">2</span>::-<span class="number">3</span>])</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;oy&#x27;</span>, s[-<span class="number">2</span>]+s[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用方法</span></span><br><span class="line"><span class="comment"># 1 查看字串有哪些方法</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">dir</span>(<span class="built_in">str</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 查看字串方法的使用</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="built_in">help</span>(<span class="built_in">str</span>.center))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 str.isdigit()   # 重點</span></span><br><span class="line"> age = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&#x27;請輸入一個年齡:&#x27;</span>))</span><br><span class="line"> <span class="built_in">print</span>(age, <span class="built_in">type</span>(age))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需求:先判斷輸入的資料是否全是數位,是則轉為整型</span></span><br><span class="line"> age = <span class="built_in">input</span>(<span class="string">&#x27;請輸入一個年齡:&#x27;</span>)</span><br><span class="line"> <span class="keyword">if</span> age.isdigit():  <span class="comment"># 全是數字則返回True</span></span><br><span class="line">     age = <span class="built_in">int</span>(age)</span><br><span class="line">     <span class="built_in">print</span>(age, <span class="built_in">type</span>(age))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. str.isalpha()</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;abc&#x27;</span>.isalpha())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;Abc&#x27;</span>.isalpha())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;Ab.c&#x27;</span>.isalpha())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;Ab1c&#x27;</span>.isalpha())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;貓貓&#x27;</span>.isalpha())    <span class="comment"># True</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># # 輸入英文名</span></span><br><span class="line"> name = <span class="built_in">input</span>(<span class="string">&#x27;輸入英文名&#x27;</span>)</span><br><span class="line"> <span class="keyword">if</span> name.isalpha():</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;英文名為:&#x27;</span>, name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.str.upper()/str.lower()</span></span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;abcd&#x27;</span>.upper())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;Abcd&#x27;</span>.upper())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;bACd&#x27;</span>.lower())</span><br><span class="line"> <span class="built_in">print</span>(<span class="string">&#x27;bACD&#x27;</span>.lower())</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判斷輸入的是否為y/n</span></span><br><span class="line"> choice = <span class="built_in">input</span>(<span class="string">&#x27;請問是否確認[y/n]:&#x27;</span>)</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"> <span class="keyword">if</span> choice.upper() == <span class="string">&#x27;Y&#x27;</span>:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;yes&#x27;</span>)</span><br><span class="line"> <span class="keyword">elif</span> choice.lower() == <span class="string">&#x27;n&#x27;</span>:</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">&#x27;no&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 5 str.startswith(suffix [, start [, end]])</span></span><br><span class="line"><span class="comment"># # 5 str.endswith(suffix [, start [, end]])</span></span><br><span class="line">s = <span class="string">&#x27;www.baidu.com&#x27;</span></span><br><span class="line"><span class="comment">#print(s.startswith(&#x27;www&#x27;))</span></span><br><span class="line"><span class="built_in">print</span>(s.startswith(<span class="string">&#x27;baidu&#x27;</span>, <span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(s.startswith(<span class="string">&#x27;baidu&#x27;</span>, <span class="number">4</span>, -<span class="number">5</span>))</span><br><span class="line"><span class="built_in">print</span>(s[<span class="number">4</span>:-<span class="number">5</span>])</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">print</span>(s.endswith(<span class="string">&#x27;.com&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(s.endswith(<span class="string">&#x27;.com&#x27;</span>, -<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 判斷檔是否以什麼開頭/什麼結尾?</span></span><br><span class="line">file = <span class="string">&#x27;demo1_str.py&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(file.startswith(<span class="string">&#x27;d&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(file.endswith(<span class="string">&#x27;.py&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 6 str.center(width, fillchar=&#x27; &#x27;)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;tedu&#x27;</span>.center(<span class="number">10</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;tedu&#x27;</span>.center(<span class="number">10</span>, <span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;ted&#x27;</span>.center(<span class="number">10</span>, <span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;python&#x27;</span>.center(<span class="number">5</span>, <span class="string">&#x27;-&#x27;</span>))   <span class="comment"># 居中無效(len(str) &gt; width)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 7 str.strip(char=None)    # 重點</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;  python   &#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;  python   &#x27;</span>.strip())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\npython\n&#x27;</span>.strip())</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;  pythyonyp   &#x27;</span>.strip(<span class="string">&#x27;py &#x27;</span>))   <span class="comment"># &#x27;剝洋蔥&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 8 str.replace(old, new, count=-1)  # 重點</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;pythyonyp&#x27;</span>.replace(<span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;-&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;pythyonyp&#x27;</span>.replace(<span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;pythyonyp&#x27;</span>.replace(<span class="string">&#x27;Y&#x27;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="number">2</span>))  <span class="comment"># 不存在則不替換</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;pythyonyp&#x27;</span>.replace(<span class="string">&#x27;y&#x27;</span>, <span class="string">&#x27;-&#x27;</span>).replace(<span class="string">&#x27;p&#x27;</span>,<span class="string">&#x27;*&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 9 str.count(sub [, start [, end]])   # 重點</span></span><br><span class="line">s = <span class="string">&#x27;banana&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(s.count(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(s.count(<span class="string">&#x27;a&#x27;</span>, <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(s.count(<span class="string">&#x27;A&#x27;</span>))   <span class="comment"># 不存在,則次數為0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 10 str.find(sub[, start[, end]])</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.find(<span class="string">&#x27;a&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.find(<span class="string">&#x27;a&#x27;</span>, <span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.find(<span class="string">&#x27;A&#x27;</span>))   <span class="comment"># 不存在,則返回-1</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.find(<span class="string">&#x27;na&#x27;</span>))</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.index(<span class="string">&#x27;a&#x27;</span>, -<span class="number">2</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;banana&#x27;</span>.index(<span class="string">&#x27;A&#x27;</span>))  <span class="comment"># 不存在,則報錯(結合in/not in)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化字串</span></span><br><span class="line">name = <span class="string">&#x27;小加&#x27;</span></span><br><span class="line">age = <span class="number">18</span></span><br><span class="line">height = <span class="number">1.81</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:&#x27;</span> + name + <span class="string">&#x27;,年齡為:&#x27;</span> + <span class="built_in">str</span>(age) + <span class="string">&#x27;歲,身高為:&#x27;</span> + <span class="built_in">str</span>(height) + <span class="string">&#x27;米&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:&#x27;</span>, name, <span class="string">&#x27;,年齡為:&#x27;</span>, age, <span class="string">&#x27;歲,身高為:&#x27;</span>, height, <span class="string">&#x27;米&#x27;</span>, sep=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法1: 預留位置</span></span><br><span class="line"><span class="comment"># print(&#x27;-&#x27; * 50)</span></span><br><span class="line">name = <span class="string">&#x27;粘阿&#x27;</span></span><br><span class="line">age = <span class="number">18</span></span><br><span class="line">height = <span class="number">1.81</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:%s,年齡為:%d歲,身高為:%.2f米&#x27;</span> % (name, age, height))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:%-5s,年齡為:%-4d歲,身高為:%-6.2f米&#x27;</span> % (name, age, height))</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 方法2:format方法</span></span><br><span class="line"><span class="comment"># print(&#x27;-&#x27; * 50)</span></span><br><span class="line">name = <span class="string">&#x27;柚子&#x27;</span></span><br><span class="line">age = <span class="number">18</span></span><br><span class="line">height = <span class="number">1.815</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:&#123;&#125;,年齡為:&#123;&#125;歲,身高為:&#123;:.3&#125;米&#x27;</span>.<span class="built_in">format</span>(name, age, height))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;姓名為:&#123;0&#125;,年齡為:&#123;1&#125;歲,幸運數字為:&#123;1&#125;&#x27;</span>.<span class="built_in">format</span>(name, age))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方法3:format簡寫方法</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;-&#x27;</span> * <span class="number">50</span>)</span><br><span class="line">name = <span class="string">&#x27;老畢&#x27;</span></span><br><span class="line">age = <span class="number">18</span></span><br><span class="line">height = <span class="number">1.815</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;姓名為:<span class="subst">&#123;name&#125;</span>,年齡為:<span class="subst">&#123;age&#125;</span>歲,身高為:<span class="subst">&#123;height&#125;</span>米&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;姓名為:<span class="subst">&#123;<span class="string">&quot;老畢&quot;</span>&#125;</span>,年齡為:<span class="subst">&#123;<span class="number">18</span>&#125;</span>歲,幸運數字為:<span class="subst">&#123;<span class="number">9</span>&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">https://bj.lianjia.com/ershoufang/pg2/</span></span><br><span class="line"><span class="string">https://bj.lianjia.com/ershoufang/pg3/</span></span><br><span class="line"><span class="string">https://bj.lianjia.com/ershoufang/pg4/</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 構建1-10頁的URL地址</span></span><br><span class="line"><span class="comment"># 方式1</span></span><br><span class="line">base_url = <span class="string">&#x27;https://bj.lianjia.com/ershoufang/pg%d/&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">    <span class="built_in">print</span>(base_url % i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式2</span></span><br><span class="line">base_url = <span class="string">&#x27;https://bj.lianjia.com/ershoufang/pg&#123;&#125;/&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">    <span class="built_in">print</span>(base_url.<span class="built_in">format</span>(i))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式3:</span></span><br><span class="line">base_url = <span class="string">&#x27;https://bj.lianjia.com/ershoufang/pg&#123;&#125;/&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">11</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;https://bj.lianjia.com/ershoufang/pg<span class="subst">&#123;i&#125;</span>/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">1. 在控制台中獲取一個字串，列印每個字元的編碼值。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">str_input = <span class="built_in">input</span>(<span class="string">&quot;請輸入文字：&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> str_input:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">ord</span>(item))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">2. 在控制台中重複獲取編碼值列印字串，如果輸入空，則退出程式。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    str_code = <span class="built_in">input</span>(<span class="string">&quot;請輸入編碼值：&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> str_code == <span class="string">&quot;&quot;</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    char = <span class="built_in">chr</span>(<span class="built_in">int</span>(str_code))</span><br><span class="line">    <span class="built_in">print</span>(char)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    對字串：&quot;  自強不 息,  厚德 載物. &quot;</span></span><br><span class="line"><span class="string">    查找空格數量</span></span><br><span class="line"><span class="string">    刪除所有空格</span></span><br><span class="line"><span class="string">    查找&quot;厚德&quot;位置</span></span><br><span class="line"><span class="string">    判斷是否以&quot;自強&quot;開頭</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">message = <span class="string">&quot;  自強不 息,  厚德 載物. &quot;</span></span><br><span class="line"><span class="built_in">print</span>(message.count(<span class="string">&quot; &quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(message.replace(<span class="string">&quot; &quot;</span>,<span class="string">&quot;&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(message.find(<span class="string">&quot;厚德&quot;</span>))</span><br><span class="line"><span class="built_in">print</span>(message.startswith(<span class="string">&quot;自強&quot;</span>))</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-02-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="【Python零基礎】_Day03_02_字符串">https://judyxi.github.io/2021/12/27/【Python零基礎】-Day03-02-字符串/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-01-For%E5%BE%AA%E7%92%B0/" rel="prev" title="【Python零基礎】_Day03_01_For循環">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day03_01_For循環
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/27/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day03-03-%E5%AE%B9%E5%99%A8%E9%80%9A%E7%94%A8%E6%93%8D%E4%BD%9C/" rel="next" title="【Python零基礎】_Day03_03_容器通用操作">
+      【Python零基礎】_Day03_03_容器通用操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9"><span class="nav-number">1.</span> <span class="nav-text">定義</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B7%A8%E7%A2%BC"><span class="nav-number">2.</span> <span class="nav-text">編碼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E9%97%9C%E5%87%BD%E6%95%B8"><span class="nav-number">3.</span> <span class="nav-text">相關函數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%96%AE%E5%BC%95%E5%92%8C%E9%9B%99%E5%BC%95%E8%99%9F%E7%9A%84%E5%8D%80%E5%88%A5"><span class="nav-number">4.</span> <span class="nav-text">單引和雙引號的區別</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%BC%95%E8%99%9F%E4%BD%9C%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">三引號作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%89%E7%BE%A9%E5%AD%97%E5%85%83"><span class="nav-number">6.</span> <span class="nav-text">轉義字元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%B8%B2%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">字串格式化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E9%9A%9B%E7%AF%84%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">實際範例:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

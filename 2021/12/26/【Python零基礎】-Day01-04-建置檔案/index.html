@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="基礎知識使用pycharm是一個專門寫python的軟體(集成開發工具)。熟悉快捷鍵可以加速寫程式的速度。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Python零基礎】_Day01_04_建置檔案">
+<meta property="og:url" content="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-04-%E5%BB%BA%E7%BD%AE%E6%AA%94%E6%A1%88/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="基礎知識使用pycharm是一個專門寫python的軟體(集成開發工具)。熟悉快捷鍵可以加速寫程式的速度。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/abUkZ9a.png">
+<meta property="og:image" content="https://i.imgur.com/167P3xn.png">
+<meta property="og:image" content="https://i.imgur.com/PojpDP9.png">
+<meta property="og:image" content="https://i.imgur.com/bZX4tEq.png">
+<meta property="og:image" content="https://i.imgur.com/gKPlbLt.png">
+<meta property="og:image" content="https://i.imgur.com/qB8VqCH.png">
+<meta property="og:image" content="https://i.imgur.com/kF57D4J.png">
+<meta property="og:image" content="https://i.imgur.com/uQ8jJn7.png">
+<meta property="og:image" content="https://i.imgur.com/GEeCuNY.png">
+<meta property="article:published_time" content="2021-12-26T09:02:59.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:47:30.252Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/abUkZ9a.png">
+
+<link rel="canonical" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-04-%E5%BB%BA%E7%BD%AE%E6%AA%94%E6%A1%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>【Python零基礎】_Day01_04_建置檔案 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-04-%E5%BB%BA%E7%BD%AE%E6%AA%94%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Python零基礎】_Day01_04_建置檔案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2021-12-26 17:02:59" itemprop="dateCreated datePublished" datetime="2021-12-26T17:02:59+08:00">2021-12-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2022-06-16 15:47:30" itemprop="dateModified" datetime="2022-06-16T15:47:30+08:00">2022-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基礎知識"><a href="#基礎知識" class="headerlink" title="基礎知識"></a>基礎知識</h2><p>使用pycharm是一個專門寫python的軟體(集成開發工具)。<br>熟悉快捷鍵可以加速寫程式的速度。</p>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://imgur.com/abUkZ9a"><img src="https://i.imgur.com/abUkZ9a.png" title="source: imgur.com" /></a></p>
+<p>打開pycharm創建一個New Project<br><a target="_blank" rel="noopener" href="https://imgur.com/167P3xn"><img src="https://i.imgur.com/167P3xn.png" title="source: imgur.com" /></a></p>
+<p>看自己的python檔案要放在哪裡<br><a target="_blank" rel="noopener" href="https://imgur.com/PojpDP9"><img src="https://i.imgur.com/PojpDP9.png" title="source: imgur.com" /></a></p>
+<ul>
+<li><p>Interpreter &#x3D; 解釋器</p>
+</li>
+<li><p>New environment using Virtualenv &#x3D; 使用虛擬解釋器</p>
+</li>
+<li><p>Previously configured interpreter &#x3D; 內置解釋器</p>
+</li>
+</ul>
+<p>現在還用不到虛擬解釋器，使用內置解釋器就好<br><a target="_blank" rel="noopener" href="https://imgur.com/bZX4tEq"><img src="https://i.imgur.com/bZX4tEq.png" title="source: imgur.com" /></a></p>
+<p>在資料夾按右鍵顯示選單可以選擇Directory創建資料夾，Python File創建文件</p>
+<ul>
+<li><p>File：表示普通檔（類似windows系統下的txt）</p>
+</li>
+<li><p>Directory ：表示目錄（資料夾）：方便文件管理</p>
+</li>
+<li><p>Python Package ：表示Python 包</p>
+</li>
+<li><p>Python File ：表示Python檔（常用）</p>
+</li>
+<li><p>HTML File：表示HTML檔（屬於前端開發時使用）<br><a target="_blank" rel="noopener" href="https://imgur.com/gKPlbLt"><img src="https://i.imgur.com/gKPlbLt.png" title="source: imgur.com" /></a></p>
+</li>
+</ul>
+<p>創建好資料夾與文件<br><a target="_blank" rel="noopener" href="https://imgur.com/qB8VqCH"><img src="https://i.imgur.com/qB8VqCH.png" title="source: imgur.com" /></a></p>
+<p>打一段程式，運行不需要到終端，直接右鍵點擊Run 檔案名或是<code>Ctrl+Shift+F10</code>，就會運行程式，關閉運行也很簡單只要<code>Ctrl+Shift+F4</code>就可以關閉<br><a target="_blank" rel="noopener" href="https://imgur.com/kF57D4J"><img src="https://i.imgur.com/kF57D4J.png" title="source: imgur.com" /></a></p>
+<h3 id="運行視窗介紹-在運行後最下面顯示"><a href="#運行視窗介紹-在運行後最下面顯示" class="headerlink" title="運行視窗介紹 (在運行後最下面顯示)"></a>運行視窗介紹 (在運行後最下面顯示)</h3><ul>
+<li><p>Terminal ：終端（用於輸入 Linux命令 ）</p>
+</li>
+<li><p>Python Console ： Python 控制台（用於輸入Python語句，類似Python互動環境）</p>
+</li>
+<li><p>Run ：運行（用於檔運行的結果輸出）</p>
+</li>
+<li><p>Debug ：調試（用於分步調試代碼 )<br><a target="_blank" rel="noopener" href="https://imgur.com/uQ8jJn7"><img src="https://i.imgur.com/uQ8jJn7.png" title="source: imgur.com" /></a></p>
+</li>
+</ul>
+<p>可以調整字體大小間距，點擊左上角的File，再按Settings會顯示以下視窗<br><a target="_blank" rel="noopener" href="https://imgur.com/GEeCuNY"><img src="https://i.imgur.com/GEeCuNY.png" title="source: imgur.com" /></a></p>
+<h2 id="pycharm常用快捷鍵"><a href="#pycharm常用快捷鍵" class="headerlink" title="pycharm常用快捷鍵"></a>pycharm常用快捷鍵</h2><blockquote>
+<p>(快捷鍵是考察會不會pycharm的標準)</p>
+</blockquote>
+<ol>
+<li>移動到本行開頭：home鍵</li>
+<li>移動到本行末尾：end鍵</li>
+<li>刪除游標所在行：Ctrl + Y</li>
+<li>註解代碼：ctrl + &#x2F;</li>
+<li>複製行：ctrl +d</li>
+<li>選擇列：滑鼠左鍵+ alt</li>
+<li>移動行：shift + ctrl + 上下箭頭</li>
+<li>系統提示：ctrl + space</li>
+<li>代碼格式化：ctrl+alt+L(整理每行代碼的位置)</li>
+<li>刪除行: Shift + del</li>
+<li>在游標所在行下新起一行：Shift + Enter</li>
+<li>縮進&#x2F;反縮進：Tab&#x2F;Shift + Tab</li>
+<li>替換：Ctrl + R</li>
+<li>重構函數&#x2F;變量：shift+F6 </li>
+<li>如有一大段代碼須變成函數,能立即切分：control+alt+M</li>
+<li>創建參數 (鼠標要在字上面)：alt+return </li>
+<li>可以重寫函數：control+o</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-04-%E5%BB%BA%E7%BD%AE%E6%AA%94%E6%A1%88/" title="【Python零基礎】_Day01_04_建置檔案">https://judyxi.github.io/2021/12/26/【Python零基礎】-Day01-04-建置檔案/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-03-%E7%B0%A1%E4%BB%8B/" rel="prev" title="【Python零基礎】_Day01_03_簡介">
+      <i class="fa fa-chevron-left"></i> 【Python零基礎】_Day01_03_簡介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/26/%E3%80%90Python%E9%9B%B6%E5%9F%BA%E7%A4%8E%E3%80%91-Day01-05-%E6%95%B8%E6%93%9A%E5%9F%BA%E6%9C%AC%E9%81%8B%E7%AE%97/" rel="next" title="【Python零基礎】_Day01_05_數據基本運算">
+      【Python零基礎】_Day01_05_數據基本運算 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E7%9F%A5%E8%AD%98"><span class="nav-number">1.</span> <span class="nav-text">基礎知識</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8B%E8%A1%8C%E8%A6%96%E7%AA%97%E4%BB%8B%E7%B4%B9-%E5%9C%A8%E9%81%8B%E8%A1%8C%E5%BE%8C%E6%9C%80%E4%B8%8B%E9%9D%A2%E9%A1%AF%E7%A4%BA"><span class="nav-number">1.1.</span> <span class="nav-text">運行視窗介紹 (在運行後最下面顯示)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pycharm%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%8D%B5"><span class="nav-number">2.</span> <span class="nav-text">pycharm常用快捷鍵</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

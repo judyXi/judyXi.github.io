@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo32.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo16.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="檔案處理引入檔案是保存在持久化存放裝置(硬碟、U盤、光碟..)上的一段資料，一個文本，一個py 檔，一張圖片，一段視······ 這些都是文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IO文件讀寫">
+<meta property="og:url" content="https://judyxi.github.io/2022/06/16/IO%E8%AE%80%E5%AF%AB/index.html">
+<meta property="og:site_name" content="Judy">
+<meta property="og:description" content="檔案處理引入檔案是保存在持久化存放裝置(硬碟、U盤、光碟..)上的一段資料，一個文本，一個py 檔，一張圖片，一段視······ 這些都是文件。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-06-16T07:18:43.000Z">
+<meta property="article:modified_time" content="2022-06-16T07:45:22.713Z">
+<meta property="article:author" content="Xie Judy">
+<meta property="article:tag" content="學習筆記">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://judyxi.github.io/2022/06/16/IO%E8%AE%80%E5%AF%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>IO文件讀寫 | Judy</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Judy</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://judyxi.github.io/2022/06/16/IO%E8%AE%80%E5%AF%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Xie Judy">
+      <meta itemprop="description" content="貓奴+1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Judy">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IO文件讀寫
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2022-06-16 15:18:43 / 修改時間：15:45:22" itemprop="dateCreated datePublished" datetime="2022-06-16T15:18:43+08:00">2022-06-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>檔案是保存在持久化存放裝置(硬碟、U盤、光碟..)上的一段資料，一個文本，一個py 檔，一張圖片，一段視······ 這些都是文件。</p>
+<span id="more"></span>
+<h2 id="檔案分類"><a href="#檔案分類" class="headerlink" title="檔案分類"></a>檔案分類</h2><p>文字檔案：打開後會自動解碼為字元，如txt檔，word檔，py程式檔。 </p>
+<p>二進位檔案：內部編碼為二進位碼，無法通過文字編碼解析，如壓縮包，音訊，視頻，圖片等。</p>
+<p>位元組串類型概念 ： 在python3中引入了位元組串的概念，與str不同，位元組串以位元組序列值表達資料，更方便用來處理二進程資料。 字串與位元組串相互轉化方法</p>
+<blockquote>
+<ul>
+<li>普通的英文字元字串常量可以在前面加b轉換為位元組串，例如：b’hello’</li>
+<li>變數或者包含非英文字元的字串轉換為位元組串方法 ：str.encode() </li>
+<li>位元組串轉換為字串方法 : bytes.decode()</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>注意：python字串用來表達utf8字元，因為並不是所有二進位內容都可以轉化為utf8字元， 所以不是所有位元組串都能 轉化為字串，但是所有字串都能轉化成二進位，所以所有字串都能 轉換為位元組串。</p>
+</blockquote>
+<h2 id="檔案讀寫操作"><a href="#檔案讀寫操作" class="headerlink" title="檔案讀寫操作"></a>檔案讀寫操作</h2><p>使用程式操作檔，無外乎對檔案進行讀或者寫讀 ：即從檔中獲取內容寫 ：即修改檔中的內容對檔案實現讀寫的基本操作步驟為：打開文件，讀寫文件，關閉文件。</p>
+<h2 id="打開文件"><a href="#打開文件" class="headerlink" title="打開文件"></a>打開文件</h2><p>file_object &#x3D; open(file_name, access_mode&#x3D;’r’, buffering&#x3D;-1，encoding&#x3D;None) </p>
+<p>功能：打開一個檔案，返回一個檔案物件。 </p>
+<p>參數：file_name 檔案名</p>
+<p> access_mode 打開檔的方式,如果不寫預設為‘r’ </p>
+<p>buffering 1表示有行緩衝，預設則表示使用系統預設提供的緩衝機制。 </p>
+<p>encoding&#x3D;’UTF-8’ 設置打開檔的編碼方式，一般Linux下不需要 </p>
+<p>返回值：成功返回檔操作物件</p>
+<table>
+<thead>
+<tr>
+<th>打開模式</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>r</td>
+<td>以讀方式打開，檔必須存在</td>
+</tr>
+<tr>
+<td>w</td>
+<td>以寫方式打開，檔不存在則創建，存在清空原有內容</td>
+</tr>
+<tr>
+<td>a</td>
+<td>以追加模式打開，檔不存在則創建，存在則繼續進行寫操作</td>
+</tr>
+<tr>
+<td>r+</td>
+<td>以讀寫模式打開 檔必須存在</td>
+</tr>
+<tr>
+<td>w+</td>
+<td>以讀寫模式打開檔，不存在則創建，存在清空原有內容</td>
+</tr>
+<tr>
+<td>a+</td>
+<td>追加並可讀模式，檔不存在則創建，存在則繼續進行寫操作</td>
+</tr>
+<tr>
+<td>rb</td>
+<td>以二進位讀模式打開 同r</td>
+</tr>
+<tr>
+<td>wb</td>
+<td>以二進位寫模式打開 同w</td>
+</tr>
+<tr>
+<td>ab</td>
+<td>以二進位追加模式打開 同a</td>
+</tr>
+<tr>
+<td>rb+</td>
+<td>以二進位讀寫模式打開 同r+</td>
+</tr>
+<tr>
+<td>wb+</td>
+<td>以二進位讀寫模式打開 同w+</td>
+</tr>
+<tr>
+<td>ab+</td>
+<td>以二進位讀寫模式打開 同a+</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意 ： </p>
+<ol>
+<li>以二進位方式打開檔，讀取內容為位元組串，寫入也需要寫入位元組串 </li>
+<li>無論什麼檔都可以使用二進位方式打開，但是二進位檔案則不能以文本方式打開，否則後 續讀寫會報錯。</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">文件打開訓練</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># f = open(&#x27;bytes.pyc&#x27;,&#x27;r&#x27;)   #默認r,文件不存在會報錯</span></span><br><span class="line"><span class="comment"># f = open(&#x27;file&#x27;,&#x27;w&#x27;)   #w方式打開，檔內容會被清空</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;file&#x27;</span>,<span class="string">&#x27;a&#x27;</span>)    <span class="comment">#a追加方式打開，檔內容不會被清空</span></span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+
+<h2 id="讀取文件"><a href="#讀取文件" class="headerlink" title="讀取文件"></a>讀取文件</h2><p>方法1</p>
+<ul>
+<li>read([size]) 功能：來直接讀取檔中字元。</li>
+<li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，文件將被讀取直至末尾，給定size最多讀 取給定數目個字元（位元組）。</li>
+<li>返回值： 返回讀取到的內容。</li>
+</ul>
+<blockquote>
+<p>注意：檔過大時候不建議直接讀取到檔結尾，讀到檔結尾會返回空字串</p>
+</blockquote>
+<p>方法2</p>
+<ul>
+<li>readline([size]) 功能： 用來讀取檔中一行。</li>
+<li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，表示讀取一行，給定size表示最多讀取制 定的字元（位元組）。</li>
+<li>返回值： 返回讀取到的內容。</li>
+</ul>
+<p>方法3</p>
+<ul>
+<li>readlines([sizeint]) 功能： 讀取檔中的每一行作為列表中的一項 。</li>
+<li>參數： 如果沒有給定size參數（預設值為-1）或者size值為負，檔將被讀取直至末尾，給定size表示讀 取到size字元所在行為止。</li>
+<li>返回值： 返回讀取到的內容清單。</li>
+</ul>
+<p>方法4</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 檔案物件本身也是一個可反覆運算物件，在for迴圈中可以反覆運算檔的每一行。</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line"><span class="built_in">print</span>(line)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">檔讀取演示</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">&#x27;file.txt&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 檔讀操作</span></span><br><span class="line"><span class="comment"># data = f.read()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># while True:</span></span><br><span class="line"><span class="comment">#     data = f.read(2)</span></span><br><span class="line"><span class="comment">#     # 避免迴圈會列印很多空字串</span></span><br><span class="line"><span class="comment">#     if not data:</span></span><br><span class="line"><span class="comment">#         break</span></span><br><span class="line"><span class="comment">#     print(data)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># while True:</span></span><br><span class="line"><span class="comment">#     data = f.readline()</span></span><br><span class="line"><span class="comment">#     if not data:</span></span><br><span class="line"><span class="comment">#         break</span></span><br><span class="line"><span class="comment">#     print(data)</span></span><br><span class="line"><span class="comment"># f.close()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># data = f.readlines()</span></span><br><span class="line"><span class="comment"># data = f.readlines(12)</span></span><br><span class="line"><span class="comment"># print(data)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">    <span class="built_in">print</span>(line)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 關閉文件</span></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<h2 id="寫入文件"><a href="#寫入文件" class="headerlink" title="寫入文件"></a>寫入文件</h2><p>方法1</p>
+<ul>
+<li>write(data) 功能: 把文本資料或二進位資料塊的字串寫入到檔案中去</li>
+<li>參數：要寫入的內容</li>
+<li>返回值：寫入的字元個數</li>
+</ul>
+<blockquote>
+<p>注意： 如果需要換行要自己在寫入內容中添加\n</p>
+</blockquote>
+<p>方法2</p>
+<p>writelines(str_list) 功能：接受一個字串清單作為參數，將它們寫入檔。 </p>
+<p>參數: 要寫入的內容清單</p>
+<h2 id="關閉文件"><a href="#關閉文件" class="headerlink" title="關閉文件"></a>關閉文件</h2><p>打開一個檔後我們就可以通過檔物件對檔進行操作了，當操作結束後可以關閉檔操作</p>
+<ul>
+<li>方法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file_object.close()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>好處</li>
+</ul>
+<ol>
+<li>可以銷毀物件節省資源，（當然如果不關閉程式結束後物件也會被銷毀）。 </li>
+<li>防止後面對這個物件的誤操作。</li>
+</ol>
+<h2 id="with操作"><a href="#with操作" class="headerlink" title="with操作"></a>with操作</h2><p>python中的with語句也可以用於訪問檔案，在語句塊結束後會自動釋放資源。</p>
+<p>with語句格式:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> context_expression [<span class="keyword">as</span> obj]:</span><br><span class="line">	<span class="keyword">with</span>-body</span><br></pre></td></tr></table></figure>
+
+<p>with訪問檔案:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;file&#x27;</span>,<span class="string">&#x27;r+&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">	f.read()</span><br></pre></td></tr></table></figure>
+
+<aside>
+💡 注意 ： with語句塊結束後會自動釋放f所以不再需要close().
+
+</aside>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>作者： </strong>Xie Judy
+  </li>
+  <li class="post-copyright-link">
+    <strong>文章連結：</strong>
+    <a href="https://judyxi.github.io/2022/06/16/IO%E8%AE%80%E5%AF%AB/" title="IO文件讀寫">https://judyxi.github.io/2022/06/16/IO讀寫/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" rel="tag"># 學習筆記</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/23/2022-01-23-%E3%80%90Python%E5%85%A8%E3%80%91-%E7%B8%BD%E8%A4%87%E7%BF%92/" rel="prev" title="【Python全】_總複習">
+      <i class="fa fa-chevron-left"></i> 【Python全】_總複習
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/16/%E5%AE%89%E8%A3%9DMac-MySQL%E5%95%8F%E9%A1%8C/" rel="next" title="安裝Mac MySQL問題">
+      安裝Mac MySQL問題 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E8%99%95%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">檔案處理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E5%88%86%E9%A1%9E"><span class="nav-number">3.</span> <span class="nav-text">檔案分類</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E8%AE%80%E5%AF%AB%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">檔案讀寫操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E9%96%8B%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">打開文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%80%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">讀取文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%AB%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">寫入文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%9C%E9%96%89%E6%96%87%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">關閉文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">with操作</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xie Judy"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Xie Judy</p>
+  <div class="site-description" itemprop="description">貓奴+1</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/judyXi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;judyXi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kimdaedae39@gmail.com" title="E-Mail → mailto:kimdaedae39@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xie Judy</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
