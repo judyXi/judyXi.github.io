@@ -17,14 +17,14 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"judyxi.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
   <meta name="description" content="生成器generator 定義：能夠動態(迴圈一次計算一次返回一次)提供資料的可反覆運算物件。 作用：在迴圈過程中，按照某種演算法推算資料，不必創建容器存儲完整的結果，從而節省記憶體空間。資料量越大，優勢越明顯。 以上作用也稱之為延遲操作或惰性操作，通俗的講就是在需要的時候才計算結果，而不是一次構建出所有結果。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【程式結構】_生成器generator">
 <meta property="og:url" content="https://judyxi.github.io/2022/01/16/2022-01-16-%E3%80%90%E7%A8%8B%E5%BC%8F%E7%B5%90%E6%A7%8B%E3%80%91-%E7%94%9F%E6%88%90%E5%99%A8generator/index.html">
-<meta property="og:site_name" content="Judy">
+<meta property="og:site_name" content="JudyXie">
 <meta property="og:description" content="生成器generator 定義：能夠動態(迴圈一次計算一次返回一次)提供資料的可反覆運算物件。 作用：在迴圈過程中，按照某種演算法推算資料，不必創建容器存儲完整的結果，從而節省記憶體空間。資料量越大，優勢越明顯。 以上作用也稱之為延遲操作或惰性操作，通俗的講就是在需要的時候才計算結果，而不是一次構建出所有結果。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-01-16T07:01:17.000Z">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>【程式結構】_生成器generator | Judy</title>
+  <title>【程式結構】_生成器generator | JudyXie</title>
   
 
 
@@ -97,7 +97,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Judy</h1>
+      <h1 class="site-title">JudyXie</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">網路世界ing ~</p>
@@ -196,11 +196,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="Xie Judy">
-      <meta itemprop="description" content="貓奴+1">
+      <meta itemprop="description" content="貓奴+4">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Judy">
+      <meta itemprop="name" content="JudyXie">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -439,7 +439,7 @@
     <img class="site-author-image" itemprop="image" alt="Xie Judy"
       src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">Xie Judy</p>
-  <div class="site-description" itemprop="description">貓奴+1</div>
+  <div class="site-description" itemprop="description">貓奴+4</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
