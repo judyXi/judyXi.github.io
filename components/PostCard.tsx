@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { Post } from "@/lib/posts";
 
@@ -29,24 +28,12 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       <article className="bg-white rounded-3xl overflow-hidden shadow-soft-sm card-botanical h-full flex flex-col">
         {/* Cover */}
         <div className={`relative overflow-hidden ${isLarge ? "h-56" : "h-48"} ${accent}`}>
-          {post.coverImage ? (
-            <Image
-              src={post.coverImage}
-              alt={post.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          ) : (
-            <>
-              {/* No-image fallback: arch + circle */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-20 bg-white/40 rounded-t-full" />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-[#2D3A31]/5" />
-              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-4xl text-[#2D3A31]/8 italic">
-                {post.category[0]}
-              </span>
-            </>
-          )}
+          {/* Decorative elements */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-20 bg-white/40 rounded-t-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-[#2D3A31]/5" />
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-4xl text-[#2D3A31]/8 italic">
+            {post.category[0]}
+          </span>
 
           {/* Category Badge */}
           <span className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-[#2D3A31]/80 backdrop-blur-sm text-[#F9F8F4] rounded-full text-xs font-medium tracking-wide">

@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft, Clock, Calendar, Tag, ArrowRight } from "lucide-react";
 import { getPosts, getPostBySlug, getAllSlugs } from "@/lib/posts";
 
@@ -65,6 +64,15 @@ export default async function BlogPostPage({ params }: Props) {
       }
       if (trimmed.startsWith("# ")) return null;
 
+      // 圖片（已被 posts.ts 轉成 <img> 標籤）
+      if (trimmed.startsWith("<img ")) {
+        return (
+          <figure key={i} className="my-8 rounded-2xl overflow-hidden shadow-soft-md">
+            <div dangerouslySetInnerHTML={{ __html: trimmed.replace('<img ', '<img class="w-full h-auto" ') }} />
+          </figure>
+        );
+      }
+
       if (trimmed === "---") {
         return <div key={i} className="divider-botanical my-10" />;
       }
@@ -115,30 +123,11 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* ─── COVER ───────────────────────────────────── */}
       <div className="relative overflow-hidden bg-[#DCCFC2]/20 paper-grain">
-        {/* Cover image */}
-        {post.coverImage && (
-          <div className="relative w-full h-64 sm:h-80 lg:h-96">
-            <Image
-              src={post.coverImage}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F9F8F4]" />
-          </div>
-        )}
+        {/* Decorative blobs */}
+        <div className="absolute top-10 right-20 w-80 h-80 bg-[#8C9A84]/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-10 w-56 h-56 bg-[#DCCFC2]/20 rounded-full blur-3xl" />
 
-        {/* Decorative blobs (only when no image) */}
-        {!post.coverImage && (
-          <>
-            <div className="absolute top-10 right-20 w-80 h-80 bg-[#8C9A84]/8 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-10 w-56 h-56 bg-[#DCCFC2]/20 rounded-full blur-3xl" />
-          </>
-        )}
-
-        <div className={`relative max-w-3xl mx-auto px-6 sm:px-8 ${post.coverImage ? 'py-12 lg:py-16 -mt-20 relative z-10' : 'py-20 lg:py-28'}`}>
+        <div className="relative max-w-3xl mx-auto px-6 sm:px-8 py-20 lg:py-28">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm text-[#8C9A84] hover:text-[#C27B66] transition-colors duration-300 mb-8"

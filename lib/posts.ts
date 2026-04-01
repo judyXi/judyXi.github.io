@@ -20,7 +20,6 @@ export interface Post {
   readTime: number;
   category: string;
   coverColor: string;
-  coverImage: string | null;
   tags: string[];
   featured?: boolean;
 }
@@ -78,23 +77,19 @@ function parseFrontmatter(raw: string): { data: FM; content: string } {
   return { data, content };
 }
 
-// ── 從內容提取 Obsidian 圖片引用 ─────────────────────
-function extractCoverImage(content: string): string | null {
-  // 匹配 Obsidian 圖片語法 ![[filename.png]]
-  const match = content.match(/!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]/i);
-  if (!match) return null;
-  const obsidianName = match[1];
-  return `/images/${toSafeImageName(obsidianName)}`;
+// ── 將 Obsidian 圖片語法轉成 HTML img 標籤 ──────────
+// 支援 ![[image.png]] 和 ![[image.png|273]] 兩種格式
+// 加上前後空行確保圖片自成獨立段落
+function convertImageEmbeds(content: string): string {
+  return content.replace(
+    /!?\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]/gi,
+    (_, filename) => `\n\n<img src="/images/${toSafeImageName(filename)}" alt="${filename}" />\n\n`
+  ).replace(/\n{3,}/g, "\n\n");
 }
 
-// ── 清除內容中的圖片引用（避免顯示在文章中）─────────
-function stripImageEmbeds(content: string): string {
-  return content.replace(/!\[\[[^\]]+\]\]\n*/g, "");
-}
-
-// ── 清除摘要中的 ** 符號 ────────────────────────────
+// ── 清除摘要中的 ** 符號和 HTML 標籤 ────────────────
 function cleanExcerpt(text: string): string {
-  return text.replace(/\*\*/g, "");
+  return text.replace(/\*\*/g, "").replace(/<[^>]+>/g, "").trim();
 }
 
 // ── slug 產生（純 ASCII，避免 Turbopack bug）─────────
@@ -128,9 +123,10 @@ function extractTitle(content: string, filename: string): string {
 function extractExcerpt(content: string): string {
   for (const line of content.split("\n")) {
     const t = line.trim();
-    if (t && !t.startsWith("#") && !t.startsWith("!") && !t.startsWith("---")) {
+    // 跳過標題、圖片、分隔線、HTML 標籤
+    if (t && !t.startsWith("#") && !t.startsWith("!") && !t.startsWith("---") && !t.startsWith("<img") && !t.startsWith("<")) {
       const clean = cleanExcerpt(t);
-      return clean.length > 120 ? clean.substring(0, 120) + "…" : clean;
+      if (clean) return clean.length > 120 ? clean.substring(0, 120) + "…" : clean;
     }
   }
   return "";
@@ -190,11 +186,10 @@ export function getPosts(): Post[] {
         const raw = fs.readFileSync(fp, "utf-8");
         const { data: fm, content } = parseFrontmatter(raw);
         const title = fm.title || extractTitle(content, fn);
-        const coverImage = extractCoverImage(content);
-        const cleanContent = stripImageEmbeds(content);
+        const processedContent = convertImageEmbeds(content);
         const excerpt = fm.excerpt
           ? cleanExcerpt(fm.excerpt)
-          : extractExcerpt(cleanContent);
+          : extractExcerpt(processedContent);
         const date = fm.date || extractDate(fn, fp);
         const tags = fm.tags || [];
         const category = fm.category || tags[0] || "其他";
@@ -203,12 +198,11 @@ export function getPosts(): Post[] {
           slug: toSlug(title, fn),
           title,
           excerpt,
-          content: cleanContent,
+          content: processedContent,
           date,
-          readTime: calcReadTime(cleanContent),
+          readTime: calcReadTime(processedContent),
           category,
           coverColor: coverColor(tags, i),
-          coverImage,
           tags,
           featured: i === 0,
         };

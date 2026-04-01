@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import PostCard from "@/components/PostCard";
 import { getPosts } from "@/lib/posts";
@@ -61,21 +60,11 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6 sm:px-8">
             <Link href={`/blog/${featured.slug}`} className="group block">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-3xl overflow-hidden shadow-soft-md card-botanical">
-                {/* Image area */}
+                {/* Decorative area */}
                 <div className="relative h-64 lg:h-auto min-h-[280px] bg-[#DCCFC2]/30 overflow-hidden">
-                  {featured.coverImage ? (
-                    <Image
-                      src={featured.coverImage}
-                      alt={featured.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-40 h-56 bg-white/50 rounded-t-full" />
-                    </div>
-                  )}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-40 h-56 bg-white/50 rounded-t-full" />
+                  </div>
                   <span className="absolute top-6 left-6 z-10 px-3 py-1.5 bg-[#C27B66] text-[#F9F8F4] rounded-full text-xs font-medium tracking-wide">
                     精選文章
                   </span>
