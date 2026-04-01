@@ -25,14 +25,10 @@ export interface Post {
   featured?: boolean;
 }
 
-// ── Obsidian 圖片名稱 → public 檔名 對照表 ──────────
-const IMAGE_MAP: Record<string, string> = {
-  "Pasted image 20260331221158.png": "/images/cover-family-service.png",
-  "Pasted image 20260331221224.png": "/images/cover-bamboo-sisters.png",
-  "Pasted image 20260331221310.png": "/images/cover-outsider.png",
-  "Pasted image 20260331221331.png": "/images/cover-seaside-room.png",
-  "Pasted image 20260331221345.png": "/images/cover-fourth-wing.png",
-};
+// ── Obsidian 圖片名稱 → public 檔名（自動轉換）──────
+function toSafeImageName(obsidianName: string): string {
+  return obsidianName.replace(/\s+/g, "-").toLowerCase();
+}
 
 // ── frontmatter 解析 ──────────────────────────────────
 type FM = {
@@ -88,11 +84,7 @@ function extractCoverImage(content: string): string | null {
   const match = content.match(/!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]/i);
   if (!match) return null;
   const obsidianName = match[1];
-  // 查對照表
-  if (IMAGE_MAP[obsidianName]) return IMAGE_MAP[obsidianName];
-  // fallback：轉成 URL 安全的檔名
-  const safeName = obsidianName.replace(/\s+/g, "-").toLowerCase();
-  return `/images/${safeName}`;
+  return `/images/${toSafeImageName(obsidianName)}`;
 }
 
 // ── 清除內容中的圖片引用（避免顯示在文章中）─────────
