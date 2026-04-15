@@ -2,8 +2,10 @@
 #   Obsidian -> judy-blog 同步工具
 # ========================================
 
-$ObsidianBlog = "C:\Users\user\Desktop\Obsidian\創作\Blog"
-$ObsidianImg  = "C:\Users\user\Desktop\Obsidian\圖片"
+$cc1 = [char]0x5275; $cc2 = [char]0x4F5C  # folder name
+$ic1 = [char]0x5716; $ic2 = [char]0x7247  # image folder name
+$ObsidianBlog = "C:\Users\user\Desktop\Obsidian\$cc1$cc2\Blog"
+$ObsidianImg  = "C:\Users\user\Desktop\Obsidian\$ic1$ic2"
 $ContentDir   = "C:\Users\user\Desktop\judy-blog\content\blog"
 $ImgDir       = "C:\Users\user\Desktop\judy-blog\public\images"
 
