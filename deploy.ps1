@@ -44,8 +44,8 @@ $imgCount = 0
 Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
     $content = Get-Content $_.FullName -Raw -Encoding UTF8
     # 匹配 ![[xxx.png]] 或 ![[xxx.jpg]] 等
-    $matches = [regex]::Matches($content, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
-    foreach ($match in $matches) {
+    $imgMatches = [regex]::Matches($content, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
+    foreach ($match in $imgMatches) {
         $imgName = $match.Groups[1].Value
         $safeName = $imgName.Replace(' ', '-').ToLower()
         $srcPath = Join-Path $ObsidianImg $imgName
