@@ -15,12 +15,26 @@ $ObsidianImg  = "C:\Users\user\Desktop\Obsidian\圖片"
 $ContentDir   = "$BlogDir\content\blog"
 $ImgDir       = "$BlogDir\public\images"
 
-# ── 1. 同步 Obsidian 文章 ─────────────────
+# ── 1. 同步 Obsidian 文章（跳過 status: draft）────
 Write-Host "[1/4] 同步 Obsidian 文章..." -ForegroundColor Yellow
 if (-not (Test-Path $ContentDir)) { New-Item -ItemType Directory -Path $ContentDir -Force | Out-Null }
-Copy-Item "$ObsidianBlog\*.md" $ContentDir -Force
-$mdCount = (Get-ChildItem "$ContentDir\*.md").Count
-Write-Host "      已同步 $mdCount 篇文章" -ForegroundColor Green
+
+# 清除舊檔，重新同步（避免已刪除的草稿殘留）
+Remove-Item "$ContentDir\*.md" -ErrorAction SilentlyContinue
+
+$mdCount = 0
+$draftCount = 0
+Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
+    $content = Get-Content $_.FullName -Raw -Encoding UTF8
+    if ($content -match '(?m)^status:\s*draft') {
+        Write-Host "      跳過草稿：$($_.Name)" -ForegroundColor DarkGray
+        $draftCount++
+    } else {
+        Copy-Item $_.FullName $ContentDir -Force
+        $mdCount++
+    }
+}
+Write-Host "      已同步 $mdCount 篇文章（跳過草稿 $draftCount 篇）" -ForegroundColor Green
 
 # ── 2. 同步圖片 ──────────────────────────
 Write-Host "[2/4] 同步圖片..." -ForegroundColor Yellow

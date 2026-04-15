@@ -20,6 +20,7 @@ export interface Post {
   readTime: number;
   category: string;
   coverColor: string;
+  coverImage: string;
   tags: string[];
   featured?: boolean;
 }
@@ -78,13 +79,29 @@ function parseFrontmatter(raw: string): { data: FM; content: string } {
 }
 
 // ── 將 Obsidian 圖片語法轉成 HTML img 標籤 ──────────
-// 支援 ![[image.png]] 和 ![[image.png|273]] 兩種格式
-// 加上前後空行確保圖片自成獨立段落
+// 支援 ![[image.png]]、![[image.png|273]]、![alt](url) 三種格式
 function convertImageEmbeds(content: string): string {
-  return content.replace(
-    /!?\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]/gi,
-    (_, filename) => `\n\n<img src="/images/${toSafeImageName(filename)}" alt="${filename}" />\n\n`
-  ).replace(/\n{3,}/g, "\n\n");
+  return content
+    // Obsidian ![[image.ext]] or ![[image.ext|size]]
+    .replace(
+      /!?\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]/gi,
+      (_, filename) => `\n\n<img src="/images/${toSafeImageName(filename)}" alt="${filename}" />\n\n`
+    )
+    // Standard Markdown ![alt](url) — strip Obsidian size hash (#400x300 etc.)
+    .replace(
+      /!\[([^\]]*)\]\(([^)\s]+)\)/g,
+      (_, alt, url) => {
+        const cleanUrl = url.replace(/#[^)]*$/, "");
+        return `\n\n<img src="${cleanUrl}" alt="${alt}" />\n\n`;
+      }
+    )
+    .replace(/\n{3,}/g, "\n\n");
+}
+
+// ── 從 processedContent 取第一張圖片 URL ─────────────
+function extractCoverImage(content: string): string {
+  const m = content.match(/<img\s+src="([^"]+)"/i);
+  return m ? m[1] : "";
 }
 
 // ── 清除摘要中的 ** 符號和 HTML 標籤 ────────────────
@@ -203,6 +220,7 @@ export function getPosts(): Post[] {
           readTime: calcReadTime(processedContent),
           category,
           coverColor: coverColor(tags, i),
+          coverImage: extractCoverImage(processedContent),
           tags,
           featured: i === 0,
         };

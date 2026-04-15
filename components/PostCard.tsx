@@ -28,12 +28,21 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       <article className="bg-white rounded-3xl overflow-hidden shadow-soft-sm card-botanical h-full flex flex-col">
         {/* Cover */}
         <div className={`relative overflow-hidden ${isLarge ? "h-56" : "h-48"} ${accent}`}>
-          {/* Decorative elements */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-20 bg-white/40 rounded-t-full" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-[#2D3A31]/5" />
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-4xl text-[#2D3A31]/8 italic">
-            {post.category[0]}
-          </span>
+          {post.coverImage ? (
+            <img
+              src={post.coverImage}
+              alt={post.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-20 bg-white/40 rounded-t-full" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full border-2 border-[#2D3A31]/5" />
+              <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-heading text-4xl text-[#2D3A31]/8 italic">
+                {post.category[0]}
+              </span>
+            </>
+          )}
 
           {/* Category Badge */}
           <span className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-[#2D3A31]/80 backdrop-blur-sm text-[#F9F8F4] rounded-full text-xs font-medium tracking-wide">
