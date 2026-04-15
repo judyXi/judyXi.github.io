@@ -1,54 +1,53 @@
 # ========================================
-#   Judy's Blog - 一鍵發布到 GitHub
+#   Judy's Blog - Deploy to GitHub
 # ========================================
 
-Write-Host ""
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  Judy's Blog - 一鍵發布到 GitHub" -ForegroundColor Cyan
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host ""
-
-# ── 設定路徑 ──────────────────────────────
 $BlogDir      = "C:\Users\user\Desktop\judy-blog"
 $ObsidianBlog = "C:\Users\user\Desktop\Obsidian\創作\Blog"
-$ObsidianImg  = "C:\Users\user\Desktop\Obsidian\圖片"
 $ContentDir   = "$BlogDir\content\blog"
 $ImgDir       = "$BlogDir\public\images"
 
-# ── 1. 同步 Obsidian 文章（跳過 status: draft）────
-Write-Host "[1/4] 同步 Obsidian 文章..." -ForegroundColor Yellow
-if (-not (Test-Path $ContentDir)) { New-Item -ItemType Directory -Path $ContentDir -Force | Out-Null }
+Write-Host ""
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "  Judy Blog - Deploy" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host ""
 
-# 清除舊檔，重新同步（避免已刪除的草稿殘留）
+# 1. Sync posts (skip drafts)
+Write-Host "[1/4] Syncing posts..." -ForegroundColor Yellow
+if (-not (Test-Path $ContentDir)) {
+    New-Item -ItemType Directory -Path $ContentDir -Force | Out-Null
+}
 Remove-Item "$ContentDir\*.md" -ErrorAction SilentlyContinue
 
 $mdCount = 0
 $draftCount = 0
 Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
-    $content = Get-Content $_.FullName -Raw -Encoding UTF8
-    if ($content -match '(?m)^status:\s*draft') {
-        Write-Host "      跳過草稿：$($_.Name)" -ForegroundColor DarkGray
+    $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
+    if ($fileContent -match '(?m)^status:\s*draft') {
+        Write-Host "      Skip draft: $($_.Name)" -ForegroundColor DarkGray
         $draftCount++
     } else {
         Copy-Item $_.FullName $ContentDir -Force
         $mdCount++
     }
 }
-Write-Host "      已同步 $mdCount 篇文章（跳過草稿 $draftCount 篇）" -ForegroundColor Green
+Write-Host "      Synced $mdCount posts (skipped $draftCount drafts)" -ForegroundColor Green
 
-# ── 2. 同步圖片 ──────────────────────────
-Write-Host "[2/4] 同步圖片..." -ForegroundColor Yellow
-if (-not (Test-Path $ImgDir)) { New-Item -ItemType Directory -Path $ImgDir -Force | Out-Null }
+# 2. Sync images
+Write-Host "[2/4] Syncing images..." -ForegroundColor Yellow
+if (-not (Test-Path $ImgDir)) {
+    New-Item -ItemType Directory -Path $ImgDir -Force | Out-Null
+}
 
 $imgCount = 0
 Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
-    $content = Get-Content $_.FullName -Raw -Encoding UTF8
-    # 匹配 ![[xxx.png]] 或 ![[xxx.jpg]] 等
-    $imgMatches = [regex]::Matches($content, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
-    foreach ($match in $imgMatches) {
-        $imgName = $match.Groups[1].Value
+    $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
+    $imgMatches = [regex]::Matches($fileContent, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
+    foreach ($m in $imgMatches) {
+        $imgName = $m.Groups[1].Value
         $safeName = $imgName.Replace(' ', '-').ToLower()
-        $srcPath = Join-Path $ObsidianImg $imgName
+        $srcPath = "C:\Users\user\Desktop\Obsidian\圖片\$imgName"
         $dstPath = Join-Path $ImgDir $safeName
         if (Test-Path $srcPath) {
             Copy-Item $srcPath $dstPath -Force
@@ -56,35 +55,32 @@ Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
         }
     }
 }
-Write-Host "      已同步 $imgCount 張圖片" -ForegroundColor Green
+Write-Host "      Synced $imgCount images" -ForegroundColor Green
 
-# ── 3. Git 提交 ──────────────────────────
-Write-Host "[3/4] Git 提交..." -ForegroundColor Yellow
+# 3. Git commit
+Write-Host "[3/4] Git commit..." -ForegroundColor Yellow
 Set-Location $BlogDir
 git add .
-$commitMsg = "更新部落格 - $(Get-Date -Format 'yyyy/MM/dd HH:mm')"
-$commitResult = git commit -m $commitMsg 2>&1
+$now = Get-Date -Format 'yyyy/MM/dd HH:mm'
+git commit -m "deploy $now" 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "      已建立 commit" -ForegroundColor Green
+    Write-Host "      Commit created" -ForegroundColor Green
 } else {
-    Write-Host "      沒有新的變更需要提交" -ForegroundColor DarkGray
+    Write-Host "      Nothing to commit" -ForegroundColor DarkGray
 }
 
-# ── 4. 推送到 GitHub ─────────────────────
-Write-Host "[4/4] 推送到 GitHub..." -ForegroundColor Yellow
-git push origin main 2>&1
+# 4. Push
+Write-Host "[4/4] Pushing to GitHub..." -ForegroundColor Yellow
+git push origin main 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Green
-    Write-Host "  發布成功!" -ForegroundColor Green
-    Write-Host "  GitHub Actions 正在自動部署中..." -ForegroundColor Green
-    Write-Host "  稍等幾分鐘後查看:" -ForegroundColor Green
+    Write-Host "  Deploy success!" -ForegroundColor Green
     Write-Host "  https://judyXi.github.io" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Green
 } else {
-    Write-Host ""
-    Write-Host "  推送失敗，請檢查網路連線或 Git 設定" -ForegroundColor Red
+    Write-Host "  Push failed. Check network or Git config." -ForegroundColor Red
 }
 
 Write-Host ""
-Read-Host "按 Enter 關閉"
+Read-Host "Press Enter to close"
