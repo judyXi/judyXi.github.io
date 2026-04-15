@@ -1,9 +1,9 @@
 ---
 title: Claude 4 深度體驗：目前最聰明的 AI 助手？
 date: 2026-03-25
-tags:
-  - AI
-  - 工具推薦
+publish-date:
+status: published
+tags: [AI, 工具推薦]
 ---
 
 # Claude 4 深度體驗：目前最聰明的 AI 助手？

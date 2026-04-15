@@ -1,9 +1,9 @@
 ---
 title: AI 如何改變創作者經濟：一人公司的時代真的來了
 date: 2026-03-20
-tags:
-  - AI
-  - 創業
+publish-date:
+status: published
+tags: [AI, 創業]
 ---
 
 # AI 如何改變創作者經濟：一人公司的時代真的來了

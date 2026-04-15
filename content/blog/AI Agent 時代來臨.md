@@ -1,9 +1,9 @@
 ---
 title: AI Agent 時代來臨：當 AI 不只是聊天，而是幫你做事
 date: 2026-03-30
-tags:
-  - AI
-  - 科技趨勢
+publish-date:
+status: published
+tags: [AI, 科技趨勢]
 ---
 
 # AI Agent 時代來臨：當 AI 不只是聊天，而是幫你做事
