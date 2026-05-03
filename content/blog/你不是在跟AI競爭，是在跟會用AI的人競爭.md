@@ -1,7 +1,7 @@
 ---
 title: 你不是在跟AI競爭，是在跟會用AI的人競爭
 date: 2026-04-22
-publish-date:
+publish-date: 2026-05-03
 status: published
 tags:
   - AI
