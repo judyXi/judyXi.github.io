@@ -5,8 +5,9 @@ import { getPosts } from "@/lib/posts";
 
 export default async function HomePage() {
   const posts    = getPosts();
-  const featured = posts.find((p) => p.featured);
-  const recent   = posts.filter((p) => !p.featured).slice(0, 6);
+  // 優先用 frontmatter featured: true，沒有就用最新的一篇
+  const featured = posts.find((p) => p.featured) || posts[0] || null;
+  const recent   = posts.filter((p) => p.slug !== featured?.slug).slice(0, 6);
 
   return (
     <div className="overflow-x-hidden">
@@ -62,9 +63,17 @@ export default async function HomePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-3xl overflow-hidden shadow-soft-md card-botanical">
                 {/* Decorative area */}
                 <div className="relative h-64 lg:h-auto min-h-[280px] bg-[#DCCFC2]/30 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-40 h-56 bg-white/50 rounded-t-full" />
-                  </div>
+                  {featured.coverImage ? (
+                    <img
+                      src={featured.coverImage}
+                      alt={featured.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-40 h-56 bg-white/50 rounded-t-full" />
+                    </div>
+                  )}
                   <span className="absolute top-6 left-6 z-10 px-3 py-1.5 bg-[#C27B66] text-[#F9F8F4] rounded-full text-xs font-medium tracking-wide">
                     精選文章
                   </span>

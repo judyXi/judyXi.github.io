@@ -34,9 +34,11 @@ function toSafeImageName(obsidianName: string): string {
 type FM = {
   title?: string;
   date?: string;
+  "publish-date"?: string;
   tags?: string[];
   excerpt?: string;
   category?: string;
+  featured?: boolean;
 };
 function parseFrontmatter(raw: string): { data: FM; content: string } {
   // 移除 BOM
@@ -72,8 +74,10 @@ function parseFrontmatter(raw: string): { data: FM; content: string } {
         .split(",").map((v) => v.trim()).filter(Boolean);
     } else if (key === "title") data.title = val;
     else if (key === "date") data.date = val;
+    else if (key === "publish-date") data["publish-date"] = val;
     else if (key === "excerpt") data.excerpt = val;
     else if (key === "category") data.category = val;
+    else if (key === "featured") data.featured = val === "true";
   }
   return { data, content };
 }
@@ -207,7 +211,9 @@ export function getPosts(): Post[] {
         const excerpt = fm.excerpt
           ? cleanExcerpt(fm.excerpt)
           : extractExcerpt(processedContent);
-        const date = fm.date || extractDate(fn, fp);
+        const rawDate = fm.date || extractDate(fn, fp);
+        // 顯示用日期：優先用 publish-date，沒有就用 date
+        const displayDate = fm["publish-date"] || rawDate;
         const tags = fm.tags || [];
         const category = fm.category || tags[0] || "其他";
         return {
@@ -216,13 +222,13 @@ export function getPosts(): Post[] {
           title,
           excerpt,
           content: processedContent,
-          date,
+          date: displayDate,
           readTime: calcReadTime(processedContent),
           category,
           coverColor: coverColor(tags, i),
           coverImage: extractCoverImage(processedContent),
           tags,
-          featured: i === 0,
+          featured: fm.featured === true,
         };
       })
       .sort((a, b) => (a.date < b.date ? 1 : -1));
