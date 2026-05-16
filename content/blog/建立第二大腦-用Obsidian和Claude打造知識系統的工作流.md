@@ -4,11 +4,10 @@ date: 2026-05-16
 publish-date: 2026-05-16
 status: published
 tags:
-  - productivity
-  - knowledge-system
   - obsidian
   - claude
-  - workflow
+  - 第二大腦
+  - AI
 ---
 ![Pasted image 20260516163610.png](https://link.obcs.top/public/97796c66/8f487877bc/Pasted%20image%2020260516163610.png)
 最近收到好幾個人問我：「你怎麼管理那麼多資訊不會亂？」大家通常期待我說是靠什麼記憶術或番茄鐘，結果我給的答案很無聊：**一套系統**。
