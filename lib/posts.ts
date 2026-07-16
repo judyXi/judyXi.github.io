@@ -82,6 +82,14 @@ function parseFrontmatter(raw: string): { data: FM; content: string } {
   return { data, content };
 }
 
+// Content between these markers remains visible in Obsidian but is private on the blog.
+function removePrivateBlocks(content: string): string {
+  return content
+    .replace(/<!--\s*blog-private-start\s*-->[\s\S]*?<!--\s*blog-private-end\s*-->/gi, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 // ── 將 Obsidian 圖片語法轉成 HTML img 標籤 ──────────
 // 支援 ![[image.png]]、![[image.png|273]]、![alt](url) 三種格式
 function convertImageEmbeds(content: string): string {
@@ -205,7 +213,8 @@ export function getPosts(): Post[] {
       .map((fn, i) => {
         const fp = path.join(BLOG_DIR, fn);
         const raw = fs.readFileSync(fp, "utf-8");
-        const { data: fm, content } = parseFrontmatter(raw);
+        const { data: fm, content: rawContent } = parseFrontmatter(raw);
+        const content = removePrivateBlocks(rawContent);
         const title = fm.title || extractTitle(content, fn);
         const processedContent = convertImageEmbeds(content);
         const excerpt = fm.excerpt

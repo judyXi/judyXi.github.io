@@ -29,6 +29,15 @@ $added   = @()
 $updated = @()
 $skipped = @()
 
+function Remove-BlogPrivateBlocks([string]$Content) {
+    return [regex]::Replace(
+        $Content,
+        '<!--\s*blog-private-start\s*-->.*?<!--\s*blog-private-end\s*-->',
+        '',
+        [System.Text.RegularExpressions.RegexOptions]::Singleline -bor [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+    )
+}
+
 Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
     $src = $_.FullName
     $dst = Join-Path $ContentDir $_.Name
@@ -40,13 +49,15 @@ Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
     }
 
     if (-not (Test-Path $dst)) {
-        Copy-Item $src $dst -Force
+        $publicContent = Remove-BlogPrivateBlocks $fileContent
+        [System.IO.File]::WriteAllText($dst, $publicContent, [System.Text.UTF8Encoding]::new($false))
         $added += $_.Name
     } else {
         $srcTime = (Get-Item $src).LastWriteTime
         $dstTime = (Get-Item $dst).LastWriteTime
         if ($srcTime -gt $dstTime) {
-            Copy-Item $src $dst -Force
+            $publicContent = Remove-BlogPrivateBlocks $fileContent
+            [System.IO.File]::WriteAllText($dst, $publicContent, [System.Text.UTF8Encoding]::new($false))
             $updated += $_.Name
         }
     }

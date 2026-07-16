@@ -10,6 +10,15 @@ $ObsidianBlog = "C:\Users\user\Desktop\Obsidian\$cc1$cc2\Blog"
 $ContentDir = "$BlogDir\content\blog"
 $ImgDir     = "$BlogDir\public\images"
 
+function Remove-BlogPrivateBlocks([string]$Content) {
+    return [regex]::Replace(
+        $Content,
+        '<!--\s*blog-private-start\s*-->.*?<!--\s*blog-private-end\s*-->',
+        '',
+        [System.Text.RegularExpressions.RegexOptions]::Singleline -bor [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+    )
+}
+
 Write-Host ""
 Write-Host "============================" -ForegroundColor Cyan
 Write-Host "  Judy Blog - Deploy" -ForegroundColor Cyan
@@ -40,7 +49,9 @@ Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
         Write-Host "      Skip draft: $($_.Name)" -ForegroundColor DarkGray
         $draftCount++
     } else {
-        Copy-Item $_.FullName $ContentDir -Force
+        $destination = Join-Path $ContentDir $_.Name
+        $publicContent = Remove-BlogPrivateBlocks $fileContent
+        [System.IO.File]::WriteAllText($destination, $publicContent, [System.Text.UTF8Encoding]::new($false))
         $mdCount++
         Write-Host "      + $($_.Name)" -ForegroundColor DarkGreen
     }
