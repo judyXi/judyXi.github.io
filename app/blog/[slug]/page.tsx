@@ -44,7 +44,11 @@ export default async function BlogPostPage({ params }: Props) {
 
   // Markdown → JSX 渲染
   const renderContent = (content: string) => {
-    return content.trim().split("\n\n").map((block, i) => {
+    // Obsidian accepts body text immediately after a heading. Normalize that
+    // case so the body line is not rendered as part of the heading on the blog.
+    const normalized = content.replace(/^(#{1,3}\s+[^\n]+)\n(?=\S)/gm, "$1\n\n");
+
+    return normalized.trim().split("\n\n").map((block, i) => {
       const trimmed = block.trim();
       if (!trimmed) return null;
 
