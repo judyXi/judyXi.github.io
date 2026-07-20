@@ -9,7 +9,7 @@ tags:
   - 第二大腦
   - AI
 ---
-![Pasted image 20260516163610.png](https://link.obcs.top/public/97796c66/8f487877bc/Pasted%20image%2020260516163610.png)
+
 ## 問題：知識進得去，出不來
 
 我在知識管理上走過的冤枉路跟大多數人一樣。

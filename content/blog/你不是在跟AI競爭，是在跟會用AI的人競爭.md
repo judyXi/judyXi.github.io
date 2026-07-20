@@ -8,7 +8,7 @@ tags:
   - 職涯
   - 個人成長
 ---
-![Pasted image 20260503165250.png](https://link.obcs.top/public/97796c66/57f61af5af/Pasted%20image%2020260503165250.png)
+
 # 你不是在跟AI競爭，是在跟會用AI的人競爭
 
 最近我自己在做與AI連動的知識庫，感觸極深，以前在使用Obsidian因為他層級的關係，我很常搞不清楚東西放在哪裡，應該放在哪裡，花很多時間在整理。
