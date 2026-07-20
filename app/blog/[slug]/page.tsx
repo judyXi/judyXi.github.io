@@ -46,7 +46,11 @@ export default async function BlogPostPage({ params }: Props) {
   const renderContent = (content: string) => {
     // Obsidian accepts body text immediately after a heading. Normalize that
     // case so the body line is not rendered as part of the heading on the blog.
-    const normalized = content.replace(/^(#{1,3}\s+[^\n]+)\n(?=\S)/gm, "$1\n\n");
+    const normalized = content
+      .replace(/^(#{1,3}\s+[^\n]+)\n(?=\S)/gm, "$1\n\n")
+      // A quote must start a new render block even if the author omitted the
+      // blank line that CommonMark normally requires.
+      .replace(/\n(?=>\s?)/g, "\n\n");
 
     return normalized.trim().split("\n\n").map((block, i) => {
       const trimmed = block.trim();
@@ -71,7 +75,7 @@ export default async function BlogPostPage({ params }: Props) {
       // 圖片（已被 posts.ts 轉成 <img> 標籤）
       if (trimmed.startsWith("<img ")) {
         return (
-          <figure key={i} className="my-8 rounded-2xl overflow-hidden shadow-soft-md">
+          <figure key={i} className="my-8 w-1/2 max-w-sm mx-auto rounded-2xl overflow-hidden shadow-soft-md">
             <div dangerouslySetInnerHTML={{ __html: trimmed.replace('<img ', '<img class="w-full h-auto" ') }} />
           </figure>
         );
@@ -81,11 +85,13 @@ export default async function BlogPostPage({ params }: Props) {
         return <div key={i} className="divider-botanical my-10" />;
       }
 
-      if (trimmed.startsWith("> ")) {
+      // Tolerate Obsidian quotes written both as `> text` and `>text`.
+      // CommonMark requires the space, but Obsidian users commonly omit it.
+      if (trimmed.startsWith(">")) {
         return (
           <blockquote key={i} className="my-8 pl-6 border-l-2 border-[#C27B66]/40 bg-[#DCCFC2]/10 py-5 pr-6 rounded-r-2xl">
             <p className="font-heading text-lg italic text-[#2D3A31]/80 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: fmt(trimmed.slice(2)) }} />
+              dangerouslySetInnerHTML={{ __html: fmt(trimmed.replace(/^>\s?/, "")) }} />
           </blockquote>
         );
       }
@@ -117,7 +123,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       return (
         <p key={i} className="text-[#2D3A31]/75 leading-[1.9] my-5"
-          dangerouslySetInnerHTML={{ __html: fmt(trimmed) }} />
+          dangerouslySetInnerHTML={{ __html: fmt(trimmed).replace(/\n/g, "<br />") }} />
       );
     });
   };
