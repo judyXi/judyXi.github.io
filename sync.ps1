@@ -66,13 +66,13 @@ Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
 $imgCount = 0
 Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
     $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
-    $imgMatches = [regex]::Matches($fileContent, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
+    $imgMatches = [regex]::Matches($fileContent, '!\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]')
     foreach ($m in $imgMatches) {
         $imgName = $m.Groups[1].Value
         $safeName = $imgName.Replace(' ', '-').ToLower()
         $srcPath = Join-Path $ObsidianImg $imgName
         $dstPath = Join-Path $ImgDir $safeName
-        if ((Test-Path $srcPath) -and (-not (Test-Path $dstPath))) {
+        if (Test-Path $srcPath) {
             Copy-Item $srcPath $dstPath -Force
             $imgCount++
         }

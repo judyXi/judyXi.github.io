@@ -71,13 +71,13 @@ $ObsidianImg = "C:\Users\user\Desktop\Obsidian\$ic1$ic2"
 $imgCount = 0
 Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
     $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
-    $imgMatches = [regex]::Matches($fileContent, '!\[\[([^\]]+\.(png|jpg|jpeg|webp|gif))\]\]')
+    $imgMatches = [regex]::Matches($fileContent, '!\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]')
     foreach ($m in $imgMatches) {
         $imgName = $m.Groups[1].Value
         $safeName = $imgName.Replace(' ', '-').ToLower()
         $srcPath = Join-Path $ObsidianImg $imgName
         $dstPath = Join-Path $ImgDir $safeName
-        if ((Test-Path $srcPath) -and (-not (Test-Path $dstPath))) {
+        if (Test-Path $srcPath) {
             Copy-Item $srcPath $dstPath -Force
             $imgCount++
         }
@@ -85,8 +85,34 @@ Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
 }
 Write-Host "      Synced $imgCount images" -ForegroundColor Green
 
-# 3. Git commit
-Write-Host "[3/4] Git commit..." -ForegroundColor Yellow
+# 3. Verify production output before committing
+Write-Host "[3/5] Building and checking output..." -ForegroundColor Yellow
+Set-Location $BlogDir
+npm run build
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "  Build failed. Nothing was pushed." -ForegroundColor Red
+    Read-Host "Press Enter to close"
+    exit 1
+}
+
+$missingImages = @()
+Get-ChildItem "$ContentDir\*.md" | ForEach-Object {
+    $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
+    [regex]::Matches($fileContent, '!\[\[([^\]|]+\.(png|jpg|jpeg|webp|gif))(?:\|[^\]]+)?\]\]') | ForEach-Object {
+        $safeName = $_.Groups[1].Value.Replace(' ', '-').ToLower()
+        if (-not (Test-Path (Join-Path $ImgDir $safeName))) { $missingImages += $_.Groups[1].Value }
+    }
+}
+if ($missingImages.Count -gt 0) {
+    Write-Host "  Missing images; deploy stopped:" -ForegroundColor Red
+    $missingImages | Sort-Object -Unique | ForEach-Object { Write-Host "    - $_" -ForegroundColor Red }
+    Read-Host "Press Enter to close"
+    exit 1
+}
+Write-Host "      Build and image checks passed" -ForegroundColor Green
+
+# 4. Git commit
+Write-Host "[4/5] Git commit..." -ForegroundColor Yellow
 Set-Location $BlogDir
 git add .
 $now = Get-Date -Format 'yyyy/MM/dd HH:mm'
@@ -97,8 +123,8 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "      Nothing to commit" -ForegroundColor DarkGray
 }
 
-# 4. Push
-Write-Host "[4/4] Pushing to GitHub..." -ForegroundColor Yellow
+# 5. Push
+Write-Host "[5/5] Pushing to GitHub..." -ForegroundColor Yellow
 git push origin main 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
