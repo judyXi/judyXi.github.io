@@ -2,7 +2,7 @@
 title: Kindle 改造成AI 閱讀器：越獄、KOReader、SimpleUI、AI 翻譯與注音完整手冊
 date: 2026-08-24
 publish-date: 2026-08-24
-status: published
+blog_status: published
 excerpt: 從確認韌體、依官方精靈越獄，到安裝 KOReader、SimpleUI、AI Dictionary、繁體注音鍵盤與重建備份，完整記錄我把 Kindle 改造成中文 AI 閱讀器的過程。
 tags:
   - Kindle
@@ -21,10 +21,28 @@ tags:
 
 現在這台 Kindle ，可以直接讀 EPUB、查離線字典、用 AI 解釋英文、顯示自訂鎖定畫面，也能用注音搜尋中文書名
 
-這篇不是「把檔案丟進去就好」的三分鐘教學，而是我的重建手冊。假如哪天換了一台新 Kindle，才能從零開始恢復回現在的樣子。
+這篇算不上三分鐘就能看完的教學，比較像我的重建手冊：假如哪天換了一台新 Kindle，可以照著從零開始恢復成現在的樣子。
 
 > [!danger] 先讀這段再動手
-> Kindle 越獄方法會隨機型與韌體改變。本文記錄的成功機器韌體是 **5.19.2**，但未來的新機不可以直接沿用舊越獄壓縮檔。每次都要重新使用 Kindle Modding 的 Jailbreak Wizard 判斷。錯用檔案、讓 Kindle 自動更新或隨意恢復原廠設定，都可能使越獄失敗，嚴重時可能無法正常開機。
+> Kindle 越獄方法會隨機型與韌體改變。本文記錄的成功機器韌體是 **5.19.2**，未來換新機時，不能直接沿用舊的越獄壓縮檔，請每次都重新用 Kindle Modding 的 Jailbreak Wizard 判斷。錯用檔案、讓 Kindle 自動更新或隨意恢復原廠設定，都可能使越獄失敗，嚴重時可能無法正常開機。
+
+本文目錄：
+
+- 最後完成的配置
+- 一、開始以前：先確認機器，不要先下載越獄包
+- 二、越獄：永遠從官方判斷精靈開始
+- 三、使用 KPM 安裝 KOReader
+- 四、先認識 KOReader 的資料夾
+- 五、安裝 SimpleUI：把檔案瀏覽器變成真正的首頁
+- 六、安裝 SimpleUI Ext：加入更多閱讀統計模組
+- 七、書籍格式：以 EPUB 為主，不再讓 AZW3 搗亂
+- 八、建立能長期使用的書庫分類
+- 九、加入字體與離線字典
+- 十、安裝 AI Dictionary：直接在書裡取得解釋
+- 十一、自製繁體中文注音鍵盤
+- 十二、封面鎖定畫面與固定圖片
+- 十三、最常見的故障
+- 參考來源
 
 ## 最後完成的配置
 
@@ -43,7 +61,7 @@ tags:
 | AZW3／MOBI | 已全部移除或轉成 EPUB               |
 | 自訂鎖定畫面    | 可顯示目前書籍封面或指定圖片              |
 
-核心原則：**Kindle 原生系統只負責開機，閱讀工作交給 KOReader。**
+整套配置的想法很簡單：Kindle 原生系統只負責開機，閱讀交給 KOReader。
 
 ## 一、開始以前：先確認機器，不要先下載越獄包
 
@@ -59,7 +77,7 @@ tags:
 2. 韌體版本。
 3. 序號前幾碼。
 
-前幾碼已足夠協助辨認機型。
+序號前幾碼就足以辨認機型。
 
 接著完成這些準備：
 
@@ -75,16 +93,16 @@ tags:
 
 打開 [Kindle Modding Jailbreak Wizard](https://kindlemodding.org/jailbreak-wizard.html)，依序選擇機型與韌體。精靈會告訴你當下適用的方法；如果顯示沒有可用越獄，就先停止，不要拿別人的壓縮檔硬試。[S1]
 
-現代 Kindle 越獄的目標不是安裝另一套作業系統，而是取得執行外部程式的能力。原生書店、Kindle Unlimited 和一般閱讀功能仍然存在。[S1]
+現代 Kindle 越獄並不會安裝另一套作業系統，只是讓 Kindle 可以執行外部程式。原生書店、Kindle Unlimited 和一般閱讀功能仍然存在。[S1]
 
-實際操作時遵守四個規則：
+實際操作時，我會注意這四件事：
 
 1. 完整閱讀精靈指定頁面，不跳步。
 2. 只下載精靈當下指定的檔案。
 3. 若教學要求填滿儲存空間阻擋更新，就照做，完成後再刪除填充檔。
 4. 越獄成功前不要重新連上 Wi-Fi，除非教學明確要求。
 
-成功後，現代越獄通常會一併建立更新阻擋與 KPM 套件管理器。越獄是系統狀態，不是每次重開機都要重做；一般重新啟動不會讓它消失。但是恢復原廠設定、錯誤更新韌體或移除越獄，可能破壞這個狀態。[S1]
+成功後，現代越獄通常會一併建立更新阻擋與 KPM 套件管理器。越獄完成後會一直維持，一般重新啟動不會讓它消失，不用每次重做。不過恢復原廠設定、錯誤更新韌體或移除越獄，可能破壞這個狀態。[S1]
 
 越獄完成後先重新啟動一次 Kindle，再刪除根目錄殘留的韌體 `.bin` 更新檔與教學用填充檔。[S2]
 
@@ -147,7 +165,7 @@ Kindle 根目錄/
 └─ documents/                    KPM Scriptlet 與原生文件
 ```
 
-第三方插件一定要保留完整的 `.koplugin` 資料夾。例如：
+第三方插件要保留完整的 `.koplugin` 資料夾。例如：
 
 ```text
 /koreader/plugins/simpleui.koplugin/main.lua
@@ -224,7 +242,7 @@ simpleui_ext.koplugin
 
 KOReader 官方列出的常見支援格式包括 EPUB、PDF、DjVu、MOBI、CBZ、DOCX、HTML、TXT 等。[S4] 但在這台 Kindle 的實際使用中，AZW3 無法可靠開啟，因此最後採取很單純的規則：
 
-> **可重排文字書全部轉成 EPUB；版面型文件保留 PDF。**
+> 可重排文字書全部轉成 EPUB；版面型文件保留 PDF。
 
 ### 用 Calibre 轉檔
 
@@ -235,7 +253,7 @@ KOReader 官方列出的常見支援格式包括 EPUB、PDF、DjVu、MOBI、CBZ�
 5. 完成後確認書籍格式欄出現 EPUB。
 6. 將 EPUB 複製到 Kindle 的 `/books/` 分類資料夾。
 
-不要只把副檔名從 `.azw3` 改成 `.epub`；那不叫轉檔。
+只把副檔名從 `.azw3` 改成 `.epub` 不算轉檔，書還是打不開。
 
 ## 八、建立能長期使用的書庫分類
 
@@ -310,7 +328,7 @@ KOReader 使用 StarDict 字典。完整字典通常包含：
 3. 在 Billing 加入預付額度。
 4. 將 Key 存入密碼管理器。
 
-API Key 不是 ChatGPT 密碼，也不是 ChatGPT Plus 訂閱。不要放進截圖、GitHub 或公開備份。
+API Key 跟 ChatGPT 密碼、ChatGPT Plus 訂閱是不同的東西。不要放進截圖、GitHub 或公開備份。
 
 ### 安裝插件
 
@@ -390,7 +408,7 @@ zh_zhuyin_data.lua
 /koreader/frontend/ui/data/keyboardlayouts/
 ```
 
-安裝前一定先備份原本的：
+安裝前記得先備份原本的：
 
 ```text
 zh_keyboard.lua
@@ -411,7 +429,7 @@ zh_keyboard.lua
 ㄨ ㄣ ˊ → 選字
 ```
 
-KOReader 更新可能覆蓋核心鍵盤檔，所以恢復包必須另外保存。若更新後 KOReader 無法啟動，刪除 `zh_zhuyin_data.lua`，再把原始 `zh_keyboard.lua` 放回去。
+KOReader 更新可能覆蓋核心鍵盤檔，所以恢復包要另外存一份。若更新後 KOReader 無法啟動，刪除 `zh_zhuyin_data.lua`，再把原始 `zh_keyboard.lua` 放回去。
 
 ## 十二、封面鎖定畫面與固定圖片
 
@@ -435,7 +453,7 @@ KOReader 可以在休眠時顯示目前書籍封面，也可以顯示指定圖�
 - SimpleUI Wallpaper 是 KOReader 首頁背景。
 - KOReader Screensaver 才是休眠／鎖定畫面。
 
-## 十四、最常見的故障
+## 十三、最常見的故障
 
 ### 插件沒有出現
 
@@ -454,7 +472,7 @@ KOReader 可以在休眠時顯示目前書籍封面，也可以顯示指定圖�
 
 ### 更新 KOReader 後注音消失
 
-這是預期行為，因為更新可能覆蓋 `zh_keyboard.lua`。重新套用注音恢復包；如果新版本改了鍵盤架構，先不要硬蓋舊檔。
+這很正常，因為更新可能覆蓋 `zh_keyboard.lua`。重新套用注音恢復包；如果新版本改了鍵盤架構，先不要硬蓋舊檔。
 
 ## 參考來源
 
