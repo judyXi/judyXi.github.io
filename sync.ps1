@@ -2,10 +2,11 @@
 #   Obsidian -> judy-blog Sync (no push)
 # ========================================
 
+$VaultRoot = "C:\Users\user\Desktop\" + (-join ([char[]](0x8166, 0x888B, 0x74DC, 0x74DC)))
 $cc1 = [char]0x5275; $cc2 = [char]0x4F5C
 $ic1 = [char]0x5716; $ic2 = [char]0x7247
-$ObsidianBlog = "C:\Users\user\Desktop\Obsidian\$cc1$cc2\Blog"
-$ObsidianImg  = "C:\Users\user\Desktop\Obsidian\$ic1$ic2"
+$ObsidianBlog = "$VaultRoot\$cc1$cc2\Blog"
+$ObsidianImg  = "$VaultRoot\$ic1$ic2"
 $ContentDir   = "C:\Users\user\Desktop\judy-blog\content\blog"
 $ImgDir       = "C:\Users\user\Desktop\judy-blog\public\images"
 
@@ -38,18 +39,30 @@ function Remove-BlogPrivateBlocks([string]$Content) {
     )
 }
 
+function Add-BlogCover([string]$FileName, [string]$Content) {
+    $covers = @{
+        '建立第二大腦-用Obsidian和Claude打造知識系統的工作流.md' = '![建立第二大腦：資料經 AI 整理、連結並轉化為輸出](/images/second-brain-obsidian-claude.png)'
+        '你不是在跟AI競爭，是在跟會用AI的人競爭.md' = '![AI 放大人的專業判斷與工作產能](/images/ai-amplifies-human-work.png)'
+    }
+    if (-not $covers.ContainsKey($FileName)) { return $Content }
+    $cover = $covers[$FileName]
+    if ($Content.Contains($cover)) { return $Content }
+    return [regex]::Replace($Content, '(?s)\A(---\s*\r?\n.*?\r?\n---\s*\r?\n)', "`$1`r`n$cover`r`n`r`n", 1)
+}
+
 Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
     $src = $_.FullName
     $dst = Join-Path $ContentDir $_.Name
     $fileContent = Get-Content $src -Raw -Encoding UTF8
 
-    if ($fileContent -match '(?m)^status:\s*draft') {
+    if ($fileContent -match '(?m)^(?:status|blog_status):[ \t]*draft[ \t]*(?:#.*)?\r?$') {
         $skipped += $_.Name
         return
     }
 
     if (-not (Test-Path $dst)) {
         $publicContent = Remove-BlogPrivateBlocks $fileContent
+        $publicContent = Add-BlogCover $_.Name $publicContent
         [System.IO.File]::WriteAllText($dst, $publicContent, [System.Text.UTF8Encoding]::new($false))
         $added += $_.Name
     } else {
@@ -57,6 +70,7 @@ Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
         $dstTime = (Get-Item $dst).LastWriteTime
         if ($srcTime -gt $dstTime) {
             $publicContent = Remove-BlogPrivateBlocks $fileContent
+            $publicContent = Add-BlogCover $_.Name $publicContent
             [System.IO.File]::WriteAllText($dst, $publicContent, [System.Text.UTF8Encoding]::new($false))
             $updated += $_.Name
         }

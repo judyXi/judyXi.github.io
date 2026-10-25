@@ -4,9 +4,10 @@
 
 # Build Chinese paths using Unicode code points to avoid encoding issues
 # U+5275 U+4F5C = chuang zuo (the two characters before \Blog)
+$VaultRoot = "C:\Users\user\Desktop\" + (-join ([char[]](0x8166, 0x888B, 0x74DC, 0x74DC)))
 $cc1 = [char]0x5275; $cc2 = [char]0x4F5C  # folder name
 $BlogDir    = "C:\Users\user\Desktop\judy-blog"
-$ObsidianBlog = "C:\Users\user\Desktop\Obsidian\$cc1$cc2\Blog"
+$ObsidianBlog = "$VaultRoot\$cc1$cc2\Blog"
 $ContentDir = "$BlogDir\content\blog"
 $ImgDir     = "$BlogDir\public\images"
 
@@ -17,6 +18,17 @@ function Remove-BlogPrivateBlocks([string]$Content) {
         '',
         [System.Text.RegularExpressions.RegexOptions]::Singleline -bor [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
     )
+}
+
+function Add-BlogCover([string]$FileName, [string]$Content) {
+    $covers = @{
+        '建立第二大腦-用Obsidian和Claude打造知識系統的工作流.md' = '![建立第二大腦：資料經 AI 整理、連結並轉化為輸出](/images/second-brain-obsidian-claude.png)'
+        '你不是在跟AI競爭，是在跟會用AI的人競爭.md' = '![AI 放大人的專業判斷與工作產能](/images/ai-amplifies-human-work.png)'
+    }
+    if (-not $covers.ContainsKey($FileName)) { return $Content }
+    $cover = $covers[$FileName]
+    if ($Content.Contains($cover)) { return $Content }
+    return [regex]::Replace($Content, '(?s)\A(---\s*\r?\n.*?\r?\n---\s*\r?\n)', "`$1`r`n$cover`r`n`r`n", 1)
 }
 
 Write-Host ""
@@ -33,7 +45,7 @@ if (-not (Test-Path $ObsidianBlog)) {
     exit 1
 }
 
-# 1. Sync posts (skip drafts and status: draft/cao-gao)
+# 1. Sync posts (skip status: draft or blog_status: draft)
 Write-Host "[1/4] Syncing posts..." -ForegroundColor Yellow
 if (-not (Test-Path $ContentDir)) {
     New-Item -ItemType Directory -Path $ContentDir -Force | Out-Null
@@ -44,13 +56,14 @@ $mdCount = 0
 $draftCount = 0
 Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
     $fileContent = Get-Content $_.FullName -Raw -Encoding UTF8
-    # Skip if status is draft (English or Chinese)
-    if ($fileContent -match '(?m)^status:\s*(draft)') {
+    # Skip if either status field is draft
+    if ($fileContent -match '(?m)^(?:status|blog_status):[ \t]*draft[ \t]*(?:#.*)?\r?$') {
         Write-Host "      Skip draft: $($_.Name)" -ForegroundColor DarkGray
         $draftCount++
     } else {
         $destination = Join-Path $ContentDir $_.Name
         $publicContent = Remove-BlogPrivateBlocks $fileContent
+        $publicContent = Add-BlogCover $_.Name $publicContent
         [System.IO.File]::WriteAllText($destination, $publicContent, [System.Text.UTF8Encoding]::new($false))
         $mdCount++
         Write-Host "      + $($_.Name)" -ForegroundColor DarkGreen
@@ -66,7 +79,7 @@ if (-not (Test-Path $ImgDir)) {
 
 # Build image source path
 $ic1 = [char]0x5716; $ic2 = [char]0x7247  # folder name for images
-$ObsidianImg = "C:\Users\user\Desktop\Obsidian\$ic1$ic2"
+$ObsidianImg = "$VaultRoot\$ic1$ic2"
 
 $imgCount = 0
 Get-ChildItem "$ContentDir\*.md" | ForEach-Object {

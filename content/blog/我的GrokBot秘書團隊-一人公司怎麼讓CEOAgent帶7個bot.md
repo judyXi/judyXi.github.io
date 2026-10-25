@@ -43,13 +43,13 @@ Grok Bot 是 xAI 的 AI 助理對初次使用的新手非常好上手。我的 b
 
 Grok Bot 現在包含在 X 的訂閱方案（The X Subscription）裡。以下是官方定價頁寫的月費（2026-10-24 查）：
 
-| 方案 | 月費（美金） | 有沒有 Grok Bot |
-|---|---|---|
-| Free | $0 | 沒有 |
-| Plus | $8 | 沒有 |
-| Premium | $30 | 有 |
-| Super | $100 | 有 |
-| Ultra | $200 | 有 |
+| 方案      | 月費（美金） | 有沒有 Grok Bot |
+| ------- | ------ | ------------ |
+| Free    | $0     | 沒有           |
+| Plus    | $8     | 沒有           |
+| Premium | $30    | 有            |
+| Super   | $100   | 有            |
+| Ultra   | $200   | 有            |
 
 來源：[官方定價](https://docs.x.ai/x-subscription/pricing)、[Grok Bot 方案說明](https://cursor.com/help/grok-bot/plans)
 
@@ -276,16 +276,16 @@ bot 有問題要問我的時候，不會一直在聊天裡追。它在「佇列�
 
 ## 常見卡關和解法
 
-| 卡在哪 | 怎麼解 | 來源 |
-|---|---|---|
-| 登入一直沒完成 | app 先開著，確認瀏覽器顯示登入成功，再自己切回 app | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting) |
-| 網站一直要登入、驗證碼 | bot 會請你接手（Take over），自己輸入密碼或驗證碼，按 I'm done 交回去。密碼和驗證碼不要貼在聊天裡 | [官方 Get started](https://docs.x.ai/grok-bot/get-started)、[Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting) |
-| bot 好像卡住 | 打開它的電腦畫面，看是不是在等你登入、或有問題卡片沒回。方向錯就直接講，要它停就直接叫它停 | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting) |
-| routine 沒有跑 | 確認沒有暫停、時間和時區對、新的 routine 要等下一次排定時間 | [官方 Routines](https://cursor.com/help/grok-bot/routines) |
-| 外掛連不上 | 到側邊欄 Connect apps 確認有裝好，重新授權一次 | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting) |
-| bot 不能動我電腦裡的檔案 | bot 用的是雲端電腦，跟你面前那台是分開的。要不要讓它動你的電腦，在 Settings → Computer → Your computer 的 Execution on this computer 設定，預設是每次都問。我自己有開，用來核對 Windows 電腦上的筆記（實測） | [官方 Approvals, security, and privacy](https://docs.x.ai/grok-bot/approvals-security-and-privacy) |
-| 額度掉很快 | 先看 routine 跑多頻繁，用不到的先暫停。我自己是一天最多跑一兩次（實測） | [官方 Routines](https://cursor.com/help/grok-bot/routines) |
-| bot 之間傳圖片失敗 | 我試的時候失敗，改成把圖放進筆記庫給它讀（實測） | 我自己試的 |
+| 卡在哪            | 怎麼解                                                                                                                                           | 來源                                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 登入一直沒完成        | app 先開著，確認瀏覽器顯示登入成功，再自己切回 app                                                                                                                 | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting)                                                       |
+| 網站一直要登入、驗證碼    | bot 會請你接手（Take over），自己輸入密碼或驗證碼，按 I'm done 交回去。密碼和驗證碼不要貼在聊天裡                                                                                  | [官方 Get started](https://docs.x.ai/grok-bot/get-started)、[Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting) |
+| bot 好像卡住       | 打開它的電腦畫面，看是不是在等你登入、或有問題卡片沒回。方向錯就直接講，要它停就直接叫它停                                                                                                 | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting)                                                       |
+| routine 沒有跑    | 確認沒有暫停、時間和時區對、新的 routine 要等下一次排定時間                                                                                                            | [官方 Routines](https://cursor.com/help/grok-bot/routines)                                                               |
+| 外掛連不上          | 到側邊欄 Connect apps 確認有裝好，重新授權一次                                                                                                                | [官方 Troubleshooting](https://docs.x.ai/grok-bot/troubleshooting)                                                       |
+| bot 不能動我電腦裡的檔案 | bot 用的是雲端電腦，跟你面前那台是分開的。要不要讓它動你的電腦，在 Settings → Computer → Your computer 的 Execution on this computer 設定，預設是每次都問。我自己有開，用來核對 Windows 電腦上的筆記（實測） | [官方 Approvals, security, and privacy](https://docs.x.ai/grok-bot/approvals-security-and-privacy)                       |
+| 額度掉很快          | 先看 routine 跑多頻繁，用不到的先暫停。我自己是一天最多跑一兩次（實測）                                                                                                      | [官方 Routines](https://cursor.com/help/grok-bot/routines)                                                               |
+| bot 之間傳圖片失敗    | 我試的時候失敗，改成把圖放進筆記庫給它讀（實測）                                                                                                                      | 我自己試的                                                                                                                  |
 
 ## 文章還沒寫到、但新手用得到的功能
 
