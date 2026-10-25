@@ -10,6 +10,9 @@ tags:
   - AI
 ---
 
+
+![建立第二大腦：資料經 AI 整理、連結並轉化為輸出](/images/second-brain-obsidian-claude.png)
+
 ## 問題：知識進得去，出不來
 
 我在知識管理上走過的冤枉路，跟大多數人差不多。

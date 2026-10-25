@@ -47,7 +47,8 @@ function Add-BlogCover([string]$FileName, [string]$Content) {
     if (-not $covers.ContainsKey($FileName)) { return $Content }
     $cover = $covers[$FileName]
     if ($Content.Contains($cover)) { return $Content }
-    return [regex]::Replace($Content, '(?s)\A(---\s*\r?\n.*?\r?\n---\s*\r?\n)', "`$1`r`n$cover`r`n`r`n", 1)
+    $frontmatter = [regex]::new('\A(---\s*\r?\n.*?\r?\n---\s*\r?\n)', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+    return $frontmatter.Replace($Content, { param($m) $m.Groups[1].Value + "`r`n$cover`r`n`r`n" }, 1)
 }
 
 Get-ChildItem "$ObsidianBlog\*.md" | ForEach-Object {
