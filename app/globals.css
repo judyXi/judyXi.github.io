@@ -61,7 +61,7 @@ body {
 .obsidian-content pre::after { content: attr(data-language); position: absolute; top: .45rem; right: .7rem; color: #596273; font-size: .75rem; }
 .obsidian-content pre code { padding: 0; background: transparent; white-space: pre; }
 .obsidian-content mark { background: #f1d9dc; border-radius: 3px; padding: 0 .16em; }
-.obsidian-image { width: min(100%, 390px); margin: 0 auto 2rem; overflow: hidden; border-radius: 5px; }
+.obsidian-image { width: 100%; margin: 1.75rem auto 2.25rem; overflow: hidden; border-radius: 5px; }
 .obsidian-image img { display: block; width: 100%; height: auto; }
 .obsidian-callout { margin: 1.7rem 0; padding: 1rem 1.35rem; border-left: 3px solid #d16d77; border-radius: 5px; background: #f8ecee; }
 .obsidian-callout .callout-title { color: #cf6672; font-weight: 700; }
@@ -76,6 +76,7 @@ body {
 .obsidian-content hr { border: 0; height: 1px; margin: 2.5rem 0; background: linear-gradient(90deg, transparent, #8C9A84, transparent); }
 
 @media (max-width: 640px) {
+  .obsidian-image { width: 100%; }
   .obsidian-content { font-size: 1rem; }
   .obsidian-content table { min-width: 30rem; }
 }
