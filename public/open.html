@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>打開 Obsidian</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #fafafa; color: #222; display: flex; min-height: 100vh; align-items: center; justify-content: center; margin: 0; padding: 16px; box-sizing: border-box; }
+  a { display: inline-block; padding: 12px 20px; background: #7c3aed; color: #fff; border-radius: 8px; text-decoration: none; font-size: 18px; }
+  p { color: #666; word-break: break-all; }
+  @media (prefers-color-scheme: dark) { body { background: #1e1e1e; color: #eee; } p { color: #aaa; } }
+</style>
+</head>
+<body>
+<main>
+  <a id="go" href="#">在 Obsidian 打開</a>
+  <p id="name"></p>
+</main>
+<script>
+  // 只在 # 後面帶檔案路徑（瀏覽器不會把 # 後面傳給伺服器）。格式：open.html#f=<vault 內相對路徑，不含 .md>
+  var h = new URLSearchParams(location.hash.slice(1));
+  var f = (h.get('f') || '').replace(/\\/g, '/').replace(/^\/+/, '');
+  var go = document.getElementById('go');
+  if (f) {
+    var url = 'obsidian://open?vault=' + encodeURIComponent(h.get('v') || '腦袋瓜瓜') + '&file=' + encodeURIComponent(f);
+    go.href = url;
+    document.getElementById('name').textContent = f;
+    location.replace(url);
+  } else {
+    go.style.display = 'none';
+    document.getElementById('name').textContent = '沒有指定檔案';
+  }
+</script>
+</body>
+</html>
